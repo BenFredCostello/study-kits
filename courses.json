@@ -33,5 +33,10 @@
         "lecturer": "Sina Greenwood"
       }
     ]
+  },
+  {"code": "MATHS332", "name": "Real Analysis", "kits": [
+      {"file": "MATHS332/part1-sequences-continuity.html", "title": "Part 1: Sequences, series & continuity (Ch 1–4)", "marks": 25},
+      {"file": "MATHS332/part2-derivatives-integrals-uniform.html", "title": "Part 2: Derivatives, Riemann integral & uniform convergence (Ch 5–7)", "marks": 75}
+    ]
   }
 ]

@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>332 Part 2 Study Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Shared kit styling (copied from MECHENG736/part1-eeg-sleep.html) */
+:root{
+  --bg:#F5F8F9; --paper:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --line:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --good:#1E7A46; --good-soft:#E3F3E9; --bad:#B3261E; --bad-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+header.hero{padding-block:36px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;margin-top:6px}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch;margin-top:10px}
+.trace{display:block;width:100%;height:46px;margin-top:18px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:10px;display:flex;gap:4px;padding:5px;overflow-x:auto;margin-bottom:24px}
+nav.tabs a{font-weight:600;font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a:focus-visible{color:var(--ink);background:var(--accent-soft);outline:none}
+nav.tabs a.on{color:var(--paper);background:var(--accent)}
+section.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.panel > * + *{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.stat{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.stat b{font-family:var(--f-mono);font-size:20px;display:block}
+.stat span{color:var(--muted);font-size:14px}
+ul,ol{margin:0;padding-left:22px}
+li + li{margin-top:5px}
+.k{font-family:var(--f-mono);font-size:.92em;background:var(--accent-soft);color:var(--ink);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.hl{background:var(--warn-soft);padding:0 3px;border-radius:3px}
+details.lec{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+details.lec > summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+details.lec > summary::-webkit-details-marker{display:none}
+details.lec > summary .no{font-family:var(--f-mono);font-size:13px;color:var(--trace);min-width:28px}
+details.lec > summary h3{flex:1;min-width:0}
+details.lec > summary .weight{font-size:13px;color:var(--muted)}
+details.lec[open] > summary{border-bottom:1px solid var(--line)}
+details.lec .body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:4px 0 -6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trap{background:var(--bad-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.trap b{color:var(--bad)}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+pre.math{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.55;margin:0;white-space:pre}
+figure{margin:0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg text{font-family:var(--f-mono)}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.qbar label{font-size:14px;color:var(--muted)}
+select,button,input{font:inherit}
+select,input[type=number]{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+input[type=number]{width:90px}
+button{cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);padding:7px 14px;font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.score{font-family:var(--f-mono);font-size:14px;margin-left:auto}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.q .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.q .stem{font-weight:600;margin:6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:400;padding:9px 12px;display:flex;gap:10px}
+.opt .l{font-family:var(--f-mono);color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin-top:12px;font-size:14.5px;padding:10px 14px;border-radius:8px;background:var(--accent-soft)}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line)}
+.chip.read{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+/* calc */
+.calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.calc label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:3px}
+.out{font-family:var(--f-mono);font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;white-space:pre-wrap}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.reveal[open] summary{margin-bottom:10px}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 14px;font-size:14.5px}
+.key div{font-variant-numeric:tabular-nums}
+.key b{font-family:var(--f-mono)}
+@media (prefers-reduced-motion:no-preference){.trace path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.thm{border-left:3px solid var(--accent);padding:2px 0 2px 12px}
+.thm b.n{font-family:var(--f-mono);font-size:13px;color:var(--trace);margin-right:6px}
+.src{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.ok{color:var(--good);font-weight:600}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MATHS 332 · Part 2 · Chapters 5–7 · ≈75 of 100 marks</div>
+  <h1>Derivatives, the Riemann integral &amp; uniform convergence</h1>
+  <p class="lede">This is the second half of Real Analysis, which is three-quarters of this year's exam. Every past paper has had a Riemann-sums question worth 17–20 marks. Every paper has also had a uniform-convergence question, a derivative of an integral with variable limits, and an MVT or Rolle argument. Those four templates are most of the 75 marks.</p>
+  <svg class="trace" id="hdr" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#plan">Plan</a><a href="#notes">Notes</a><a href="#state">Statements</a><a href="#worked">Worked questions</a><a href="#quiz">Quiz</a><a href="#papers">Past papers</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section class="view" id="v-plan">
+  <div class="panel">
+    <h2>How the second half is examined</h2>
+    <p>The 2023 and 2025 papers had 8 questions worth 100 marks. The 2024 paper had 4 questions worth 20 marks each. Both formats use the same question types. On the 2025 paper, Chapters 5–7 were worth about 53 marks. This year they're worth about 75, so expect each of these blocks to be bigger, or to have an extra part:</p>
+    <div class="grid2">
+      <div class="stat"><b>≈ 20–30</b><span>Riemann integral: define U/L sums, partitions, refinements and the Riemann criterion. Then compute U and L for a step function or the Dirichlet function.</span></div>
+      <div class="stat"><b>≈ 12–15</b><span>Uniform convergence of fₙ(x): find the pointwise limit, then bound sup|fₙ − f|, or show it doesn't go to 0.</span></div>
+      <div class="stat"><b>≈ 10–15</b><span>MVT, Rolle and Darboux: Lipschitz bounds, counting roots, and showing a function with a jump can't be a derivative.</span></div>
+      <div class="stat"><b>≈ 6–10</b><span>d/dx ∫ from a(x) to b(x), using FTC 1 and the chain rule. This has been on every paper.</span></div>
+      <div class="stat"><b>≈ 6–12</b><span>FTC 2 computations, Taylor polynomials, and the power series of ∫₀ˣ e^(−t²) dt by term-by-term integration.</span></div>
+      <div class="stat"><b>"State …"</b><span>Usually 3 marks each: MVT, IVT, the definition of a partition, common refinement, Lipschitz. These are free marks, so memorise them word for word.</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Suggested order (about 8–10 hours)</h2>
+    <ol>
+      <li><b>Statements</b> (45 min). Learn every definition and theorem in that tab until you can write them from memory. "State" and "define" parts are worth about 15 marks across a paper.</li>
+      <li><b>Notes, Chapter 6</b> (1.5 h). Integration is the biggest block. Make sure you can reproduce the proof that L(f,P₂) ≤ U(f,P₁) and the step-function calculation without looking.</li>
+      <li><b>Worked questions B</b> (2 h). Do every integration question on paper first, then reveal the answer.</li>
+      <li><b>Notes and worked questions, Chapter 7</b> (1.5 h). The uniform-convergence recipe and the three past-paper sequences.</li>
+      <li><b>Notes and worked questions, Chapter 5</b> (1.5 h). MVT, Rolle, Darboux, Lipschitz and Taylor.</li>
+      <li><b>Quiz</b> (1 h). Keep going until you're above 90%. Then go to the Part 1 kit for the other 25 marks.</li>
+    </ol>
+    <div class="tip">The red trap boxes mark the mistakes that lose marks: forgetting to check hypotheses, claiming a strict inequality survives a limit, and calling pointwise convergence uniform. Fourier series (§7.3) hasn't appeared on any of the three papers, so learn the definitions but spend your time elsewhere.</div>
+    <div class="trap"><b>Assumption.</b> This kit treats Chapters 1–4 as the first half and Chapters 5–7 as the second half. If your lecturer split them somewhere else, for example with differentiability in the first half, move Chapter 5 to the lower-priority pile.</div>
+  </div>
+</section>
+
+<!-- ================= NOTES ================= -->
+<section class="view" id="v-notes" hidden>
+
+<details class="lec" open>
+<summary><span class="no">Ch6</span><h3>The Riemann integral</h3><span class="weight">highest weight · every paper</span></summary>
+<div class="body">
+<h4>Partitions and sums</h4>
+<ul>
+  <li>A <b>partition</b> of [a,b] is a finite set P = {x₀,…,xₙ} with a = x₀ &lt; x₁ &lt; … &lt; xₙ = b.</li>
+  <li>For bounded f, write Mⱼ = sup f and mⱼ = inf f on [xⱼ₋₁, xⱼ]. Then <span class="k">U(f,P) = Σ Mⱼ(xⱼ − xⱼ₋₁)</span> and <span class="k">L(f,P) = Σ mⱼ(xⱼ − xⱼ₋₁)</span>.</li>
+  <li>Q <b>refines</b> P if P ⊂ Q. P₁ ∪ P₂ is a <b>common refinement</b> of P₁ and P₂.</li>
+  <li><b>Lemma 6.1.</b> If Q refines P, then L(f,P) ≤ L(f,Q) ≤ U(f,Q) ≤ U(f,P). Refining raises lower sums and lowers upper sums.</li>
+  <li><b>Corollary 6.2.</b> L(f,P₁) ≤ U(f,P₂) for <i>any</i> two partitions. Proof: with Q = P₁ ∪ P₂, L(f,P₁) ≤ L(f,Q) ≤ U(f,Q) ≤ U(f,P₂). This was 2025 Q7 (8 marks).</li>
+</ul>
+<figure><div class="tbl"><svg id="rsum" viewBox="0 0 520 220" width="100%" style="max-width:560px" role="img" aria-label="Upper and lower Riemann sums for an increasing function"></svg></div>
+<figcaption>Upper sum (outlined bars) and lower sum (filled bars) for an increasing f. The gap between them, U − L, is the sum of the small rectangles. The Riemann criterion asks that this gap can be made smaller than any ε.</figcaption></figure>
+<h4>Integrals and integrability</h4>
+<ul>
+  <li><b>Lower integral</b> = sup over P of L(f,P). <b>Upper integral</b> = inf over P of U(f,P). By Corollary 6.2, lower ≤ upper.</li>
+  <li><b>Definition 6.3.</b> f is Riemann integrable if the lower integral equals the upper integral. ∫ₐᵇ f is the common value.</li>
+  <li><b>Proposition 6.5 (Riemann criterion).</b> f is integrable ⟺ for every ε &gt; 0 there is a partition P with U(f,P) − L(f,P) &lt; ε. This is how you <i>prove</i> integrability.</li>
+  <li>For any P: L(f,P) ≤ lower integral ≤ upper integral ≤ U(f,P). This chain gives 2023 Q6b and 2024 Q4d.</li>
+</ul>
+<h4>Examples you must know</h4>
+<ul>
+  <li><b>Dirichlet function</b> 1_Q on [0,1] (Example 6.4). Every subinterval contains rationals and irrationals (density), so Mⱼ = 1 and mⱼ = 0. Then U = 1 and L = 0 for <i>every</i> P, so the function is not integrable. It was examined in 2024.</li>
+  <li><b>Step function</b> (2023 Q6). If the jump at c lies inside [xₖ₋₁, xₖ], only that interval contributes to U − L, and U − L = (jump) × (its width). Shrink that interval around c to make the gap small.</li>
+  <li>Changing f at one point (or finitely many) changes neither integrability nor the integral (Example 6.6).</li>
+  <li>Monotone functions (Lemma 6.11) and continuous functions (Lemma 6.12, which uses <i>uniform</i> continuity, Theorem 4.33) on [a,b] are integrable.</li>
+</ul>
+<h4>Properties (Proposition 6.8 and 6.10)</h4>
+<ul>
+  <li>Linearity. f ≥ 0 ⟹ ∫f ≥ 0. f ≤ g ⟹ ∫f ≤ ∫g. |∫f| ≤ ∫|f|. f², fg and |f| are integrable.</li>
+  <li><b>Additivity:</b> ∫ₐᵇ = ∫ₐᶜ + ∫ᶜᵇ, with the conventions ∫ₐᵃ = 0 and ∫ᵇₐ = −∫ₐᵇ. You need this to split |sin x|cos x at 0, and to write ∫ₓ^{x²} as F(x²) − F(x).</li>
+  <li><b>Average value:</b> m ≤ f ≤ M ⟹ m(b−a) ≤ ∫ₐᵇ f ≤ M(b−a). This follows from P = {a,b}: m ≤ inf f, so m(b−a) ≤ L(f,P) ≤ ∫f ≤ U(f,P) ≤ M(b−a).</li>
+</ul>
+<h4>Fundamental theorem of calculus</h4>
+<ul>
+  <li><b>FTC 1 (Theorem 6.13).</b> Let f be integrable and F(x) = ∫ₐˣ f. Then (i) F is continuous, in fact Lipschitz with constant sup|f|. (ii) If f is continuous <i>at x</i>, then F′(x) = f(x).</li>
+  <li><b>FTC 2 (Theorem 6.15).</b> If f is differentiable on [a,b] and f′ is integrable, then ∫ₐᵇ f′ = f(b) − f(a). Proof idea: apply the MVT on each subinterval, which gives L(f′,P) ≤ f(b) − f(a) ≤ U(f′,P) for every P.</li>
+  <li><b>Integration by parts</b> (Example 6.16) and <b>substitution</b> (Corollary 6.17: f continuous, g with continuous g′).</li>
+  <li><b>Variable limits recipe.</b> Write the integral as F(b(x)) − F(a(x)) with F(y) = ∫₀ʸ f. Say that f is continuous, so F′ = f (FTC 1). Then apply the chain rule (Theorem 5.6) to get f(b(x))b′(x) − f(a(x))a′(x).</li>
+</ul>
+<div class="trap"><b>Trap:</b> FTC 1 needs the integrand to be continuous <i>at the point</i> where you differentiate. State this explicitly: "t ↦ e^{t²} is continuous on R." In 2025 the integrand log(t+2)/(1+t) is only continuous on t &gt; −1. That's fine because sin²x ∈ [0,1], but you should say so.</div>
+<div class="trap"><b>Trap:</b> In "Use part (c) to determine ∫g", don't just state the answer. Show that L ≤ ∫g ≤ U for your partitions, then squeeze as η → 0.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">Ch7</span><h3>Pointwise and uniform convergence</h3><span class="weight">every paper · 11–15 marks</span></summary>
+<div class="body">
+<h4>Definitions</h4>
+<ul>
+  <li><b>Pointwise:</b> for each x and each ε &gt; 0 there is an N (which may depend on x) with |fₙ(x) − f(x)| &lt; ε for n ≥ N.</li>
+  <li><b>Uniform:</b> for each ε &gt; 0 there is <i>one</i> N with |fₙ(x) − f(x)| &lt; ε for all n ≥ N <i>and all x</i>. Equivalently, sup over x of |fₙ(x) − f(x)| → 0.</li>
+</ul>
+<h4>The exam recipe</h4>
+<ol>
+  <li><b>Pointwise limit.</b> Fix x, treat it as a constant, and let n → ∞. Watch for special points such as x = 0 or x = 1.</li>
+  <li><b>Proving uniform.</b> Bound |fₙ(x) − f(x)| ≤ cₙ with cₙ independent of x and cₙ → 0. On a bounded set, the bound often comes from x ≤ b.</li>
+  <li><b>Disproving uniform</b>, by either of these routes.
+    <ul><li>Find xₙ with |fₙ(xₙ) − f(xₙ)| ≥ some fixed δ &gt; 0. The usual choices are xₙ = 1/n or xₙ = n.</li>
+    <li>The fₙ are continuous but the limit f is discontinuous, which contradicts Theorem 7.2.</li></ul></li>
+</ol>
+<div class="tbl"><table>
+<tr><th>Sequence</th><th>Pointwise limit</th><th>Uniform?</th><th>Witness</th></tr>
+<tr><td class="num">xⁿ on [0,1]</td><td>0 on [0,1), 1 at x = 1</td><td>No</td><td>Limit discontinuous (Theorem 7.2)</td></tr>
+<tr><td class="num">xⁿ on [0,½]</td><td>0</td><td class="ok">Yes</td><td>sup = (½)ⁿ → 0</td></tr>
+<tr><td class="num">nx/(nx+1) on [0,1]</td><td>0 at x = 0, 1 on (0,1]</td><td>No</td><td>fₙ(1/n) = ½, so the distance to 1 is ½</td></tr>
+<tr><td class="num">x/(x+n) on [0,b]</td><td>0</td><td class="ok">Yes</td><td>|fₙ| ≤ b/n</td></tr>
+<tr><td class="num">x/(x+n) on [0,∞)</td><td>0</td><td>No</td><td>fₙ(n) = ½ for every n</td></tr>
+<tr><td class="num">x/(1+nx²) on R</td><td>0</td><td class="ok">Yes</td><td>max is 1/(2√n), at x = 1/√n</td></tr>
+</table></div>
+<h4>Theorems</h4>
+<ul>
+  <li><b>Theorem 7.2.</b> If each fₙ is continuous and fₙ → f uniformly, then f is continuous. The proof is a 3ε argument.</li>
+  <li><b>Theorem 7.4 (Weierstrass M-test).</b> If |fₖ(x)| ≤ Mₖ for all x and ΣMₖ converges, then Σfₖ converges absolutely and uniformly.</li>
+  <li><b>Corollary 7.5.</b> A power series with radius R converges uniformly on every [a,b] ⊂ (−R,R), so it is continuous on (−R,R).</li>
+  <li><b>Theorem 7.6.</b> If each fₙ is integrable and fₙ → f uniformly on [a,b], then f is integrable and ∫f = lim ∫fₙ. Pointwise convergence is <i>not</i> enough (Example 7.7).</li>
+  <li><b>Theorem 7.9.</b> If each fₙ is C¹, fₙ → f pointwise, and <i>fₙ′</i> converges uniformly, then f′ = lim fₙ′. The hypothesis is about the derivatives.</li>
+  <li><b>Theorem 7.11.</b> Power series can be differentiated term by term with the <i>same</i> radius, so they are infinitely differentiable on (−R,R).</li>
+  <li><b>Example 7.14 / 2024 Q3.</b> ∫₀ˣ e^{−t²} dt = Σ (−1)ⁿ x^{2n+1} / (n!(2n+1)), with R = ∞. Justification: the series for e^{−t²} converges uniformly on [0,x], so you can integrate term by term (Theorem 7.6).</li>
+</ul>
+<h4>Fourier series (§7.3, not yet examined)</h4>
+<ul>
+  <li>Use ⟨f,g⟩ = (1/π)∫₋π^π fg. The coefficients are α = ½⟨f,1⟩, αₙ = ⟨f, cos nt⟩ and βₙ = ⟨f, sin nt⟩. If f is even, every βₙ = 0.</li>
+  <li>If Σ|αₙ| and Σ|βₙ| converge, the Fourier series converges uniformly (M-test). Theorem 7.21: if f has left and right derivatives at x, then S_N(f)(x) → f(x).</li>
+</ul>
+<div class="trap"><b>Trap:</b> "Each fₙ → 0, so the convergence is uniform" is wrong. Uniform convergence is a statement about sup over x, and you have to bound that sup explicitly.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">Ch5</span><h3>Differentiability, MVT, Darboux and Taylor</h3><span class="weight">every paper · 9–20 marks</span></summary>
+<div class="body">
+<h4>Basics</h4>
+<ul>
+  <li>f′(x₀) = lim as x → x₀ of [f(x) − f(x₀)]/(x − x₀), the Newton quotient. <b>Theorem 5.3:</b> differentiable ⟹ continuous. The converse is false, for example |x| at 0.</li>
+  <li><b>Chain rule (Theorem 5.6):</b> (g∘f)′(x₀) = g′(f(x₀)) f′(x₀).</li>
+  <li><b>Example 5.8:</b> x² sin(1/x) is differentiable everywhere, but f′ is not continuous at 0.</li>
+</ul>
+<h4>The mean value family</h4>
+<ul>
+  <li><b>Theorem 5.11 (Fermat):</b> at an interior local extremum where f is differentiable, f′ = 0.</li>
+  <li><b>Theorem 5.13 (Rolle):</b> f continuous on [a,b], differentiable on (a,b), and f(a) = f(b) ⟹ there is x₀ ∈ (a,b) with f′(x₀) = 0.</li>
+  <li><b>Theorem 5.14 (MVT):</b> f continuous on [a,b] and differentiable on (a,b) ⟹ there is x₀ ∈ (a,b) with f′(x₀) = [f(b) − f(a)]/(b − a).</li>
+  <li><b>Corollary 5.15:</b> f′ = 0 ⟹ f is constant. f′ ≥ 0 ⟺ f is increasing. f′ &gt; 0 ⟹ f is strictly increasing. All of these are on an <i>interval</i>.</li>
+  <li><b>Corollary 5.17:</b> |f′| ≤ K on an interval ⟹ f is Lipschitz with constant K. Example: |cos x − cos y| ≤ |x − y| (2025 Q5a).</li>
+  <li><b>Converse (2024 Q2b):</b> if f is Lipschitz with constant K, then every Newton quotient has absolute value ≤ K, so |f′| ≤ K. Limits preserve ≤.</li>
+  <li><b>Theorem 5.19 (Darboux):</b> derivatives have the intermediate value property, even when they are discontinuous. So a function with a jump can never be f′ (2025 Q5b).</li>
+  <li><b>Theorem 5.20 (Cauchy MVT):</b> [f(b) − f(a)]/[g(b) − g(a)] = f′(x₀)/g′(x₀). This is what L'Hôpital's rule (Theorem 5.24) is built on.</li>
+</ul>
+<h4>Root counting with Rolle (2023 Q5)</h4>
+<p>If f has distinct roots r₁ &lt; … &lt; rₙ, apply Rolle on each [rᵢ, rᵢ₊₁]. That gives n − 1 roots of f′, one in each open interval, and they are distinct because the intervals are disjoint. Repeating this, f^{(k)} has at least n − k roots.</p>
+<h4>Taylor (Theorem 5.21)</h4>
+<ul>
+  <li>Pₙ(f,x) = Σₖ₌₀ⁿ f^{(k)}(a)(x − a)ᵏ/k!. Lagrange remainder: Rₙ = f^{(n+1)}(ζ)(x − a)^{n+1}/(n+1)! for some ζ between a and x.</li>
+  <li><b>Theorem 5.22:</b> if f′(a) = … = f^{(n−1)}(a) = 0 and f^{(n)}(a) ≠ 0: when n is even, there is a local minimum if f^{(n)}(a) &gt; 0 and a local maximum if it is &lt; 0. When n is odd, there is no extremum.</li>
+</ul>
+<div class="trap"><b>Trap:</b> f′(x₀) &gt; 0 at a single <i>point</i> does not make f increasing near x₀ (Example 5.16: x + 2x² sin(1/x)). You need f′ &gt; 0 on a whole interval.</div>
+<div class="trap"><b>Trap:</b> Before using the MVT or Rolle, write down the hypotheses: "f is continuous on [x,y] and differentiable on (x,y), because …". Marks are given for this.</div>
+</div>
+</details>
+</section>
+
+<!-- ================= STATEMENTS ================= -->
+<section class="view" id="v-state" hidden>
+<div class="panel">
+  <h2>Statements to write from memory</h2>
+  <p class="lede" style="margin-top:4px">Cover the right-hand column and test yourself. Each of these has been asked as a 2–3 mark "state" or "define" part.</p>
+  <div class="tbl"><table>
+  <tr><th>Asked as</th><th>What to write</th></tr>
+  <tr><td>Partition of [a,b] <span class="src">2025 Q7a</span></td><td>A finite set P = {x₀,…,xₙ} ⊂ [a,b] with a = x₀ &lt; x₁ &lt; … &lt; xₙ = b.</td></tr>
+  <tr><td>U(f,P), L(f,P) <span class="src">2023, 2024</span></td><td>U = Σⱼ Mⱼ(xⱼ − xⱼ₋₁), where Mⱼ = sup{f(x) : x ∈ [xⱼ₋₁,xⱼ]}. L is the same with mⱼ = inf. f must be bounded.</td></tr>
+  <tr><td>Refinement / common refinement <span class="src">2025 Q7b</span></td><td>Q refines P if P ⊂ Q. Q is a common refinement of P₁ and P₂ if P₁ ∪ P₂ ⊂ Q. The standard example is Q = P₁ ∪ P₂.</td></tr>
+  <tr><td>Upper / lower integral <span class="src">2024 Q4b</span></td><td>Upper = inf{U(f,P) : P a partition of [a,b]}. Lower = sup{L(f,P) : P a partition}.</td></tr>
+  <tr><td>Riemann integrable via integrals <span class="src">2024 Q4c(i)</span></td><td>The lower integral equals the upper integral. ∫ₐᵇ f is the common value.</td></tr>
+  <tr><td>Riemann criterion via sums <span class="src">2024 Q4c(ii)</span></td><td>For every ε &gt; 0 there is a partition P of [a,b] with U(f,P) − L(f,P) &lt; ε.</td></tr>
+  <tr><td>Mean value theorem <span class="src">2023 Q4b</span></td><td>If f : [a,b] → R is continuous on [a,b] and differentiable on (a,b), there is x₀ ∈ (a,b) with f′(x₀) = (f(b) − f(a))/(b − a).</td></tr>
+  <tr><td>Rolle's theorem</td><td>The same hypotheses plus f(a) = f(b) ⟹ there is x₀ ∈ (a,b) with f′(x₀) = 0.</td></tr>
+  <tr><td>Darboux's theorem</td><td>f differentiable on [a,b] and k strictly between f′(a) and f′(b) ⟹ there is c ∈ (a,b) with f′(c) = k.</td></tr>
+  <tr><td>FTC 1</td><td>f integrable on [a,b] and F(x) = ∫ₐˣ f ⟹ F is continuous on [a,b]. If f is continuous at x, then F is differentiable at x and F′(x) = f(x).</td></tr>
+  <tr><td>FTC 2</td><td>f differentiable on [a,b] with f′ integrable ⟹ ∫ₐᵇ f′ = f(b) − f(a).</td></tr>
+  <tr><td>Taylor's theorem</td><td>f^{(n)} continuous on [a,b] and differentiable on (a,b). For x ∈ (a,b] there is ζ ∈ (a,x) with f(x) = Σₖ₌₀ⁿ f^{(k)}(a)(x−a)ᵏ/k! + f^{(n+1)}(ζ)(x−a)^{n+1}/(n+1)!.</td></tr>
+  <tr><td>Lipschitz continuous <span class="src">2025 Q4a</span></td><td>There is K &gt; 0 with |h(x) − h(y)| ≤ K|x − y| for all x, y ∈ A.</td></tr>
+  <tr><td>Pointwise convergence</td><td>For every x ∈ A and ε &gt; 0 there is N with |fₙ(x) − f(x)| &lt; ε for all n ≥ N.</td></tr>
+  <tr><td>Uniform convergence</td><td>For every ε &gt; 0 there is N such that for all n ≥ N and <i>all</i> x ∈ A, |fₙ(x) − f(x)| &lt; ε.</td></tr>
+  <tr><td>Weierstrass M-test</td><td>|fₖ(x)| ≤ Mₖ for all x ∈ A and ΣMₖ convergent ⟹ Σfₖ converges absolutely and uniformly on A.</td></tr>
+  <tr><td>IVT (from Part 1, but asked in 2025)</td><td>f continuous on [a,b] and k between f(a) and f(b) ⟹ there is c ∈ [a,b] with f(c) = k.</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ================= WORKED ================= -->
+<section class="view" id="v-worked" hidden>
+
+<div class="panel"><h2>A · Integration</h2><p>Try each question on paper before you reveal the answer. Questions are marked with the paper they came from.</p></div>
+
+<div class="panel" id="w-step">
+  <h3>A1 · Step function, from definitions to integral <span class="src">2023 Q6 · 19 marks</span></h3>
+  <p>f is bounded and P = {x₀,…,xₙ}. (b) If δ = U(f,P) − L(f,P), show that L(f,P) ≤ upper integral ≤ L(f,P) + δ. Then fix c ∈ (a,b) and y₁ ≤ y₂, and let g = y₁ on [a,c] and g = y₂ on (c,b]. (c) If c ∈ (xₖ₋₁, xₖ), compute U(g,P) and L(g,P). (d) Show g is integrable. (e) Find ∫g.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(b) Upper integral = inf U ≤ U(f,P) = L(f,P) + δ.
+    Lower integral = sup L ≥ L(f,P), and lower ≤ upper (Cor 6.2).
+    So L(f,P) ≤ lower ≤ upper ≤ L(f,P) + δ.
+
+(c) j &lt; k : [xⱼ₋₁,xⱼ] ⊂ [a,c]  →  sup = inf = y₁
+    j &gt; k : [xⱼ₋₁,xⱼ] ⊂ (c,b]  →  sup = inf = y₂
+    j = k : contains xₖ₋₁ ≤ c and xₖ &gt; c  →  sup = y₂, inf = y₁
+
+    U(g,P) = y₁(xₖ₋₁ − a) + y₂(xₖ − xₖ₋₁) + y₂(b − xₖ) = y₁(xₖ₋₁ − a) + y₂(b − xₖ₋₁)
+    L(g,P) = y₁(xₖ₋₁ − a) + y₁(xₖ − xₖ₋₁) + y₂(b − xₖ) = y₁(xₖ − a)  + y₂(b − xₖ)
+
+(d) U − L = (y₂ − y₁)(xₖ − xₖ₋₁)   (telescopes: only the j = k block survives)
+    If y₁ = y₂, g is constant: done. Otherwise, given ε &gt; 0, pick
+    0 &lt; η &lt; min{ c − a, b − c, ε / (2(y₂ − y₁)) }  and  P_η = {a, c−η, c+η, b}.
+    Then U − L = 2η(y₂ − y₁) &lt; ε, so g is integrable by the Riemann criterion (Prop 6.5).
+
+(e) For P_η :  L = y₁(c+η−a) + y₂(b−c−η) ≤ ∫g ≤ y₁(c−η−a) + y₂(b−c+η) = U.
+    Let η → 0 (limits preserve ≤):   ∫ₐᵇ g = y₁(c − a) + y₂(b − c).</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A2 · Common refinement and L ≤ U <span class="src">2025 Q7 · 17 marks</span></h3>
+  <p>g : [−2,2] → R is bounded. (a) Define a partition. (b)(i) Define a common refinement. (ii) Give one. (iii) Prove that L(P₂,g) ≤ U(P₁,g) for any partitions P₁, P₂.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) P = {x₀,…,xₙ} finite with −2 = x₀ &lt; x₁ &lt; … &lt; xₙ = 2.
+(b)(i) Q is a partition of [−2,2] with P₁ ⊂ Q and P₂ ⊂ Q.
+   (ii) Q = P₁ ∪ P₂ (finite, contains ±2; list it in increasing order).
+   (iii) Let Q = P₁ ∪ P₂. Q refines both, so by the given facts
+         L(P₂,g) ≤ L(Q,g)          (Q refines P₂)
+         L(Q,g)  ≤ U(Q,g)          (on each subinterval inf g ≤ sup g; multiply by
+                                    the width &gt; 0 and sum)
+         U(Q,g)  ≤ U(P₁,g)         (Q refines P₁)
+       Chain them:  L(P₂,g) ≤ U(P₁,g).  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A3 · Dirichlet function and "middle sums" <span class="src">2024 Q4 · 20 marks</span></h3>
+  <p>(d) Show that f ≥ 0 ⟹ U(f,P) ≥ 0, and use this to show ∫f ≥ 0. (e) Let M(f,P) = Σ f(xⱼ*)(xⱼ − xⱼ₋₁) and f = 1_Q on [0,1]. (i) Show 0 = L ≤ M ≤ U = 1. (ii) Given 0 &lt; c &lt; 1, find P and points xⱼ* with M(f,P) = c.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(d) f ≥ 0 ⟹ Mⱼ = sup f ≥ f(xⱼ) ≥ 0 on each subinterval, widths &gt; 0 ⟹ U(f,P) ≥ 0.
+    So 0 is a lower bound of {U(f,P)}, hence upper integral = inf U ≥ 0.
+    f integrable ⟹ ∫f = upper integral ≥ 0.
+
+(e)(i) Every [xⱼ₋₁,xⱼ] (positive length) contains a rational and an irrational
+       (density of Q and of R∖Q), so Mⱼ = 1, mⱼ = 0.
+       L = Σ 0·Δxⱼ = 0,   U = Σ 1·Δxⱼ = 1 − 0 = 1.
+       mⱼ ≤ f(xⱼ*) ≤ Mⱼ for each j; multiply by Δxⱼ and sum: L ≤ M ≤ U.
+   (ii) P = {0, c, 1}.  x₁* = 0 ∈ Q (so f = 1), x₂* any irrational in [c,1]
+        (exists by density, since c &lt; 1).
+        M = 1·(c − 0) + 0·(1 − c) = c.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A4 · Average value <span class="src">2023 Q4 · 15 marks</span></h3>
+  <p>(a) If m ≤ f ≤ M, show m ≤ (1/(b−a))∫ₐᵇ f ≤ M. (b) State the MVT. (c) If f is continuous, show there is c with (1/(b−a))∫f = f(c), without assuming f is differentiable.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) P = {a,b}:  m ≤ inf f, sup f ≤ M  ⟹  m(b−a) ≤ L(f,P) ≤ ∫ₐᵇ f ≤ U(f,P) ≤ M(b−a).
+    Divide by b − a &gt; 0.   (Or: Prop 6.8(iv) with the constant functions m and M.)
+(b) See Statements.
+(c) Route 1 (IVT). f continuous on [a,b] ⟹ attains min m = f(p), max M = f(q)
+    (Weierstraß, Thm 4.12). By (a), A := (1/(b−a))∫f ∈ [m,M]. IVT (Thm 4.14) on
+    the interval between p and q gives c with f(c) = A.
+    Route 2 (MVT on F). F(x) = ∫ₐˣ f is differentiable with F′ = f (FTC 1, f continuous).
+    The MVT for F on [a,b]: F(b) − F(a) = F′(c)(b − a), i.e. ∫ₐᵇ f = f(c)(b − a).
+    Only F has to be differentiable, not f, so this respects the remark.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A5 · Derivatives of integrals with variable limits <span class="src">2023 Q7 · 2025 Q6a</span></h3>
+  <p>(i) Find d/dx ∫ₓ^{x²} e^{t²} dt. (ii) Find d/dx ∫₀^{sin²x} log(t+2)/(1+t) dt. In each case explain why the derivative exists.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(i) F(y) := ∫₀ʸ e^{t²} dt. By additivity (Prop 6.10 + conventions)
+       ∫ₓ^{x²} e^{t²} dt = F(x²) − F(x).
+    t ↦ e^{t²} is continuous on R (composition), so it is integrable on every [0,y]
+    and FTC 1 gives F′(y) = e^{y²} for all y.
+    x ↦ x² is differentiable, so by the chain rule (Thm 5.6):
+       d/dx = F′(x²)·2x − F′(x) = 2x e^{x⁴} − e^{x²}.
+
+(ii) G(y) := ∫₀ʸ log(t+2)/(1+t) dt. The integrand is continuous on (−1, ∞) ⊃ [0,1],
+     and sin²x ∈ [0,1], so G′(y) = log(y+2)/(1+y) at y = sin²x (FTC 1).
+     sin² is differentiable with derivative 2 sin x cos x, so by the chain rule
+       d/dx = 2 sin x cos x · log(sin²x + 2) / (1 + sin²x).</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A6 · FTC 2 with an absolute value <span class="src">2025 Q6b</span></h3>
+  <p>Compute ∫ from −π/4 to π/2 of |sin x| cos x dx.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">The integrand is continuous, so it is integrable. Split at 0 (Prop 6.10):
+  on [−π/4, 0] sin x ≤ 0:  |sin x|cos x = −sin x cos x
+  on [0, π/2]  sin x ≥ 0:  |sin x|cos x =  sin x cos x
+F(x) = ½ sin²x has F′ = sin x cos x (continuous, so integrable). By FTC 2 on each piece:
+  ∫₀^{π/2} sin x cos x = ½·1 − 0 = ½
+  ∫_{−π/4}^0 (−sin x cos x) = −[0 − ½·½] = ¼
+Total = ¾.</pre>
+  </details>
+</div>
+
+<div class="panel"><h2>B · Uniform convergence</h2></div>
+
+<div class="panel">
+  <h3>B1 · nx/(nx+1) on [0,1] <span class="src">2023 Q8 · 11 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) x = 0: fₙ(0) = 0 → 0.
+    x ∈ (0,1]: fₙ(x) = x / (x + 1/n) → x / x = 1   (limit laws, 1/n → 0).
+    f(x) = 0 if x = 0, 1 if 0 &lt; x ≤ 1.
+(b) Not uniform.
+    Way 1: each fₙ is continuous but f is discontinuous at 0, so by Thm 7.2 the
+           convergence cannot be uniform.
+    Way 2: xₙ = 1/n ∈ (0,1]:  |fₙ(xₙ) − f(xₙ)| = |½ − 1| = ½  for every n,
+           so sup|fₙ − f| ≥ ½ ↛ 0. With ε = ½, no N works.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B2 · x/(x+n), bounded versus unbounded domain <span class="src">2025 Q8 · 15 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) Fix x ≥ 0:  0 ≤ fₙ(x) = x/(x+n) ≤ x/n → 0, so fₙ(x) → 0 (squeeze).
+(b) On [0,b]: |fₙ(x) − 0| ≤ x/n ≤ b/n for all x. Given ε, take N &gt; b/ε. Then for n ≥ N
+    and all x ∈ [0,b], |fₙ(x)| ≤ b/n &lt; ε. N does not depend on x, so the convergence is uniform.
+(c) Not uniform on [0,∞): fₙ(n) = n/(2n) = ½ for every n, so sup |fₙ| ≥ ½ ↛ 0.
+    Take ε = ½: for any N, n = N (and x = n) gives |fₙ(x)| = ½ ≥ ε.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B3 · Practice: x/(1+nx²) on R <span class="src">not from a paper</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Pointwise: x = 0 gives 0. For x ≠ 0, |fₙ(x)| ≤ |x|/(n x²) = 1/(n|x|) → 0.  So f = 0.
+Sup: fₙ′(x) = (1 − n x²)/(1+nx²)², which is 0 at x = ±1/√n, and fₙ → 0 as |x| → ∞.
+     max |fₙ| = (1/√n)/2 = 1/(2√n) → 0.   (Or AM–GM: 1 + n x² ≥ 2√n |x|.)
+So sup|fₙ − 0| → 0: uniform on all of R.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B4 · Power series of ∫₀ˣ e^{−t²} dt <span class="src">2024 Q3 · 20 marks</span></h3>
+  <p>(a) f′, and why f is C^∞. (b) f is odd. (c) T₂(f,x) about 0. (d) The power series about 0. (e) Its radius of convergence.</p>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) e^{−t²} is continuous on R, so FTC 1 gives f′(x) = e^{−x²}. That is differentiable
+    (chain rule) with derivative −2x e^{−x²}, which is again a product of differentiable functions,
+    and so on. Every f^{(n)} = (e^{−x²})^{(n−1)} exists, so f is infinitely differentiable.
+(b) Substitute t = −s (g(s) = −s, g′ = −1 continuous, Cor 6.17):
+    f(−x) = ∫₀^{−x} e^{−t²} dt = ∫₀^{x} e^{−s²}(−1) ds = −f(x).
+(c) f(0) = 0, f′(0) = 1, f″(x) = −2x e^{−x²} ⟹ f″(0) = 0.   T₂(f,x) = x.
+(d) e^{−t²} = Σₙ (−t²)ⁿ/n! = Σₙ (−1)ⁿ t^{2n}/n!, R = ∞. It converges uniformly on [0,x]
+    (or [x,0]) by Cor 7.5, so you can integrate term by term (Thm 7.6):
+    f(x) = Σₙ₌₀^∞ (−1)ⁿ x^{2n+1} / (n! (2n+1)) = x − x³/3 + x⁵/10 − x⁷/42 + …
+(e) Ratio of absolute values of consecutive terms:
+    x² · (2n+1) / ((n+1)(2n+3)) → 0 &lt; 1 for every x  ⟹  R = ∞.</pre>
+  </details>
+</div>
+
+<div class="panel"><h2>C · MVT, Rolle, Darboux, Lipschitz</h2></div>
+
+<div class="panel">
+  <h3>C1 · Bounded f′ ⟺ Lipschitz <span class="src">2024 Q2 · 20 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) |f′| ≤ K on I. For x &lt; y in I, f is continuous on [x,y] and differentiable on (x,y)
+    (differentiable ⟹ continuous). The MVT gives ζ with f(y) − f(x) = f′(ζ)(y − x), so
+    |f(y) − f(x)| ≤ K|y − x|.
+(b) |f(x) − f(x₀)| ≤ K|x − x₀| ⟹ |Newton quotient| ≤ K for x ≠ x₀. Let x → x₀;
+    ≤ survives limits, and |·| is continuous, so |f′(x₀)| ≤ K.
+(c) f′ continuous on the closed bounded [a,b] ⟹ f′ bounded (boundedness thm 4.11),
+    so f is Lipschitz by (a).
+(d) g(x) = √x on (0,1]: g′(x) = 1/(2√x) is unbounded as x → 0⁺, so by (b) g is not
+    Lipschitz. (1/x also works.)</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>C2 · Roots of polynomial derivatives <span class="src">2023 Q5 · 13 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) Roots r₁ &lt; … &lt; rₙ. Polynomials are continuous and differentiable everywhere.
+    On [rᵢ, rᵢ₊₁], f(rᵢ) = f(rᵢ₊₁) = 0, so Rolle gives sᵢ ∈ (rᵢ, rᵢ₊₁) with f′(sᵢ) = 0.
+    The open intervals are disjoint, so s₁ &lt; … &lt; sₙ₋₁ are distinct: at least n − 1 roots.
+(b) f′ is a polynomial, so (a) applies again. By induction f^{(k)} has ≥ n − k distinct roots.
+    With k = n − 1, f^{(n−1)} has at least one root.
+(c) No. f(x) = x²(x − 1) has exactly the roots 0 and 1.
+    f′(x) = 3x² − 2x = x(3x − 2) has two roots, 0 and 2/3.
+    (A root of multiplicity ≥ 2 of f is also a root of f′, which gives f′ extra roots.)</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>C3 · |cos x − cos y| ≤ |x − y|, and a function that isn't a derivative <span class="src">2025 Q5 · 9 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(a) If x = y it is trivial. Otherwise cos is differentiable on R, so the MVT on the interval
+    between x and y gives ζ with cos x − cos y = −sin ζ (x − y). Since |sin ζ| ≤ 1,
+    |cos x − cos y| ≤ |x − y|.
+(b) g = 0 on [−1,0), g = eˣ on [0,1]. Suppose f′ = g on [−1,1]. On [−1,0],
+    f′(−1) = 0 and f′(0) = e⁰ = 1. Darboux (Thm 5.19) with k = ½ gives c ∈ (−1,0) with
+    f′(c) = ½. But f′(c) = g(c) = 0, a contradiction. So no such f exists.
+    (g takes no value in (0,1), so it lacks the intermediate value property that every
+    derivative has.)</pre>
+  </details>
+</div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="view" id="v-quiz" hidden>
+  <div class="panel">
+    <div class="qbar">
+      <label for="qfilter">Chapter</label>
+      <select id="qfilter"><option value="all">All</option><option>Ch5</option><option>Ch6</option><option>Ch7</option></select>
+      <button id="qshuffle" class="ghost" type="button">Shuffle</button>
+      <button id="qreset" class="ghost" type="button">Reset</button>
+      <span class="score" id="qscore">0 / 0</span>
+    </div>
+  </div>
+  <div id="qlist" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="view" id="v-papers" hidden>
+  <div class="panel">
+    <h2>Where each past question lives</h2>
+    <p>These are the Chapter 5–7 questions from the three papers, with a pointer to their worked solution in this kit. Part 1 questions are listed in the Part 1 kit. These solutions are my own working from the course notes, not an official key.</p>
+  </div>
+  <div class="panel"><h3>2025 (8 questions, 100 marks · about 53 from Chapters 5–7)</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">5a</td><td>MVT: |cos x − cos y| ≤ |x − y|</td><td class="num">5</td><td>C3</td></tr>
+    <tr><td class="num">5b</td><td>No antiderivative for a jump (Darboux)</td><td class="num">4</td><td>C3</td></tr>
+    <tr><td class="num">6a</td><td>d/dx ∫₀^{sin²x}</td><td class="num">6</td><td>A5</td></tr>
+    <tr><td class="num">6b</td><td>∫ |sin x| cos x = ¾</td><td class="num">6</td><td>A6</td></tr>
+    <tr><td class="num">7</td><td>Partition, common refinement, L ≤ U</td><td class="num">17</td><td>A2</td></tr>
+    <tr><td class="num">8</td><td>x/(x+n): uniform on [0,b], not on [0,∞)</td><td class="num">15</td><td>B2</td></tr>
+  </table></div></div>
+  <div class="panel"><h3>2024 (4 × 20 marks)</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">2</td><td>Bounded f′ ⟺ Lipschitz; √x on (0,1]</td><td class="num">20</td><td>C1</td></tr>
+    <tr><td class="num">3</td><td>∫₀ˣ e^{−t²}: f′, odd, T₂, power series, R = ∞</td><td class="num">20</td><td>B4</td></tr>
+    <tr><td class="num">4</td><td>U/L sums, Riemann criterion, Dirichlet "middle sums"</td><td class="num">20</td><td>A3</td></tr>
+  </table></div></div>
+  <div class="panel"><h3>2023 (8 questions, 100 marks)</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">4</td><td>Average value, state MVT, mean value for integrals</td><td class="num">15</td><td>A4</td></tr>
+    <tr><td class="num">5</td><td>Rolle and roots of f′, f^{(n−1)}</td><td class="num">13</td><td>C2</td></tr>
+    <tr><td class="num">6</td><td>U/L sums of a step function, Riemann criterion, ∫g</td><td class="num">19</td><td>A1</td></tr>
+    <tr><td class="num">7</td><td>d/dx ∫ₓ^{x²} e^{t²}</td><td class="num">8</td><td>A5</td></tr>
+    <tr><td class="num">8</td><td>nx/(nx+1) not uniform</td><td class="num">11</td><td>B1</td></tr>
+  </table></div></div>
+  <div class="panel">
+    <h3>What hasn't come up yet</h3>
+    <p>With 20 more marks to fill this year, these are the most likely new questions: the Weierstrass M-test on a series of functions, Theorem 7.6 (swapping a limit and an integral) or its failure, L'Hôpital or Taylor-remainder estimates, proving a continuous or monotone function is integrable, and FTC 2 by substitution or integration by parts. Read those parts of the Notes once more.</p>
+  </div>
+</section>
+</div>
+
+<script>
+/* ---------- Header: Riemann-sum bars ---------- */
+(function(){const s=document.getElementById("hdr"),NS="http://www.w3.org/2000/svg";let d="";
+ for(let i=0;i<40;i++){const x=i*20,h=6+30*(0.5+0.5*Math.sin(i/4.2))*(0.6+0.4*Math.sin(i/1.7+1));d+=`M${x+2} 46V${(46-h).toFixed(1)}H${x+18}V46`}
+ const p=document.createElementNS(NS,"path");p.setAttribute("d",d);p.setAttribute("fill","none");p.setAttribute("stroke","var(--trace)");p.setAttribute("stroke-width","1.4");s.appendChild(p)})();
+
+/* ---------- Tabs (hash routing) ---------- */
+const views=["plan","notes","state","worked","quiz","papers"];
+function show(){let h=(location.hash||"#plan").slice(1);if(!views.includes(h))h="plan";
+  views.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));}
+addEventListener("hashchange",()=>{show();window.scrollTo({top:0})});show();
+
+/* ---------- Riemann sum figure ---------- */
+(function(){const svg=document.getElementById("rsum"),NS="http://www.w3.org/2000/svg";
+ const el=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t)e.textContent=t;svg.appendChild(e);return e};
+ const L=40,R=500,T=15,B=190,f=x=>0.15+0.75*Math.pow(x,1.6),X=x=>L+(R-L)*x,Y=y=>B-(B-T)*y;
+ el("line",{x1:L,x2:R,y1:B,y2:B,stroke:"var(--muted)"});el("line",{x1:L,x2:L,y1:T,y2:B,stroke:"var(--muted)"});
+ const P=[0,.2,.35,.55,.7,.85,1];
+ for(let j=1;j<P.length;j++){const a=P[j-1],b=P[j];
+  el("rect",{x:X(a),y:Y(f(b)),width:X(b)-X(a),height:Y(f(a))-Y(f(b)),fill:"var(--warn-soft)",stroke:"var(--trace)","stroke-width":1});
+  el("rect",{x:X(a),y:Y(f(a)),width:X(b)-X(a),height:B-Y(f(a)),fill:"var(--accent-soft)",stroke:"var(--accent)","stroke-width":1});
+  el("text",{x:X(a),y:B+16,"text-anchor":"middle","font-size":11,fill:"var(--muted)"},"x"+(j-1))}
+ el("text",{x:X(1),y:B+16,"text-anchor":"middle","font-size":11,fill:"var(--muted)"},"x6");
+ let d="";for(let i=0;i<=100;i++){const x=i/100;d+=(i?"L":"M")+X(x).toFixed(1)+" "+Y(f(x)).toFixed(1)}
+ el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":1.8});
+ el("text",{x:X(.05),y:T+8,"font-size":11,fill:"var(--trace)"},"U − L = sum of the red strips");
+})();
+
+/* ---------- Quiz bank: [chapter, stem, options, answer index, why] ---------- */
+const Q=[
+["Ch5","f is differentiable at x₀. Which must be true?",["f′ is continuous at x₀","f is continuous at x₀","f is increasing near x₀ if f′(x₀) > 0","f″(x₀) exists"],1,"Theorem 5.3: differentiable implies continuous. f′ needn't be continuous (Example 5.8, x² sin(1/x)), and f′(x₀) > 0 doesn't give local monotonicity (Example 5.16)."],
+["Ch5","Let f(x) = x² sin(1/x) for x ≠ 0, with f(0) = 0. Then",["f is not differentiable at 0","f′(0) = 0 but f′ is not continuous at 0","f′ is continuous everywhere","f′(0) = 1"],1,"The Newton quotient at 0 is x sin(1/x) → 0. For x ≠ 0, f′(x) = 2x sin(1/x) − cos(1/x), which has no limit at 0."],
+["Ch5","Which hypotheses does Rolle's theorem need on [a,b]?",["f differentiable on [a,b] only","f continuous on [a,b], differentiable on (a,b), f(a) = f(b)","f continuous on (a,b) and f(a) = f(b)","f′ continuous on [a,b]"],1,"Continuous on the closed interval (to use Weierstraß), differentiable on the open interval, and equal endpoint values."],
+["Ch5","Why can g = 0 on [−1,0) and g = eˣ on [0,1] not be the derivative of any function?",["g is not continuous, and derivatives are continuous","g is not bounded","Darboux: derivatives have the intermediate value property, and g skips the values in (0,1)","g is not integrable"],2,"Derivatives can be discontinuous, but Darboux's theorem (5.19) says they still take every intermediate value."],
+["Ch5","If |f′(x)| ≤ K on an interval I, the MVT gives",["f is bounded by K","|f(x) − f(y)| ≤ K|x − y| (Lipschitz)","f is constant","f′ is continuous"],1,"Corollary 5.17. Write f(x) − f(y) = f′(ζ)(x − y) and bound |f′(ζ)| ≤ K."],
+["Ch5","Which differentiable function on (0,1] is NOT Lipschitz?",["x²","sin x","√x","x/2"],2,"(√x)′ = 1/(2√x) is unbounded near 0. A Lipschitz function has a bounded derivative (2024 Q2b)."],
+["Ch5","f′(x) = 0 for all x in (a,b), and f is continuous on [a,b]. Then",["f is constant on [a,b]","f is linear","f has a local maximum","Nothing follows"],0,"MVT on [a,x]: f(x) − f(a) = f′(ζ)(x − a) = 0 (Corollary 5.15a)."],
+["Ch5","For f(x) = ∫₀ˣ e^{−t²} dt, the Taylor polynomial T₂(f,x) about 0 is",["1 + x","x","x − x³/3","1 − x²"],1,"f(0) = 0, f′(0) = e⁰ = 1, and f″(0) = −2·0·e⁰ = 0."],
+["Ch5","f′(a) = 0, f″(a) = 0, f‴(a) = 5, f‴ continuous. At a, f has",["a local minimum","a local maximum","no local extremum","not enough information"],2,"Theorem 5.22: the first nonzero derivative has odd order 3, so there is no extremum."],
+["Ch6","For the Dirichlet function 1_Q on [0,1] and any partition P,",["L = U = ½","L = 0, U = 1, so it is not integrable","L = 0, U = 1, and it is integrable with integral ½","U − L → 0 as P is refined"],1,"Every subinterval contains rationals and irrationals, so sup = 1 and inf = 0 always. Lower integral 0 ≠ upper integral 1."],
+["Ch6","If Q refines P, then",["L(f,Q) ≤ L(f,P) and U(f,Q) ≥ U(f,P)","L(f,P) ≤ L(f,Q) ≤ U(f,Q) ≤ U(f,P)","U(f,Q) = U(f,P)","Q has fewer points than P"],1,"Lemma 6.1. Refining increases lower sums and decreases upper sums."],
+["Ch6","The Riemann criterion (Proposition 6.5) says f is integrable iff",["U(f,P) = L(f,P) for some P","for every ε > 0 there is P with U(f,P) − L(f,P) < ε","f is continuous","f is bounded"],1,"You don't need to know the value of the integral to use it."],
+["Ch6","For any two partitions P₁ and P₂ of [a,b],",["L(f,P₁) ≤ U(f,P₂)","L(f,P₁) = L(f,P₂)","U(f,P₁) ≤ L(f,P₂)","nothing can be said"],0,"Corollary 6.2, via the common refinement P₁ ∪ P₂ (2025 Q7)."],
+["Ch6","g = y₁ on [a,c] and y₂ on (c,b], with y₁ ≤ y₂ and c ∈ (xₖ₋₁, xₖ). U(g,P) − L(g,P) =",["(y₂ − y₁)(b − a)","(y₂ − y₁)(xₖ − xₖ₋₁)","0","y₂ − y₁"],1,"Only the subinterval containing the jump has sup ≠ inf."],
+["Ch6","f is integrable on [a,b] and F(x) = ∫ₐˣ f. Then F is",["differentiable everywhere with F′ = f","continuous (in fact Lipschitz), with F′(x) = f(x) wherever f is continuous","not necessarily continuous","constant"],1,"FTC 1 (Theorem 6.13). |F(x) − F(y)| ≤ sup|f| · |x − y|."],
+["Ch6","d/dx ∫ₓ^{x²} e^{t²} dt =",["e^{x⁴} − e^{x²}","2x e^{x⁴} − e^{x²}","2x e^{x²}","e^{x⁴}"],1,"F(x²) − F(x), FTC 1 and the chain rule."],
+["Ch6","∫ from −π/4 to π/2 of |sin x| cos x dx =",["½","¼","¾","0"],2,"Split at 0: ½ from [0,π/2] plus ¼ from [−π/4,0]."],
+["Ch6","Which theorem does the proof that continuous functions on [a,b] are integrable use?",["The IVT","Uniform continuity on [a,b] (Theorem 4.33)","The MVT","Darboux"],1,"Uniform continuity gives one δ that makes the oscillation < ε on every subinterval of a fine partition."],
+["Ch6","Changing an integrable f at a single point",["can make it non-integrable","changes the integral by that amount","changes neither integrability nor the integral","makes U − L = 0"],2,"Example 6.6. A single point sits inside subintervals of arbitrarily small total width."],
+["Ch7","fₙ(x) = xⁿ on [0,1] converges",["uniformly to 0","pointwise to a discontinuous function, so not uniformly","pointwise to 0","uniformly to the indicator of {1}"],1,"The limit is 0 on [0,1) and 1 at 1. Continuous fₙ with a uniform limit would force a continuous limit (Theorem 7.2)."],
+["Ch7","fₙ(x) = nx/(nx + 1) on [0,1]:",["converges uniformly to 1","converges pointwise to 1 on (0,1] and 0 at 0, not uniformly","converges uniformly to 0","does not converge"],1,"fₙ(1/n) = ½, so sup|fₙ − f| ≥ ½ (2023 Q8)."],
+["Ch7","fₙ(x) = x/(x + n) converges to 0",["uniformly on [0,∞)","uniformly on each [0,b], but not on [0,∞)","only pointwise on [0,b]","not even pointwise"],1,"|fₙ| ≤ b/n on [0,b], but fₙ(n) = ½ (2025 Q8)."],
+["Ch7","The Weierstrass M-test needs",["Σfₖ to converge pointwise","|fₖ(x)| ≤ Mₖ for all x, with ΣMₖ convergent","each fₖ continuous","Mₖ → 0"],1,"Then Σfₖ converges absolutely and uniformly (Theorem 7.4). Mₖ → 0 alone is not enough (think of 1/k)."],
+["Ch7","To conclude ∫ lim fₙ = lim ∫ fₙ on [a,b], you need",["pointwise convergence","uniform convergence (Theorem 7.6)","fₙ ≥ 0","fₙ differentiable"],1,"Example 7.7: 2nx/(1 + n²x⁴) → 0 pointwise but its integrals → π/2."],
+["Ch7","Theorem 7.9 (differentiating a limit) needs uniform convergence of",["fₙ","fₙ′ (plus pointwise convergence of fₙ)","fₙ″","nothing"],1,"The hypothesis is about the derivatives. Uniform convergence of fₙ then follows as a bonus."],
+["Ch7","A power series with radius R converges uniformly on",["(−R,R)","every [−r,r] with r < R","[−R,R]","R"],1,"Corollary 7.5, via the M-test. It need not converge uniformly on the whole open interval."],
+["Ch7","If f is even and 2π-periodic, its Fourier coefficients satisfy",["αₙ = 0","βₙ = 0","α = 0","all are 0"],1,"f(t) sin nt is odd, so its integral over [−π,π] is 0."]
+];
+let order=Q.map((_,i)=>i),answered={};
+function render(){const f=document.getElementById("qfilter").value,list=document.getElementById("qlist");list.innerHTML="";
+ const ids=order.filter(i=>f==="all"||Q[i][0]===f);let n=0,c=0;
+ ids.forEach((i,k)=>{const [lec,stem,opts,ans,why]=Q[i];const card=document.createElement("div");card.className="q";
+  card.innerHTML=`<div class="meta"><span>Q${k+1}</span><span class="chip">${lec}</span></div><div class="stem"></div><div class="opts"></div>`;
+  card.querySelector(".stem").textContent=stem;const box=card.querySelector(".opts");
+  opts.forEach((o,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span></span>`;b.lastChild.textContent=o;
+   if(i in answered){b.disabled=true;if(j===ans)b.classList.add("right");else if(j===answered[i])b.classList.add("wrong")}
+   b.addEventListener("click",()=>{answered[i]=j;save();render()});box.appendChild(b)});
+  if(i in answered){n++;if(answered[i]===ans)c++;const w=document.createElement("div");w.className="why";w.textContent=(answered[i]===ans?"Correct. ":"Not quite. ")+why;card.appendChild(w)}
+  list.appendChild(card)});
+ document.getElementById("qscore").textContent=`${c} / ${n} answered · ${ids.length} total`}
+function save(){try{localStorage.setItem("q332p2",JSON.stringify(answered))}catch(e){}}
+try{answered=JSON.parse(localStorage.getItem("q332p2")||"{}")||{}}catch(e){answered={}}
+document.getElementById("qfilter").addEventListener("change",render);
+document.getElementById("qshuffle").addEventListener("click",()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()});
+document.getElementById("qreset").addEventListener("click",()=>{answered={};save();render()});
+render();
+</script>

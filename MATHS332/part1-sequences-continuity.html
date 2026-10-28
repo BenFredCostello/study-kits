@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>332 Part 1 Study Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Shared kit styling (copied from MECHENG736/part1-eeg-sleep.html) */
+:root{
+  --bg:#F5F8F9; --paper:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --line:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --good:#1E7A46; --good-soft:#E3F3E9; --bad:#B3261E; --bad-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+header.hero{padding-block:36px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;margin-top:6px}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch;margin-top:10px}
+.trace{display:block;width:100%;height:46px;margin-top:18px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:10px;display:flex;gap:4px;padding:5px;overflow-x:auto;margin-bottom:24px}
+nav.tabs a{font-weight:600;font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a:focus-visible{color:var(--ink);background:var(--accent-soft);outline:none}
+nav.tabs a.on{color:var(--paper);background:var(--accent)}
+section.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.panel > * + *{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.stat{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.stat b{font-family:var(--f-mono);font-size:20px;display:block}
+.stat span{color:var(--muted);font-size:14px}
+ul,ol{margin:0;padding-left:22px}
+li + li{margin-top:5px}
+.k{font-family:var(--f-mono);font-size:.92em;background:var(--accent-soft);color:var(--ink);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.hl{background:var(--warn-soft);padding:0 3px;border-radius:3px}
+details.lec{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+details.lec > summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+details.lec > summary::-webkit-details-marker{display:none}
+details.lec > summary .no{font-family:var(--f-mono);font-size:13px;color:var(--trace);min-width:28px}
+details.lec > summary h3{flex:1;min-width:0}
+details.lec > summary .weight{font-size:13px;color:var(--muted)}
+details.lec[open] > summary{border-bottom:1px solid var(--line)}
+details.lec .body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:4px 0 -6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trap{background:var(--bad-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.trap b{color:var(--bad)}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+pre.math{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.55;margin:0;white-space:pre}
+figure{margin:0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg text{font-family:var(--f-mono)}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.qbar label{font-size:14px;color:var(--muted)}
+select,button,input{font:inherit}
+select,input[type=number]{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+input[type=number]{width:90px}
+button{cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);padding:7px 14px;font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.score{font-family:var(--f-mono);font-size:14px;margin-left:auto}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.q .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.q .stem{font-weight:600;margin:6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:400;padding:9px 12px;display:flex;gap:10px}
+.opt .l{font-family:var(--f-mono);color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin-top:12px;font-size:14.5px;padding:10px 14px;border-radius:8px;background:var(--accent-soft)}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line)}
+.chip.read{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+/* calc */
+.calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.calc label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:3px}
+.out{font-family:var(--f-mono);font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;white-space:pre-wrap}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.reveal[open] summary{margin-bottom:10px}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 14px;font-size:14.5px}
+.key div{font-variant-numeric:tabular-nums}
+.key b{font-family:var(--f-mono)}
+@media (prefers-reduced-motion:no-preference){.trace path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.src{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MATHS 332 · Part 1 · Chapters 1–4 · ≈25 of 100 marks</div>
+  <h1>Real numbers, sequences, series &amp; continuity</h1>
+  <p class="lede">This is the first half of Real Analysis, worth about a quarter of this year's exam. That's less than in past years: in 2025 these chapters were worth about 47 marks. With only around 25 marks available, expect the two questions that appear every year, an ε–N limit proof and a series or radius-of-convergence question, plus perhaps one short continuity part.</p>
+  <svg class="trace" id="hdr" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"></svg>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#plan">Plan</a><a href="#notes">Notes</a><a href="#state">Statements</a><a href="#worked">Worked questions</a><a href="#quiz">Quiz</a><a href="#papers">Past papers</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section class="view" id="v-plan">
+  <div class="panel">
+    <h2>How the first half is examined</h2>
+    <div class="grid2">
+      <div class="stat"><b>≈ 10–11</b><span>Define lim aₙ = L, then prove a rational sequence converges using ε–N. This has been on every paper, and the method is the same each time.</span></div>
+      <div class="stat"><b>≈ 13</b><span>Series: decide whether a series converges using limit comparison or absolute convergence, then find a radius of convergence with the ratio test. Asked in 2023 and 2025.</span></div>
+      <div class="stat"><b>≈ 5–9</b><span>A short continuity argument: IVT, a continuous f : R → Q is constant, Lipschitz or uniform continuity, or Bolzano–Weierstraß with the sequential criterion.</span></div>
+    </div>
+    <p>If the questions follow the usual pattern, your 25 marks are mostly templates. Learn the ε–N template, the limit-comparison template and the ratio-test-for-radius template until they are automatic. Then put the rest of your time into the Part 2 kit.</p>
+  </div>
+  <div class="panel">
+    <h2>Suggested order (about 3 hours)</h2>
+    <ol>
+      <li><b>Statements</b> (20 min). The definition of a limit is always worth 2–3 marks. State the IVT and the Lipschitz definition word for word.</li>
+      <li><b>Worked questions A</b> (45 min). Write all three ε–N proofs on paper, then try the practice one without looking.</li>
+      <li><b>Worked questions B</b> (45 min). Series and radius of convergence.</li>
+      <li><b>Worked questions C</b> (30 min). Continuity arguments.</li>
+      <li><b>Quiz</b> (30 min).</li>
+    </ol>
+    <div class="trap"><b>Assumption.</b> This kit treats Chapters 1–4 as the first half. If your lecturer counted differentiability (Chapter 5) as first-half material, it's covered in the Part 2 kit.</div>
+  </div>
+</section>
+
+<!-- ================= NOTES ================= -->
+<section class="view" id="v-notes" hidden>
+
+<details class="lec" open>
+<summary><span class="no">Ch2</span><h3>Sequences: limits, Cauchy and Bolzano–Weierstraß</h3><span class="weight">every paper</span></summary>
+<div class="body">
+<h4>Definitions</h4>
+<ul>
+  <li><b>lim aₙ = L</b> means: for every ε &gt; 0 there is N such that |aₙ − L| &lt; ε for all n ≥ N. The course allows N ∈ R.</li>
+  <li><b>Cauchy</b> means: for every ε &gt; 0 there is N such that |aₙ − aₘ| &lt; ε for all n, m ≥ N.</li>
+  <li>A <b>subsequence</b> is (a_{iₙ}) with i strictly increasing. Lemma 2.8: iₙ ≥ n.</li>
+</ul>
+<h4>The ε–N template for rational sequences</h4>
+<ol>
+  <li>Simplify |aₙ − L| to a single fraction.</li>
+  <li><b>Numerator:</b> bound it above by a multiple of the top power. For example, 2n + 40 ≤ 3n once n ≥ 40.</li>
+  <li><b>Denominator:</b> bound it below by a multiple of the top power. For example, 3n² − n − 20 ≥ 2n² once n ≥ 20. This step is where the marks are.</li>
+  <li>You end up with |aₙ − L| ≤ C/n or C/n². Choose N = max(threshold, C/ε), and write "for n ≥ N, |aₙ − L| ≤ C/n ≤ C/N &lt; ε." Make the last step strict, for example by taking N &gt; C/ε.</li>
+</ol>
+<figure><div class="tbl"><svg id="band" viewBox="0 0 520 170" width="100%" style="max-width:560px" role="img" aria-label="A sequence entering and staying inside an epsilon band around its limit"></svg></div>
+<figcaption>Every term after N lies inside the band (L − ε, L + ε). A smaller ε means a later N.</figcaption></figure>
+<h4>Key results</h4>
+<ul>
+  <li>Limits are unique (Theorem 2.2). Convergent ⟹ bounded (Proposition 2.5).</li>
+  <li><b>Monotone convergence (Theorem 2.6).</b> An increasing sequence that is bounded above converges, to its sup. You need this for 2024 Q1b.</li>
+  <li><b>Proposition 2.9.</b> Every subsequence of a convergent sequence has the same limit. This answers 2024 Q1c: the odd terms give xₙ → L and the even terms give −xₙ → L, so L = −L and L = 0.</li>
+  <li><b>Bolzano–Weierstraß (Theorem 2.11).</b> Every bounded sequence has a convergent subsequence.</li>
+  <li><b>Lemma 2.14.</b> Cauchy ⟹ bounded (2023 Q1c). <b>Theorem 2.15/2.16.</b> In R, Cauchy ⟺ convergent.</li>
+  <li><b>Limit laws (Theorem 2.20)</b> and <b>squeeze (Theorem 2.22).</b> If aₙ ≤ bₙ then lim aₙ ≤ lim bₙ, but strict inequality is <i>not</i> preserved (Proposition 2.21).</li>
+  <li>limsup and liminf: a sequence converges ⟺ liminf = limsup (Theorem 2.30).</li>
+</ul>
+<div class="trap"><b>Trap:</b> In an ε–N proof, the N must not depend on n. Also check that your inequality chain only uses things true for n ≥ N, such as the denominator being positive.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">Ch2</span><h3>Series and power series</h3><span class="weight">2023, 2025 · 13 marks</span></summary>
+<div class="body">
+<h4>Which test to use</h4>
+<div class="tbl"><table>
+<tr><th>Series looks like</th><th>Use</th></tr>
+<tr><td>A ratio of powers or roots of k</td><td><b>Limit comparison (Proposition 2.48)</b> with 1/kᵖ, where p is the top power of the denominator minus the top power of the numerator. Then use the p-series result (Proposition 2.45): it converges ⟺ p &gt; 1.</td></tr>
+<tr><td>Has (−1)ᵏ</td><td>Test |aₖ| first. If Σ|aₖ| converges, then the series converges absolutely, so it converges (Theorem 2.34). Use the alternating series test (Proposition 2.58) only if that fails.</td></tr>
+<tr><td>Contains aᵏ, k! or a power series</td><td><b>Ratio test (Proposition 2.53).</b> ρ &lt; 1 converges absolutely, ρ &gt; 1 diverges, and ρ = 1 tells you nothing.</td></tr>
+<tr><td>Terms don't go to 0</td><td><b>n-th term test (Corollary 2.41):</b> the series diverges.</td></tr>
+</table></div>
+<h4>Radius of convergence</h4>
+<ul>
+  <li><b>Theorem 2.65.</b> Exactly one of these holds: R = 0, R ∈ (0,∞), or R = ∞. The series converges for |x − a| &lt; R and diverges for |x − a| &gt; R. The endpoints have to be checked separately.</li>
+  <li><b>Template for Σ cₖ x^{mk}:</b> take the ratio of absolute values of consecutive terms. You get |cₖ₊₁/cₖ| · |x|^m → |x|^m / λ. The series converges when |x|^m &lt; λ, so R = λ^{1/m}.</li>
+  <li><b>Limit trick:</b> (2ᵏ + 3ᵏ)/(2ᵏ⁺¹ + 3ᵏ⁺¹). Divide the top and bottom by 3ᵏ to get ((2/3)ᵏ + 1)/(2(2/3)ᵏ + 3) → 1/3. The largest base wins.</li>
+</ul>
+<h4>Facts examiners like</h4>
+<ul>
+  <li>Geometric series: Σrᵏ converges ⟺ |r| &lt; 1. Harmonic series: Σ1/k diverges.</li>
+  <li>The alternating harmonic series converges <i>conditionally</i>. Rearranging an absolutely convergent series keeps the sum (Theorem 2.59). A conditionally convergent series can be rearranged to sum to anything (Proposition 2.62).</li>
+</ul>
+<div class="trap"><b>Trap:</b> The ratio test is inconclusive at ρ = 1. That is exactly what it gives for every rational-function series, so use limit comparison for those instead.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">Ch1</span><h3>Real numbers (background)</h3><span class="weight">low direct weight</span></summary>
+<div class="body">
+<ul>
+  <li>The axioms are A (field), B (order), C (Archimedean) and D (completeness: every non-empty set that is bounded above has a supremum).</li>
+  <li>sup A is the <i>least</i> upper bound and need not be in A. For example, sup [0,1) = 1.</li>
+  <li><b>Density:</b> between any two reals there is a rational and an irrational. You need this for f : R → Q (2023 Q3) and for the Dirichlet function in Part 2.</li>
+  <li>Triangle inequality: |x + y| ≤ |x| + |y|. Reverse triangle inequality: ||x| − |y|| ≤ |x − y|.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">Ch3–4</span><h3>Limits of functions and continuity</h3><span class="weight">every paper · 6–23 marks</span></summary>
+<div class="body">
+<h4>Continuity</h4>
+<ul>
+  <li><b>Definition 4.1.</b> f is continuous at c if for every ε &gt; 0 there is δ &gt; 0 such that |x − c| &lt; δ ⟹ |f(x) − f(c)| &lt; ε.</li>
+  <li><b>Sequential criterion (Proposition 4.3).</b> f is continuous at c ⟺ for every sequence xₙ → c, f(xₙ) → f(c). This is the standard tool for proofs by contradiction.</li>
+  <li>1_Q is continuous nowhere on R (Example 4.5). Sums, products, quotients and compositions of continuous functions are continuous (Theorems 4.6 and 4.7).</li>
+</ul>
+<h4>The big theorems on [a,b]</h4>
+<ul>
+  <li><b>Theorem 4.11.</b> Continuous on [a,b] ⟹ bounded. The proof: if not, Bolzano–Weierstraß gives a subsequence xₙₖ → c, and continuity gives f(xₙₖ) → f(c), which contradicts |f(xₙₖ)| → ∞. This was 2024 Q1d.</li>
+  <li><b>Theorem 4.12 (Weierstraß).</b> f attains a maximum and a minimum.</li>
+  <li><b>Theorem 4.14 (IVT).</b> f continuous on an interval ⟹ f takes every value between f(a) and f(b). <b>Corollary 4.15:</b> f(I) is an interval.</li>
+  <li><b>Theorem 4.33.</b> Continuous on [a,b] ⟹ uniformly continuous.</li>
+</ul>
+<h4>Uniform continuity and Lipschitz</h4>
+<ul>
+  <li><b>Uniformly continuous:</b> there is one δ for each ε that works for every pair x₁, x₂.</li>
+  <li><b>Lemma 4.30 (how to disprove it).</b> Find ε &gt; 0 and sequences with |xₙ − yₙ| → 0 but |f(xₙ) − f(yₙ)| ≥ ε. For 1/x, use xₙ = 1/n and yₙ = 1/(n+1). For x², use xₙ = n and yₙ = n + 1/n.</li>
+  <li><b>Lipschitz:</b> |f(x) − f(y)| ≤ K|x − y|. Lipschitz ⟹ uniformly continuous, taking δ = ε/K (Proposition 4.35). The converse is false: √x on [0,1] is uniformly continuous but not Lipschitz.</li>
+  <li>For 1/x on [a,∞) with a &gt; 0: |1/x − 1/y| = |x − y|/(xy) ≤ |x − y|/a², so K = 1/a² (2025 Q4).</li>
+</ul>
+<div class="trap"><b>Trap:</b> On (0,1] or [0,∞), continuity guarantees neither boundedness nor uniform continuity. Theorems 4.11, 4.12 and 4.33 all need a <i>closed, bounded</i> interval.</div>
+</div>
+</details>
+</section>
+
+<!-- ================= STATEMENTS ================= -->
+<section class="view" id="v-state" hidden>
+<div class="panel">
+  <h2>Statements to write from memory</h2>
+  <p class="lede" style="margin-top:4px">Cover the right-hand column and test yourself.</p>
+  <div class="tbl"><table>
+  <tr><th>Asked as</th><th>What to write</th></tr>
+  <tr><td>lim aₙ = L <span class="src">2023, 2025 Q1a</span></td><td>For every ε &gt; 0 there exists N such that for all n ≥ N, |aₙ − L| &lt; ε.</td></tr>
+  <tr><td>Cauchy sequence</td><td>For every ε &gt; 0 there exists N such that for all n, m ≥ N, |aₙ − aₘ| &lt; ε.</td></tr>
+  <tr><td>Bolzano–Weierstraß</td><td>Every bounded sequence in R has a convergent subsequence.</td></tr>
+  <tr><td>Monotone convergence</td><td>Every increasing sequence that is bounded above converges, to the sup of its terms. The same holds for decreasing sequences that are bounded below.</td></tr>
+  <tr><td>Series converges</td><td>The sequence of partial sums sₙ = Σₖ₌₁ⁿ aₖ converges.</td></tr>
+  <tr><td>Radius of convergence</td><td>The unique R ∈ [0,∞] such that Σαₖ(x − a)ᵏ converges for |x − a| &lt; R and diverges for |x − a| &gt; R.</td></tr>
+  <tr><td>Continuity at c</td><td>For every ε &gt; 0 there exists δ &gt; 0 such that for all x ∈ A with |x − c| &lt; δ, |f(x) − f(c)| &lt; ε.</td></tr>
+  <tr><td>IVT <span class="src">2025 Q3a</span></td><td>If f : [a,b] → R is continuous and k lies between f(a) and f(b), there exists c ∈ [a,b] with f(c) = k.</td></tr>
+  <tr><td>Uniformly continuous</td><td>For every ε &gt; 0 there exists δ &gt; 0 such that for all x, y ∈ A with |x − y| &lt; δ, |f(x) − f(y)| &lt; ε.</td></tr>
+  <tr><td>Lipschitz <span class="src">2025 Q4a</span></td><td>There exists K &gt; 0 such that |h(x) − h(y)| ≤ K|x − y| for all x, y ∈ A.</td></tr>
+  <tr><td>Supremum</td><td>s = sup A if s is an upper bound of A, and every upper bound u of A satisfies s ≤ u. Equivalently, for every ε &gt; 0 there is a ∈ A with a &gt; s − ε.</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ================= WORKED ================= -->
+<section class="view" id="v-worked" hidden>
+
+<div class="panel"><h2>A · ε–N proofs</h2><p>Write each proof out in full before you reveal the answer.</p></div>
+
+<div class="panel">
+  <h3>A1 · 6n²/(3n² − n − 20) → 2 <span class="src">2023 Q1b · 8 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">|aₙ − 2| = |6n² − 2(3n² − n − 20)| / |3n² − n − 20| = |2n + 40| / |3n² − n − 20|.
+Numerator:   for n ≥ 40,  2n + 40 ≤ 3n.
+Denominator: for n ≥ 20,  n + 20 ≤ 2n ≤ n², so 3n² − n − 20 ≥ 3n² − n² = 2n² &gt; 0.
+So for n ≥ 40:  |aₙ − 2| ≤ 3n / (2n²) = 3/(2n).
+Let ε &gt; 0 and N = max{40, 3/(2ε) + 1}. For n ≥ N:  |aₙ − 2| ≤ 3/(2n) ≤ 3/(2N) &lt; ε.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A2 · 4n²/(2n² + cos n) → 2 <span class="src">2025 Q1b · 8 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">|aₙ − 2| = |4n² − 4n² − 2 cos n| / |2n² + cos n| = 2|cos n| / (2n² + cos n).
+|cos n| ≤ 1, so the numerator is ≤ 2, and 2n² + cos n ≥ 2n² − 1 ≥ n² &gt; 0 for n ≥ 1.
+So |aₙ − 2| ≤ 2/n² ≤ 2/n.
+Let ε &gt; 0 and N = 2/ε + 1. For n ≥ N:  |aₙ − 2| ≤ 2/n &lt; ε.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A3 · (3n² + n − 1)/n² → 3 <span class="src">2024 Q1a</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">|aₙ − 3| = |n − 1| / n² ≤ n/n² = 1/n   for n ≥ 1.
+Let ε &gt; 0 and N = 1/ε + 1. For n ≥ N:  |aₙ − 3| ≤ 1/n &lt; ε.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A4 · Practice: (5n + 3)/(2n − 7) → 5/2 <span class="src">not from a paper</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">|aₙ − 5/2| = |2(5n+3) − 5(2n−7)| / (2|2n − 7|) = 41 / (2|2n − 7|).
+For n ≥ 7: 2n − 7 ≥ n &gt; 0, so |aₙ − 5/2| ≤ 41/(2n).
+N = max{7, 41/(2ε) + 1}.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A5 · Every Cauchy sequence is bounded <span class="src">2023 Q1c · 5 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Let (aₙ) be Cauchy. Take ε = 1: there is N with |aₙ − aₘ| &lt; 1 for all n, m ≥ N.
+Let N₀ ∈ ℕ with N₀ ≥ N. For n ≥ N₀ (m = N₀): |aₙ| ≤ |aₙ − a_{N₀}| + |a_{N₀}| &lt; 1 + |a_{N₀}|.
+Let M = max{|a₁|, …, |a_{N₀}|, 1 + |a_{N₀}|} (a finite max). Then |aₙ| ≤ M for every n.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A6 · Σ from k = n+1 to 2n of 1/k converges <span class="src">2024 Q1b</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">aₙ₊₁ − aₙ = 1/(2n+1) + 1/(2n+2) − 1/(n+1) = 1/(2n+1) − 1/(2n+2) &gt; 0, so (aₙ) is increasing.
+Each of the n terms is ≤ 1/(n+1), so aₙ ≤ n/(n+1) &lt; 1, so it is bounded above.
+By monotone convergence (Thm 2.6) (aₙ) converges. (The limit is ln 2, a Riemann sum for ∫₁² dx/x.)</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>A7 · Limits of (x₁, −x₁, x₂, −x₂, …) <span class="src">2024 Q1c</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Suppose the sequence converges to L. The odd-indexed subsequence is (xₙ), and the
+even-indexed one is (−xₙ). Both converge to L (Prop 2.9).
+By the limit laws, −xₙ → −L, and limits are unique (Thm 2.2), so L = −L, i.e. L = 0.
+0 really occurs (take xₙ = 1/n), so the only possible limit is 0.</pre>
+  </details>
+</div>
+
+<div class="panel"><h2>B · Series and radius of convergence</h2></div>
+
+<div class="panel">
+  <h3>B1 · Σ (1 + √k)/(k² + √k) <span class="src">2023 Q2a · 6 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">The top grows like k^{1/2} and the bottom like k², so compare with bₖ = 1/k^{3/2}.
+aₖ/bₖ = (k^{3/2} + k²)/(k² + √k) = (k^{−1/2} + 1)/(1 + k^{−3/2}) → 1 &gt; 0.
+Σ 1/k^{3/2} converges (p = 3/2 &gt; 1, Prop 2.45), so Σaₖ converges by limit comparison (Prop 2.48).</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B2 · Σ (−1)ⁿ (n + 1)/(n³ + √n + 1) <span class="src">2025 Q2a · 6 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Test absolute convergence with bₙ = 1/n²:
+|aₙ|/bₙ = n²(n + 1)/(n³ + √n + 1) = (1 + 1/n)/(1 + n^{−5/2} + n^{−3}) → 1 &gt; 0.
+Σ1/n² converges, so Σ|aₙ| converges (limit comparison), so the series converges absolutely,
+which implies it converges (Thm 2.34). You don't need the alternating series test.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B3 · Radius of Σ (−1)ᵏ x^{4k}/(2ᵏ + 3ᵏ) <span class="src">2023 Q2b · 7 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Ratio of absolute values of consecutive terms (x ≠ 0):
+(2ᵏ + 3ᵏ)/(2ᵏ⁺¹ + 3ᵏ⁺¹) · |x|⁴ = ((2/3)ᵏ + 1)/(2(2/3)ᵏ + 3) · |x|⁴ → |x|⁴/3.
+Ratio test: absolutely convergent if |x|⁴ &lt; 3, divergent if |x|⁴ &gt; 3.
+R = 3^{1/4}.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>B4 · Radius of Σ x^{3n}/(4ⁿ + 5ⁿ) <span class="src">2025 Q2b · 7 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(4ⁿ + 5ⁿ)/(4ⁿ⁺¹ + 5ⁿ⁺¹) · |x|³ = ((4/5)ⁿ + 1)/(4(4/5)ⁿ + 5) · |x|³ → |x|³/5.
+Converges if |x|³ &lt; 5, diverges if |x|³ &gt; 5, so R = 5^{1/3}.
+Endpoints (not asked): at |x| = 5^{1/3}, |term| = 5ⁿ/(4ⁿ + 5ⁿ) → 1 ≠ 0, so it diverges (n-th term test).</pre>
+  </details>
+</div>
+
+<div class="panel"><h2>C · Continuity</h2></div>
+
+<div class="panel">
+  <h3>C1 · A continuous f : R → Q is constant <span class="src">2023 Q3 · 6 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">Suppose f(a) ≠ f(b) for some a &lt; b, and say p = f(a) &lt; q = f(b) (the other order is the same).
+r = p + (q − p)/√2 is irrational and p &lt; r &lt; q (if r were rational, √2 would be too).
+f is continuous on [a,b], so the IVT (Thm 4.14) gives c ∈ [a,b] with f(c) = r ∉ Q.
+That contradicts f(c) ∈ Q, so f is constant.  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>C2 · f(0) = 3 and f(x) → 0 as x → ∞ ⟹ f(c) = 2 for some c <span class="src">2025 Q3 · 9 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">By the limit at ∞ with ε = 1, there is M &gt; 0 with |f(x)| &lt; 1 for all x ≥ M. In particular f(M) &lt; 1.
+f is continuous on [0,M] and f(M) &lt; 2 &lt; 3 = f(0). The IVT gives c ∈ [0,M] with f(c) = 2.
+c ≠ 0 and c ≠ M (because f(0) = 3 and f(M) &lt; 1), so c ∈ (0,M) ⊂ (0,∞).  ∎</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>C3 · 1/x: Lipschitz on [a,∞) but not uniformly continuous on (0,∞) <span class="src">2025 Q4 · 14 marks</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(i) For x, y ≥ a &gt; 0: |1/x − 1/y| = |y − x|/(xy) ≤ |x − y|/a². So it is Lipschitz with K = 1/a².
+(ii) Let xₙ = 1/n and yₙ = 1/(n+1). Then |xₙ − yₙ| = 1/(n(n+1)) → 0, but
+     |h(xₙ) − h(yₙ)| = |n − (n+1)| = 1.
+     With ε = 1, for any δ &gt; 0 choose n with 1/(n(n+1)) &lt; δ. Then |xₙ − yₙ| &lt; δ but
+     |h(xₙ) − h(yₙ)| ≥ ε, so h is not uniformly continuous (Lemma 4.30).</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h3>C4 · Unbounded ⟹ not continuous somewhere <span class="src">2024 Q1d</span></h3>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(xₙ) ⊂ [a,b] is bounded, so Bolzano–Weierstraß gives a subsequence x_{nₖ} → c.
+a ≤ x_{nₖ} ≤ b and limits preserve ≤, so c ∈ [a,b].
+If f were continuous at c, the sequential criterion would give f(x_{nₖ}) → f(c), so the sequence would be
+convergent and therefore bounded. But f(x_{nₖ}) → ∞ (it is a subsequence of f(xₙ) → ∞), a contradiction.
+So f is not continuous at c.  ∎</pre>
+  </details>
+</div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="view" id="v-quiz" hidden>
+  <div class="panel">
+    <div class="qbar">
+      <label for="qfilter">Chapter</label>
+      <select id="qfilter"><option value="all">All</option><option>Ch1</option><option>Ch2</option><option>Ch4</option></select>
+      <button id="qshuffle" class="ghost" type="button">Shuffle</button>
+      <button id="qreset" class="ghost" type="button">Reset</button>
+      <span class="score" id="qscore">0 / 0</span>
+    </div>
+  </div>
+  <div id="qlist" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="view" id="v-papers" hidden>
+  <div class="panel">
+    <h2>Where each past question lives</h2>
+    <p>These are the Chapter 1–4 questions from the three papers, with a pointer to their worked solution here. The rest are in the Part 2 kit. These solutions are my own working from the course notes, not an official key.</p>
+  </div>
+  <div class="panel"><h3>2025 (about 47 marks from Chapters 1–4)</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">1</td><td>Define the limit; 4n²/(2n² + cos n) → 2</td><td class="num">11</td><td>A2</td></tr>
+    <tr><td class="num">2a</td><td>Σ (−1)ⁿ(n+1)/(n³ + √n + 1)</td><td class="num">6</td><td>B2</td></tr>
+    <tr><td class="num">2b</td><td>R for Σ x^{3n}/(4ⁿ + 5ⁿ)</td><td class="num">7</td><td>B4</td></tr>
+    <tr><td class="num">3</td><td>State the IVT; f(c) = 2</td><td class="num">9</td><td>C2</td></tr>
+    <tr><td class="num">4</td><td>Lipschitz; 1/x not uniformly continuous</td><td class="num">14</td><td>C3</td></tr>
+  </table></div></div>
+  <div class="panel"><h3>2024</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">1a</td><td>(3n² + n − 1)/n² → 3</td><td class="num">≈5</td><td>A3</td></tr>
+    <tr><td class="num">1b</td><td>Σ 1/(n+k) increasing and bounded</td><td class="num">≈5</td><td>A6</td></tr>
+    <tr><td class="num">1c</td><td>Limits of (x₁, −x₁, …)</td><td class="num">≈5</td><td>A7</td></tr>
+    <tr><td class="num">1d</td><td>Bolzano–Weierstraß and the sequential criterion</td><td class="num">≈5</td><td>C4</td></tr>
+  </table></div></div>
+  <div class="panel"><h3>2023</h3><div class="tbl"><table>
+    <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Kit</th></tr>
+    <tr><td class="num">1a–b</td><td>Define the limit; 6n²/(3n² − n − 20) → 2</td><td class="num">10</td><td>A1</td></tr>
+    <tr><td class="num">1c</td><td>Cauchy ⟹ bounded</td><td class="num">5</td><td>A5</td></tr>
+    <tr><td class="num">2a</td><td>Σ (1 + √k)/(k² + √k)</td><td class="num">6</td><td>B1</td></tr>
+    <tr><td class="num">2b</td><td>R for Σ (−1)ᵏ x^{4k}/(2ᵏ + 3ᵏ)</td><td class="num">7</td><td>B3</td></tr>
+    <tr><td class="num">3</td><td>Continuous f : R → Q is constant</td><td class="num">6</td><td>C1</td></tr>
+  </table></div></div>
+</section>
+</div>
+
+<script>
+/* ---------- Header: sequence settling into an ε-band ---------- */
+(function(){const s=document.getElementById("hdr"),NS="http://www.w3.org/2000/svg";
+ const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);s.appendChild(e)};
+ mk("rect",{x:0,y:17,width:800,height:12,fill:"var(--accent-soft)"});
+ for(let n=1;n<=60;n++){const y=23+20*Math.cos(n*1.9)/Math.sqrt(n);mk("circle",{cx:n*13,cy:y.toFixed(1),r:2.4,fill:"var(--trace)"})}})();
+
+/* ---------- Tabs (hash routing) ---------- */
+const views=["plan","notes","state","worked","quiz","papers"];
+function show(){let h=(location.hash||"#plan").slice(1);if(!views.includes(h))h="plan";
+  views.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));}
+addEventListener("hashchange",()=>{show();window.scrollTo({top:0})});show();
+
+/* ---------- ε-band figure ---------- */
+(function(){const svg=document.getElementById("band"),NS="http://www.w3.org/2000/svg";
+ const el=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t)e.textContent=t;svg.appendChild(e);return e};
+ const L0=40,R=500,Y0=85,eps=18,a=n=>Y0-60*Math.cos(n*2.1)/n;
+ el("rect",{x:L0,y:Y0-eps,width:R-L0,height:2*eps,fill:"var(--accent-soft)"});
+ el("line",{x1:L0,x2:R,y1:Y0,y2:Y0,stroke:"var(--accent)","stroke-dasharray":"5 4"});
+ el("text",{x:L0-6,y:Y0+4,"text-anchor":"end","font-size":11,fill:"var(--accent)"},"L");
+ el("text",{x:L0-6,y:Y0-eps+4,"text-anchor":"end","font-size":10,fill:"var(--muted)"},"L+ε");
+ el("text",{x:L0-6,y:Y0+eps+4,"text-anchor":"end","font-size":10,fill:"var(--muted)"},"L−ε");
+ let N=0;for(let n=1;n<=30;n++){if(Math.abs(a(n)-Y0)>=eps)N=n}
+ el("line",{x1:L0+(N+0.5)*15,x2:L0+(N+0.5)*15,y1:10,y2:160,stroke:"var(--trace)","stroke-width":1.2});
+ el("text",{x:L0+(N+0.5)*15+5,y:20,"font-size":11,fill:"var(--trace)"},"N");
+ for(let n=1;n<=30;n++){el("circle",{cx:L0+n*15,cy:a(n),r:3.4,fill:n>N?"var(--ink)":"var(--paper)",stroke:"var(--ink)","stroke-width":1.3})}
+})();
+
+/* ---------- Quiz bank: [chapter, stem, options, answer index, why] ---------- */
+const Q=[
+["Ch1","A = [0,1). Which is true?",["sup A = 1 and 1 ∈ A","sup A = 1, but A has no maximum","sup A does not exist","max A = 1"],1,"The supremum need not belong to the set. Every x < 1 is beaten by (x+1)/2, so there is no maximum."],
+["Ch1","Between any two distinct real numbers there is",["a rational only","an irrational only","both a rational and an irrational","neither, necessarily"],2,"Density of Q and of R∖Q. Used in f : R → Q (2023 Q3) and the Dirichlet function."],
+["Ch2","Which sequence is bounded but NOT convergent?",["1/n","(−1)ⁿ","n","(1 + 1/n)"],1,"Convergent ⟹ bounded (Proposition 2.5), but not the other way round."],
+["Ch2","aₙ < bₙ for all n, and both sequences converge. Then",["lim aₙ < lim bₙ","lim aₙ ≤ lim bₙ","lim aₙ = lim bₙ","nothing can be said"],1,"Proposition 2.21. Strict inequality can be lost: 0 < 1/n, but both limits are 0."],
+["Ch2","In an ε–N proof of 6n²/(3n² − n − 20) → 2, the crucial step is",["finding the limit","bounding the denominator below by c·n² for large n","using the ratio test","applying L'Hôpital"],1,"After that, |aₙ − 2| ≤ C/n and N = C/ε."],
+["Ch2","Bolzano–Weierstraß says",["every convergent sequence is bounded","every bounded sequence has a convergent subsequence","every Cauchy sequence is bounded","every monotone sequence converges"],1,"Theorem 2.11, proved by repeated bisection and nested intervals."],
+["Ch2","To prove a Cauchy sequence is bounded, the standard choice is",["ε = 1","ε = 1/n","ε = L","no ε needed"],0,"Fix ε = 1 to bound the tail by |a_N| + 1. The finitely many earlier terms have a maximum."],
+["Ch2","(x₁, −x₁, x₂, −x₂, …) can converge to",["any real number","only 0","only ±1","nothing; it always diverges"],1,"The odd and even subsequences give L and −L, so L = 0. It does happen, for example with xₙ = 1/n."],
+["Ch2","The ratio test gives ρ = 1. Then",["the series converges","the series diverges","the test is inconclusive","the series converges conditionally"],2,"Σ1/k (diverges) and Σ1/k² (converges) both give ρ = 1."],
+["Ch2","Σ (1 + √k)/(k² + √k) should be compared with",["1/k","1/k^{3/2}","1/k²","1/√k"],1,"Top power ½ minus bottom power 2 gives k^{−3/2}. The limit of the ratio is 1, and p = 3/2 > 1, so it converges."],
+["Ch2","The radius of convergence of Σ x^{3n}/(4ⁿ + 5ⁿ) is",["5","5^{1/3}","4^{1/3}","1/5"],1,"The ratio tends to |x|³/5. Converges ⟺ |x|³ < 5."],
+["Ch2","The radius of convergence of Σ k! xᵏ is",["0","1","∞","e"],0,"The ratio is (k+1)|x| → ∞ for every x ≠ 0."],
+["Ch2","Σ (−1)^{k+1}/k is",["absolutely convergent","conditionally convergent","divergent","convergent to 1"],1,"It converges (to ln 2), but Σ1/k diverges. Rearranging it can give any sum (Proposition 2.62)."],
+["Ch2","lim aₖ = 0. Then Σaₖ",["converges","may diverge","diverges","converges absolutely"],1,"The n-th term condition is necessary, not sufficient. The harmonic series is the counterexample."],
+["Ch4","1_Q : R → R is",["continuous at rationals","continuous at irrationals","continuous nowhere","continuous everywhere"],2,"Example 4.5. Near any point there are both rationals and irrationals."],
+["Ch4","f is continuous on (0,1]. Which must hold?",["f is bounded","f attains a maximum","f is uniformly continuous","none of these"],3,"1/x is a counterexample to all three. Theorems 4.11, 4.12 and 4.33 need [a,b]."],
+["Ch4","√x on [0,1] is",["Lipschitz","uniformly continuous but not Lipschitz","not uniformly continuous","not continuous"],1,"It is continuous on [a,b], so uniformly continuous (Theorem 4.33). The slope is unbounded near 0, so it is not Lipschitz (Example 4.37)."],
+["Ch4","To show f is NOT uniformly continuous, find",["one point where f is discontinuous","ε > 0 and (xₙ), (yₙ) with |xₙ − yₙ| → 0 but |f(xₙ) − f(yₙ)| ≥ ε","f unbounded","f′ unbounded at one point"],1,"Lemma 4.30. For 1/x, use 1/n and 1/(n+1)."],
+["Ch4","h(x) = 1/x on [a,∞) with a > 0 is Lipschitz with constant",["a","1/a","1/a²","a²"],2,"|1/x − 1/y| = |x − y|/(xy) ≤ |x − y|/a²."],
+["Ch4","f : R → Q is continuous. Then f is",["constant","the identity","not necessarily constant","nowhere continuous"],0,"If it took two values, the IVT would make it hit an irrational in between."],
+["Ch4","f is continuous on [0,∞), f(0) = 3 and f(x) → 0 as x → ∞. To get f(c) = 2, first",["use the limit (with ε = 1) to find M with f(M) < 1, then apply the IVT on [0,M]","apply the IVT on [0,∞) directly","use the MVT","use Bolzano–Weierstraß"],0,"The IVT needs a closed bounded interval with values on both sides of 2."]
+];
+let order=Q.map((_,i)=>i),answered={};
+function render(){const f=document.getElementById("qfilter").value,list=document.getElementById("qlist");list.innerHTML="";
+ const ids=order.filter(i=>f==="all"||Q[i][0]===f);let n=0,c=0;
+ ids.forEach((i,k)=>{const [lec,stem,opts,ans,why]=Q[i];const card=document.createElement("div");card.className="q";
+  card.innerHTML=`<div class="meta"><span>Q${k+1}</span><span class="chip">${lec}</span></div><div class="stem"></div><div class="opts"></div>`;
+  card.querySelector(".stem").textContent=stem;const box=card.querySelector(".opts");
+  opts.forEach((o,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span></span>`;b.lastChild.textContent=o;
+   if(i in answered){b.disabled=true;if(j===ans)b.classList.add("right");else if(j===answered[i])b.classList.add("wrong")}
+   b.addEventListener("click",()=>{answered[i]=j;save();render()});box.appendChild(b)});
+  if(i in answered){n++;if(answered[i]===ans)c++;const w=document.createElement("div");w.className="why";w.textContent=(answered[i]===ans?"Correct. ":"Not quite. ")+why;card.appendChild(w)}
+  list.appendChild(card)});
+ document.getElementById("qscore").textContent=`${c} / ${n} answered · ${ids.length} total`}
+function save(){try{localStorage.setItem("q332p1",JSON.stringify(answered))}catch(e){}}
+try{answered=JSON.parse(localStorage.getItem("q332p1")||"{}")||{}}catch(e){answered={}}
+document.getElementById("qfilter").addEventListener("change",render);
+document.getElementById("qshuffle").addEventListener("click",()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()});
+document.getElementById("qreset").addEventListener("click",()=>{answered={};save();render()});
+render();
+</script>
