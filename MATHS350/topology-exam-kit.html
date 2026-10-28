@@ -108,6 +108,9 @@ svg text{fill:var(--ink);font-family:var(--ui)}
 @media (max-width:520px){body{font-size:16px}.calc{white-space:pre-wrap;font-size:13px}.flash .q{font-size:18px}details .body{padding-left:18px}}
 @media (prefers-reduced-motion:no-preference){.flash{transition:border-color .2s}}
 
+.defs dt{color:var(--ink)}
+.defgroup{display:grid;gap:10px}
+.defs{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
 /* house-style overrides */
 h1,h2,h3{font-family:var(--display)}
 header.top{background:transparent;border-bottom:0}
@@ -130,7 +133,7 @@ nav.tabs a[aria-current="page"]{color:var(--panel);background:var(--accent)}
   <div class="facts"><span><b>4</b> questions</span><span><b>2</b> hours</span><span>Q1 <b>10</b> marks T/F, Q2–Q4 <b>15</b> each (2024 format)</span><span>Q4 algebraic topology</span></div>
 </div></header>
 <nav class="tabs" aria-label="Sections"><div class="wrap">
-  <a href="#plan">Plan</a><a href="#drill">Q1 drill</a><a href="#counter">Counterexamples</a><a href="#bookwork">Bookwork</a><a href="#alg">Q4 toolkit</a><a href="#past">Past papers</a><a href="#mock">Mock exam</a>
+  <a href="#plan">Plan</a><a href="#defs">Definitions</a><a href="#drill">Q1 drill</a><a href="#counter">Counterexamples</a><a href="#bookwork">Bookwork</a><a href="#alg">Q4 toolkit</a><a href="#past">Past papers</a><a href="#mock">Mock exam</a>
 </div></nav>
 <main><div class="wrap">
 
@@ -196,6 +199,139 @@ nav.tabs a[aria-current="page"]{color:var(--panel);background:var(--accent)}
   </ol>
 
   <div class="note err"><b>Two errors in the 2024 official solutions.</b> Q1(f) is <b>true</b>: second countable ⇒ first countable (3.6), and then Theorem 3.13 applies. The co-finite topology on ℕ is itself second countable, so it can't be a counterexample. Q2(c) asks about <i>separable</i> products, but the solution proves the first-countable case. Q4(a) also can't be done as literally stated: every connected cover of [0,1] is homeomorphic to [0,1]. Corrected versions are in Past papers.</div>
+</section>
+
+
+<!-- ================= DEFINITIONS ================= -->
+<section class="panel" id="defs" data-panel hidden>
+  <h2>Definitions</h2>
+  <p class="lede">Every definition in the examinable notes, worded as the notes have it, with the numbering of the current notes. Learn these word for word: a proof starts by writing down the definition you need. Type to filter.</p>
+  <div class="row"><input id="defSearch" type="search" placeholder="Filter, e.g. regular, sheet, cycle" aria-label="Filter definitions" style="font:inherit;flex:1;min-width:0;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink)"><span class="score" id="defCount"></span></div>
+
+  <div class="defgroup"><h3>Chapter 1 — Basic notions</h3>
+  <dl class="kv defs">
+    <dt>Topology <span class="num">1.1</span></dt><dd>A family T of subsets of X with: ∅ ∈ T; X ∈ T; U, V ∈ T ⇒ U ∩ V ∈ T; and F ⊆ T ⇒ ⋃F ∈ T. Members of T are <b>open</b>.</dd>
+    <dt>Indiscrete / discrete</dt><dd>Indiscrete: only ∅ and X are open (the smallest topology). Discrete: every subset is open (the largest).</dd>
+    <dt>Co-finite / co-countable</dt><dd>X infinite: ∅ together with all sets with finite complement. X uncountable: ∅ together with all sets with countable complement.</dd>
+    <dt>Coarser / finer <span class="num">1.4</span></dt><dd>If T ⊆ T′, T is coarser (smaller, weaker) and T′ is finer (larger, stronger).</dd>
+    <dt>Basis <span class="num">1.5(a)</span></dt><dd>B ⊆ T is a basis for T if every member of T is a union of members of B. Test with Prop 1.6.</dd>
+    <dt>Subbasis <span class="num">1.5(b)</span></dt><dd>S ⊆ T is a subbasis if the finite intersections of members of S form a basis for T.</dd>
+    <dt>Neighbourhood <span class="num">1.11(a)</span></dt><dd>N is a nbhd of x if there is an open U with x ∈ U ⊆ N. A nbhd need not be open.</dd>
+    <dt>Nbhd basis at x <span class="num">1.11(b)</span></dt><dd>M ⊆ N(x) such that every N ∈ N(x) contains some M ∈ M.</dd>
+    <dt>Closed <span class="num">1.18</span></dt><dd>A is closed iff X ∖ A is open. Clopen: both open and closed.</dd>
+    <dt>Closure, interior <span class="num">1.20</span></dt><dd>cl A (Ā) is the intersection of all closed sets containing A: the smallest closed superset. int A (A°) is the union of all open subsets of A: the largest open subset.</dd>
+    <dt>Accumulation point, derived set <span class="num">1.22</span></dt><dd>x is an accumulation point of A iff x ∈ cl(A ∖ {x}). The derived set A′ is the set of accumulation points.</dd>
+    <dt>Frontier <span class="num">1.22</span></dt><dd>fr A = cl A ∩ cl(X ∖ A). Prop 1.23: cl A = A ∪ A′ = A ∪ fr A = {x : every nbhd of x meets A}.</dd>
+    <dt>Subspace topology <span class="num">1.26</span></dt><dd>T<sub>Y</sub> = {Y ∩ U : U ∈ T}. "Open in Y" vs "open in X".</dd>
+    <dt>Continuous <span class="num">1.27(a)</span></dt><dd>f: X → Y with f⁻¹(U) open for every open U. Also called a map.</dd>
+    <dt>Continuous at x <span class="num">1.27(b)</span></dt><dd>For each nbhd N of f(x), f⁻¹(N) is a nbhd of x.</dd>
+    <dt>Open / closed map <span class="num">1.27(c)</span></dt><dd>f(U) is open (closed) for every open (closed) U.</dd>
+    <dt>Homeomorphism <span class="num">1.27(d,e)</span></dt><dd>A continuous bijection with continuous inverse. X and Y are homeomorphic if one exists.</dd>
+    <dt>Embedding <span class="num">1.27(f,g)</span></dt><dd>An injection f: X → Y such that f: X → f(X) is a homeomorphism. Then X can be embedded in Y.</dd>
+    <dt>Topological property <span class="num">1.31</span></dt><dd>A property that, whenever a space has it, every homeomorphic space has it too.</dd>
+    <dt>Box topology</dt><dd>On ∏X<sub>α</sub>: basis {∏U<sub>α</sub> : every U<sub>α</sub> open in X<sub>α</sub>}.</dd>
+    <dt>Cartesian product <span class="num">1.39</span></dt><dd>∏X<sub>α</sub> = {(x<sub>α</sub>) : x<sub>α</sub> ∈ X<sub>α</sub> for all α}.</dd>
+    <dt>Projection <span class="num">1.40</span></dt><dd>π<sub>β</sub>: ∏X<sub>α</sub> → X<sub>β</sub>, π<sub>β</sub>((x<sub>α</sub>)) = x<sub>β</sub>.</dd>
+    <dt>Product (Tychonoff) topology <span class="num">1.41</span></dt><dd>Generated by the subbasis {π<sub>α</sub>⁻¹(U) : U open in X<sub>α</sub>, α ∈ A}. Basic sets: ∏U<sub>α</sub> with U<sub>α</sub> open and U<sub>α</sub> = X<sub>α</sub> for all but finitely many α.</dd>
+    <dt>Quotient space <span class="num">1.46</span></dt><dd>For an equivalence relation ∼ on X with p: X → X/∼, x ↦ [x]: U ⊆ X/∼ is open iff p⁻¹(U) is open in X.</dd>
+    <dt>Quotient topology / map <span class="num">1.48</span></dt><dd>For a surjective map f: X → Y, {U : f⁻¹(U) open in X} is the finest topology making f continuous. If Y carries it, f is a quotient map.</dd>
+    <dt>Topological sum <span class="num">1.53</span></dt><dd>For pairwise disjoint spaces X<sub>α</sub>: on ⋃X<sub>α</sub>, U is open iff U ∩ X<sub>α</sub> is open in X<sub>α</sub> for every α.</dd>
+    <dt>Cone <span class="num">1.54</span></dt><dd>cX = [{v} + (X × [0,1])]/∼, where ∼ is generated by v ∼ (x,1). The class of v is the vertex; X sits inside as X × {0}.</dd>
+    <dt>Mapping cylinder <span class="num">1.55</span></dt><dd>For f: X → Y: Z<sub>f</sub> = [(X × [0,1]) + Y]/∼, where ∼ is generated by (x,1) ∼ f(x).</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>Chapter 2 — Separation axioms</h3>
+  <dl class="kv defs">
+    <dt>T0 <span class="num">2.1</span></dt><dd>For x ≠ y there is an open set containing one of x, y but not the other.</dd>
+    <dt>T1 (Fréchet) <span class="num">2.1</span></dt><dd>For x ≠ y there is an open U with x ∈ U, y ∉ U. Equivalently, singletons are closed (2.4).</dd>
+    <dt>T2 (Hausdorff) <span class="num">2.1</span></dt><dd>For x ≠ y there are open U ∋ x, V ∋ y with U ∩ V = ∅.</dd>
+    <dt>Regular, T3 <span class="num">2.6</span></dt><dd>Regular: for each x and closed C with x ∉ C there are disjoint open U ∋ x, V ⊇ C. T3 = regular + T1.</dd>
+    <dt>Normal, T4 <span class="num">2.12</span></dt><dd>Normal: for disjoint closed A, B there are disjoint open U ⊇ A, V ⊇ B. T4 = normal + T1.</dd>
+    <dt>Sierpiński space <span class="num">2.2</span></dt><dd>{0,1} with topology {∅, {0}, {0,1}}.</dd>
+    <dt>Completely separated <span class="num">2.17</span></dt><dd>A and B are completely separated in X if there is a continuous f: X → [0,1] with f(A) = {0} and f(B) = {1}.</dd>
+    <dt>Urysohn family <span class="num">2.18</span></dt><dd>Open sets {U<sub>r</sub> : r ∈ D} with (i) cl D = ℝ; (ii) ⋃U<sub>r</sub> = X and ⋂U<sub>r</sub> = ∅; (iii) r &lt; s ⇒ cl U<sub>r</sub> ⊆ U<sub>s</sub>.</dd>
+    <dt>Completely regular, Tychonoff <span class="num">2.23</span></dt><dd>Completely regular: for each x and closed C with x ∉ C there is a continuous f: X → [0,1] with f(x) = 0 and f(C) = 1. Tychonoff (T3½) = completely regular + T1.</dd>
+    <dt>Power, cube <span class="num">2.24</span></dt><dd>X<sup>A</sup> = ∏<sub>α∈A</sub> X. Any power of [0,1] is a cube; [0,1]<sup>ℕ</sup> is the Hilbert cube.</dd>
+    <dt>Urysohn space (A2)</dt><dd>Distinct points have nbhds U, V with cl U ∩ cl V = ∅. T3 ⇒ Urysohn ⇒ Hausdorff.</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>Chapter 3 — Countability</h3>
+  <dl class="kv defs">
+    <dt>Dense <span class="num">3.1</span></dt><dd>D is dense in X if cl D = X.</dd>
+    <dt>Separable <span class="num">3.1</span></dt><dd>X has a countable dense subset.</dd>
+    <dt>First countable <span class="num">3.1</span></dt><dd>Every point has a countable nbhd basis.</dd>
+    <dt>Second countable <span class="num">3.1</span></dt><dd>The topology has a countable basis.</dd>
+    <dt>Convergence <span class="num">3.10</span></dt><dd>xₙ → x if for each nbhd N of x there is m with xₙ ∈ N for all n ≥ m.</dd>
+    <dt>Eventually in <span class="num">3.11</span></dt><dd>⟨xₙ⟩ is eventually in N if there is m with xₙ ∈ N for all n ≥ m.</dd>
+    <dt>Metrisable</dt><dd>The topology is induced by some metric (open balls form a basis, Ex 1.8(2)).</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>Chapter 4 — Connectedness</h3>
+  <dl class="kv defs">
+    <dt>Connected <span class="num">4.1</span></dt><dd>X can't be written as the union of two nonempty disjoint open subsets. Otherwise disconnected; such a pair U, V is a separation of X.</dd>
+    <dt>Connected subset <span class="num">4.1(4)</span></dt><dd>C ⊆ X is connected if the subspace C is connected.</dd>
+    <dt>Connected in X <span class="num">4.1(5)</span></dt><dd>x and y are connected in X if some connected C ⊆ X contains both.</dd>
+    <dt>Component <span class="num">4.1(6)</span></dt><dd>The largest connected subspace of X containing x.</dd>
+    <dt>2</dt><dd>{0,1} as a subspace of ℝ, so discrete: the prototypical disconnected space.</dd>
+    <dt>Path <span class="num">4.15</span></dt><dd>A continuous p: [0,1] → X; it goes from p(0) to p(1).</dd>
+    <dt>Path connected <span class="num">4.15</span></dt><dd>x and y are path connected in X if there is a path from x to y. X is path connected if every pair is.</dd>
+    <dt>Path component <span class="num">4.15</span></dt><dd>The largest path connected subspace containing x.</dd>
+    <dt>Locally connected <span class="num">4.20</span></dt><dd>At x: every nbhd of x contains a connected open nbhd of x. X is locally connected if this holds at every point.</dd>
+    <dt>Locally path connected <span class="num">4.20</span></dt><dd>At x: every nbhd of x contains an open path connected nbhd of x. X is locally path connected if this holds at every point.</dd>
+    <dt>Fixed point, fixed-point property</dt><dd>f(x) = x. X has the fixed-point property if every continuous f: X → X has a fixed point.</dd>
+    <dt>Comb space <span class="num">4.24</span></dt><dd>([0,1] × {0}) ∪ ((K ∪ {0}) × [0,1]), K = {1/n : n ∈ ℤ⁺}.</dd>
+    <dt>Topologist's sine curve <span class="num">4.16</span></dt><dd>{(x, sin 1/x) : x &gt; 0} ∪ ({0} × [−1,1]).</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>Chapter 5 — Compactness</h3>
+  <dl class="kv defs">
+    <dt>Cover, subcover <span class="num">5.1</span></dt><dd>A cover of A is a family of subsets whose union contains A. A subcover is a subfamily that is still a cover. An open cover consists of open sets.</dd>
+    <dt>Compact <span class="num">5.1</span></dt><dd>Every open cover of X has a finite subcover. A ⊆ X is compact if every cover of A by open sets of X has a finite subcover (equivalently, A is compact as a subspace).</dd>
+    <dt>Finite intersection property <span class="num">5.9</span></dt><dd>Every finite subfamily has nonempty intersection.</dd>
+    <dt>Locally compact <span class="num">5.15</span></dt><dd>Every point has a compact nbhd. This is the weak way of localising: one good nbhd is enough, not a base of them.</dd>
+    <dt>Compactification <span class="num">5.18</span></dt><dd>An embedding h: X → Y into a compact Y with h(X) dense in Y.</dd>
+    <dt>One-point compactification</dt><dd>X* = X ∪ {∞}. Open sets: the open subsets of X, and X* ∖ C for C closed and compact in X.</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>A1 — Fundamental group</h3>
+  <dl class="kv defs">
+    <dt>Loop <span class="num">A1.1</span></dt><dd>A continuous σ: [0,1] → X with σ(0) = σ(1) = a; based at a.</dd>
+    <dt>Product of loops <span class="num">A1.1</span></dt><dd>σ ∗ τ(s) = σ(2s) for s ≤ ½, and τ(2s − 1) for s ≥ ½.</dd>
+    <dt>Reverse loop <span class="num">A1.1</span></dt><dd>σ̄(s) = σ(1 − s).</dd>
+    <dt>Homotopic loops <span class="num">A1.1</span></dt><dd>σ ∼ τ if there is a continuous H: [0,1] × [0,1] → X with H(s,0) = σ(s), H(s,1) = τ(s), and H(0,t) = H(1,t) = a for all s, t. H is a homotopy; H<sub>t</sub> = H(·,t).</dd>
+    <dt>Constant loop <span class="num">A1.1</span></dt><dd>ä: the loop s ↦ a.</dd>
+    <dt>Fundamental group <span class="num">A1.4</span></dt><dd>π(X,a) (or π₁(X,a)): the set of ∼-classes of loops at a, with [σ][τ] = [σ ∗ τ].</dd>
+    <dt>Contractible, contraction <span class="num">A1.7</span></dt><dd>There is a continuous c: X × [0,1] → X and b ∈ X with c(x,0) = x and c(x,1) = b for all x.</dd>
+    <dt>Induced homomorphism <span class="num">A1.10</span></dt><dd>For continuous f with f(a) = b: f<sub>*</sub>: π(X,a) → π(Y,b), f<sub>*</sub>[σ] = [f∘σ].</dd>
+    <dt>Homotopic maps <span class="num">A1.11</span></dt><dd>f ∼ g if there is a continuous F: X × [0,1] → Y with F(x,0) = f(x) and F(x,1) = g(x).</dd>
+    <dt>Simply connected</dt><dd>Path connected with trivial π (not a numbered definition; used for S², ℝⁿ).</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>A2–A3 — Covering projections and applications</h3>
+  <dl class="kv defs">
+    <dt>Covering projection <span class="num">A2.1</span></dt><dd>A continuous p: E → X such that every x ∈ X lies in an open V for which p⁻¹(V) is a disjoint union of open sets S<sub>i</sub> ⊆ E, each mapped homeomorphically onto V by p. E is a covering space of X.</dd>
+    <dt>Evenly covered, sheets <span class="num">A2.1</span></dt><dd>Such a V is evenly covered; the S<sub>i</sub> are the sheets over V.</dd>
+    <dt>Projective n-space <span class="num">A2.4</span></dt><dd>Pⁿ = Sⁿ/∼ where x ∼ y iff x = ±y.</dd>
+    <dt>Lifting <span class="num">A2.5</span></dt><dd>For p: E → X a covering and continuous f: Y → X, a continuous f̂: Y → E with p∘f̂ = f.</dd>
+    <dt>Retraction (A1 Q2b)</dt><dd>For A ⊆ X, a continuous r: X → A with r(a) = a for all a ∈ A.</dd>
+    <dt>Circle; linked <span class="num">A3.4</span></dt><dd>A circle is a homeomorphic image of S¹. Circles J, K ⊆ ℝ³ are unlinked if there is a continuous f: B² → ℝ³ ∖ K whose restriction to S¹ is an embedding onto J. Otherwise they are linked.</dd>
+    <dt>Degree <span class="num">A3.6</span></dt><dd>For continuous f: S¹ → S¹ with f(1) = 1: the endpoint of the lift from 0 of f∘σ, where σ(t) = e<sup>2πit</sup>. In general d(f) = (lift)(1) − (lift)(0).</dd>
+  </dl></div>
+
+  <div class="defgroup"><h3>A4 §4.1 — Simplicial homology</h3>
+  <dl class="kv defs">
+    <dt>q-simplex <span class="num">4.1</span></dt><dd>Δ<sup>q</sup> = {(x₀,…,x<sub>q</sub>) ∈ ℝ<sup>q+1</sup> : xᵢ ≥ 0, Σxᵢ = 1}: the convex hull of the standard basis vectors v₀, …, v<sub>q</sub>.</dd>
+    <dt>Face, boundary <span class="num">4.1</span></dt><dd>The ith face is the (q−1)-simplex where tᵢ = 0, opposite vertex i. ∂Δ<sup>q</sup> is the union of all faces. The open simplex is Δ<sup>q</sup> ∖ ∂Δ<sup>q</sup>.</dd>
+    <dt>Face map <span class="num">4.1</span></dt><dd>Fᵢ<sup>q</sup>: Δ<sup>q−1</sup> → Δ<sup>q</sup>, linear, with vⱼ ↦ vⱼ for j &lt; i and vⱼ ↦ v<sub>j+1</sub> for j ≥ i. It maps onto the ith face, with orientation.</dd>
+    <dt>Δ-complex structure <span class="num">4.2</span></dt><dd>Maps σ<sub>α</sub>: Δ<sup>q<sub>α</sub></sup> → X such that (a) each σ<sub>α</sub> is injective on the open simplex and every point of X lies in exactly one such image; (b) each restriction of σ<sub>α</sub> to a face is one of the σ<sub>β</sub> (orientation preserving); (c) A ⊆ X is open iff every σ<sub>α</sub>⁻¹(A) is open.</dd>
+    <dt>Simplicial chain group <span class="num">4.5</span></dt><dd>Δ<sub>q</sub>(X): the free abelian group on the open q-simplices. Elements Σ aᵢσᵢ are q-chains. Δ<sub>q</sub>(X) = 0 for q &lt; 0.</dd>
+    <dt>Face homomorphism <span class="num">4.5</span></dt><dd>Vᵢ<sup>q</sup>(σ) = σ ∘ Fᵢ<sup>q</sup>; trivial for q = 0.</dd>
+    <dt>Boundary homomorphism <span class="num">4.5</span></dt><dd>∂<sub>q</sub>(σ) = Σ<sub>i=0</sub><sup>q</sup> (−1)<sup>i</sup> Vᵢ<sup>q</sup>(σ). In vertex notation, ∂[v₀,…,v<sub>q</sub>] = Σ(−1)<sup>i</sup>[v₀,…,v̂ᵢ,…,v<sub>q</sub>].</dd>
+    <dt>Cycles, boundaries <span class="num">4.8</span></dt><dd>Cycles: elements of ker ∂<sub>q</sub>. Boundaries: elements of Im ∂<sub>q+1</sub>. Since ∂∂ = 0, boundaries are cycles.</dd>
+    <dt>Simplicial homology <span class="num">4.8</span></dt><dd>H<sub>q</sub><sup>Δ</sup>(X) = ker ∂<sub>q</sub> / Im ∂<sub>q+1</sub>.</dd>
+    <dt>Chain complex</dt><dd>A sequence of groups and maps … → C<sub>q+1</sub> → C<sub>q</sub> → C<sub>q−1</sub> → … with Im ∂<sub>q+1</sub> ⊆ ker ∂<sub>q</sub>.</dd>
+  </dl></div>
+  <p class="score" id="defNone" hidden>No definitions match that filter.</p>
 </section>
 
 <!-- ================= DRILL ================= -->
@@ -1160,6 +1296,15 @@ document.addEventListener("keydown",e=>{if($("drill").hidden||$("flashWrap").hid
   if(e.key===" "&&!$("reveal").hidden){e.preventDefault();$("reveal").click()}else if(e.key==="ArrowRight")$("skip").click();else if(e.key==="g"&&!$("got").hidden)$("got").click();else if(e.key==="m"&&!$("miss").hidden)$("miss").click()});
 build();
 </script>
+<script>
+(function(){const q=document.getElementById("defSearch"),cnt=document.getElementById("defCount"),none=document.getElementById("defNone");
+const groups=[...document.querySelectorAll("#defs .defgroup")];
+function run(){const v=q.value.trim().toLowerCase();let n=0;
+ groups.forEach(g=>{let k=0;g.querySelectorAll("dt").forEach(dt=>{const dd=dt.nextElementSibling;const hit=!v||(dt.textContent+" "+dd.textContent).toLowerCase().includes(v);dt.hidden=dd.hidden=!hit;if(hit)k++});g.hidden=k===0;n+=k});
+ cnt.textContent=n+" definitions";none.hidden=n>0}
+q.addEventListener("input",run);run()})();
+</script>
+
 
 </html><style id="mobile-fit">
 /* mobile-fit: phone layout. Keep this block in every kit. */
