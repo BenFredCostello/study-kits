@@ -26,3 +26,8 @@ courses.json        list of courses and their kits (edit this when adding a kit)
 4. Commit with a message like `Add MECHENG736 part 3 kit` and push to `main`.
 
 Kits are also published as private Claude artifacts; this repo is the shared copy.
+
+## Read-aloud audio (optional)
+
+To turn tabs of a kit into MP3s (e.g. Bookwork and Definitions), follow `tools/audio/README.md`.
+Audio lives in `<COURSECODE>/audio/`.
