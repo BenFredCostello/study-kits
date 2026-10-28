@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>736 Part 1 Study Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: PSG chart-paper page — single reading column, sticky section tabs, trace-red accent */
+:root{
+  --bg:#F5F8F9; --paper:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --line:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --good:#1E7A46; --good-soft:#E3F3E9; --bad:#B3261E; --bad-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+header.hero{padding-block:36px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;margin-top:6px}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch;margin-top:10px}
+.trace{display:block;width:100%;height:46px;margin-top:18px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:10px;display:flex;gap:4px;padding:5px;overflow-x:auto;margin-bottom:24px}
+nav.tabs a{font-weight:600;font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a:focus-visible{color:var(--ink);background:var(--accent-soft);outline:none}
+nav.tabs a.on{color:var(--paper);background:var(--accent)}
+section.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.panel > * + *{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.stat{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.stat b{font-family:var(--f-mono);font-size:20px;display:block}
+.stat span{color:var(--muted);font-size:14px}
+ul,ol{margin:0;padding-left:22px}
+li + li{margin-top:5px}
+.k{font-family:var(--f-mono);font-size:.92em;background:var(--accent-soft);color:var(--ink);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.hl{background:var(--warn-soft);padding:0 3px;border-radius:3px}
+details.lec{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+details.lec > summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+details.lec > summary::-webkit-details-marker{display:none}
+details.lec > summary .no{font-family:var(--f-mono);font-size:13px;color:var(--trace);min-width:28px}
+details.lec > summary h3{flex:1;min-width:0}
+details.lec > summary .weight{font-size:13px;color:var(--muted)}
+details.lec[open] > summary{border-bottom:1px solid var(--line)}
+details.lec .body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:4px 0 -6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trap{background:var(--bad-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.trap b{color:var(--bad)}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+pre.math{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.55;margin:0;white-space:pre}
+figure{margin:0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg text{font-family:var(--f-mono)}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.qbar label{font-size:14px;color:var(--muted)}
+select,button,input{font:inherit}
+select,input[type=number]{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+input[type=number]{width:90px}
+button{cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);padding:7px 14px;font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.score{font-family:var(--f-mono);font-size:14px;margin-left:auto}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.q .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.q .stem{font-weight:600;margin:6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:400;padding:9px 12px;display:flex;gap:10px}
+.opt .l{font-family:var(--f-mono);color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin-top:12px;font-size:14.5px;padding:10px 14px;border-radius:8px;background:var(--accent-soft)}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line)}
+.chip.read{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+/* calc */
+.calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.calc label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:3px}
+.out{font-family:var(--f-mono);font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;white-space:pre-wrap}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.reveal[open] summary{margin-bottom:10px}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 14px;font-size:14.5px}
+.key div{font-variant-numeric:tabular-nums}
+.key b{font-family:var(--f-mono)}
+@media (prefers-reduced-motion:no-preference){.trace path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MECHENG 736 · Part 1 · Carl Tang · 30 marks</div>
+  <h1>EEG, sleep &amp; classifying brain signals</h1>
+  <p class="lede">Everything examinable from Lectures 1–7, condensed. Read the notes, drill the numbers, then do the quiz and the calculations. The exam has 20 one-mark MCQs and one 10-mark short-answer question, which is almost certainly a Fisher LDA / classifier calculation.</p>
+  <svg class="trace" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"><path id="tr" fill="none" stroke="var(--trace)" stroke-width="1.6"/></svg>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#plan">Plan</a><a href="#notes">Notes</a><a href="#numbers">Numbers</a><a href="#calc">Calculations</a><a href="#quiz">Quiz</a><a href="#papers">Past papers</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section class="view" id="v-plan">
+  <div class="panel">
+    <h2>How Part 1 is marked</h2>
+    <div class="grid2">
+      <div class="stat"><b>20 × 1 mark</b><span>MCQs, mostly sleep facts from L1–L3 plus a few on classification and evaluation (L4–L7)</span></div>
+      <div class="stat"><b>1 × 10 marks</b><span>Short answer. In 2024 and 2025 it was: sketch a 2-D feature space, compute class means, derive an LDA boundary, classify test points.</span></div>
+    </div>
+    <p>The past papers show a clear pattern. The MCQs are about 80% sleep facts: stage percentages, cycle length, EEG waveforms, AHI cut-offs, prevalence rankings, CPAP. The 10 marks are a hand calculation. Lectures 6–7 (cross-validation, McNemar, ROC) are new material, so expect a few MCQs on them, or for them to show up in the short answer.</p>
+  </div>
+  <div class="panel">
+    <h2>Suggested order (about 6–8 hours)</h2>
+    <ol>
+      <li><b>Numbers table</b> (30 min). Memorise it. Most MCQ marks are in it.</li>
+      <li><b>Notes L1–L3</b> (1.5 h). Sleep, EEG waveforms, disorders. Look for the red "trap" boxes, which mark the distractors examiners like.</li>
+      <li><b>Notes L4–L7</b> (1.5 h). Classification, LDA, CV, statistical tests, metrics.</li>
+      <li><b>Calculations</b> (2 h). Work the 2024 LDA question on paper before you reveal the answer. Then do McNemar, ROC and the FFT example.</li>
+      <li><b>Quiz</b> (1 h). Go round until you score over 90%, then do the past-paper keys.</li>
+    </ol>
+    <div class="tip">The extension readings aren't examinable this year. The 2025 paper had several questions taken straight from Carskadon &amp; Dement and Gottlieb &amp; Punjabi (narcolepsy SOREMPs, STOP-Bang, surgery for OSA). Those are marked <span class="chip read">reading</span> in the past-paper key, so you can see what to skip.</div>
+  </div>
+</section>
+
+<!-- ================= NOTES ================= -->
+<section class="view" id="v-notes" hidden>
+
+<details class="lec" open>
+<summary><span class="no">L1</span><h3>Sleep, the PSG and the EEG</h3><span class="weight">high MCQ weight</span></summary>
+<div class="body">
+<h4>Measuring sleep</h4>
+<ul>
+  <li><b>Polysomnogram (PSG)</b> = <b>EEG</b> (brain) + <b>EOG</b> (eye movements) + <b>EMG</b> (muscle tone). Clinicians also record <b>respiration</b> (nasal airflow) and <b>oxygen saturation</b>, because sleep disorders often involve disrupted breathing.</li>
+  <li><b>Sleep definition:</b> "a reversible state of perceptual disengagement from, and unresponsiveness to, the environment."</li>
+  <li>Sleep = <b>REM</b> + <b>non-REM</b>. The NREM stages can <b>only be determined with EEG</b>.</li>
+  <li>Behavioural signs: recumbence, quiescence, eye closure. EMG shows muscle tone loss is <b>nearly complete in REM</b>.</li>
+  <li>Physiological signs: autonomic changes (heart and respiration rate, blood pressure, body temperature).</li>
+</ul>
+<h4>Where EEG comes from</h4>
+<ul>
+  <li>Generated by <b>pyramidal neurons</b> in cortical layers <b>3 and 5</b>, similarly oriented, near the scalp.</li>
+  <li>It's the <b>summed postsynaptic potentials</b> (EPSPs/IPSPs) of thousands of cells, <span class="hl">not action potentials</span> (those are too short to record).</li>
+  <li>Each scalp electrode picks up at least about <b>6 cm²</b> of synchronous cortex.</li>
+  <li>The summed activity behaves as a <b>dipole</b> parallel to the pyramidal cells.</li>
+  <li>Rhythmic EEG reflects cortex ↔ thalamus loops at rest. When the cortex is given a task it <b>desynchronises</b>, giving lower-amplitude, faster rhythms. Example: the posterior dominant rhythm (alpha, about 8.5–12 Hz) disappears when the eyes open.</li>
+</ul>
+<h4>History (dates are MCQ bait)</h4>
+<div class="tbl"><table>
+<tr><th>Year</th><th>Who</th><th>What</th></tr>
+<tr><td class="num">1924</td><td>Hans Berger</td><td>First human EEG (patients with skull defects)</td></tr>
+<tr><td class="num">1929</td><td>Berger</td><td>Published: <b>alpha</b> (8–12 Hz) and <b>beta</b> (faster, smaller; 12–30 Hz)</td></tr>
+<tr><td class="num">1935</td><td>Loomis, Harvey, Hobart</td><td>Different EEG rhythms through sleep; 5 stages</td></tr>
+<tr><td class="num">1952</td><td>Aserinsky &amp; Kleitman</td><td><b>REM discovered</b>, using EOG to study slow eye movements at sleep onset</td></tr>
+<tr><td class="num">1968/69</td><td>Rechtschaffen &amp; Kales</td><td><b>R&amp;K</b> scoring manual: 5 stages (1, 2, 3, 4, REM)</td></tr>
+<tr><td class="num">2007</td><td>AASM</td><td>New terms: <b>N1, N2, N3</b> (N3 = old stages 3 + 4), plus R</td></tr>
+</table></div>
+<h4>The night's structure</h4>
+<figure>
+  <div class="tbl"><svg id="hypno" viewBox="0 0 720 230" width="100%" role="img" aria-label="Typical hypnogram of a healthy young adult over 8 hours"></svg></div>
+  <figcaption>Typical hypnogram (graph of sleep stage vs time) for a healthy young adult. Slow-wave sleep is concentrated in the first third of the night, and REM episodes get longer towards morning. There are about 5 cycles of roughly 90 minutes. Illustrative, not real data.</figcaption>
+</figure>
+<ul>
+  <li>Sleep is <b>entered through NREM</b>.</li>
+  <li>NREM–REM cycle ≈ <b>90–110 min</b>, so about <b>4–6 cycles</b> a night. Answer "5" if asked.</li>
+  <li><b>Slow-wave sleep dominates early</b> in the night; <b>REM dominates late</b>.</li>
+  <li>Wake &lt; <b>5%</b>. Stage 1 <b>2–5%</b>, Stage 2 <b>45–55%</b>, Stage 3 <b>3–8%</b>, Stage 4 <b>10–15%</b>, REM <b>20–25%</b> in <b>4–6 episodes</b>. NREM is therefore about 75–80%.</li>
+  <li><b>Arousal threshold</b> (how strong a stimulus it takes to wake you) <b>rises from stage 1 to stage 4</b> and is <b>variable in REM</b>.</li>
+</ul>
+<h4>Animals, cycles, theories</h4>
+<ul>
+  <li>All mammals and birds studied have REM + NREM, <b>except cetaceans (dolphins, whales) and fur seals</b>, which show <b>unihemispheric</b> NREM sleep.</li>
+  <li>All animals studied have a circadian activity cycle, even cockroaches.</li>
+  <li><b>Ultradian</b> = period shorter than a day but longer than an hour (the 90-min sleep cycle). <b>Circadian</b> = about 24 h, persists without light cues (the sleep episode). So sleep episodes are circadian and sleep cycles are ultradian.</li>
+  <li>Sleep deprivation kills rats; fragmented sleep hurts human performance. <b>Why</b> we sleep is unknown.</li>
+  <li><b>Restorative</b> theories, e.g. the <i>memory consolidation hypothesis</i>, are tested with sleep-deprivation studies. <b>Adaptive</b> theories, e.g. the <i>protection hypothesis</i> (keeps diurnal animals away from night-time predators and injury), are hard or impossible to test.</li>
+</ul>
+<div class="trap"><b>Traps:</b> EEG reflects postsynaptic potentials, not action potentials. REM ≈ 20–25% (not 40%, not 12–14%). Stage 2 is the largest stage. Slow-wave sleep is early in the night, not late.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L2</span><h3>Sleep stages and EEG hallmarks</h3><span class="weight">high MCQ weight</span></summary>
+<div class="body">
+<div class="tbl"><table>
+<tr><th>Waveform</th><th>AASM definition</th><th>Where on scalp</th><th>Origin</th><th>Stage</th></tr>
+<tr><td><b>Alpha rhythm</b></td><td>Sinusoidal <b>8–13 Hz</b> trains, eyes closed, attenuates on eye opening</td><td>Occipital</td><td>Higher-order cortex, spreading down to lower-order cortex and in to thalamus</td><td>Wake, eyes closed</td></tr>
+<tr><td><b>LAMF</b> (low-amplitude mixed frequency)</td><td>Low amplitude, mostly <b>4–7 Hz (theta)</b>; "background" activity</td><td>–</td><td>–</td><td><b>N1 and REM</b>; also present in N2</td></tr>
+<tr><td><b>Sleep spindles</b></td><td>Train of waves at <b>11–16 Hz</b> (usually 12–14), lasting <b>≥ 0.5 s</b></td><td>Central</td><td><b>Thalamus</b> (thalamic reticular nucleus, TRN). Gates sensory input.</td><td><b>N2 only</b></td></tr>
+<tr><td><b>K-complex</b></td><td>Sharp <b>negative</b> wave then a positive component, total <b>≥ 0.5 s</b></td><td>Frontal</td><td>Mainly <b>cortex</b> (frontal), with the thalamus helping synchronise it. Processes stimuli while keeping you asleep; suppresses waking to non-threatening stimuli.</td><td><b>N2 only</b></td></tr>
+<tr><td><b>Slow waves</b></td><td><b>0.5–2 Hz</b>, peak-to-peak <b>&gt; 75 µV</b></td><td>Frontal</td><td><b>Cortex alone, no thalamic input</b>. Neurons switch between ON and OFF states; reflects local disconnection between regions.</td><td>Stage 3 (20–50% of epoch) and stage 4 (&gt; 50%), i.e. N3</td></tr>
+</table></div>
+<h4>Staging rules in one list</h4>
+<ul>
+  <li>Eyes closed before sleep: <b>alpha</b>.</li>
+  <li><b>N1</b>: alpha replaced by <b>LAMF</b>. This is the accepted marker of <b>sleep onset</b>. Slow eye movements also appear.</li>
+  <li><b>N2</b>: <b>spindles and/or K-complexes</b>.</li>
+  <li><b>N3</b> (stages 3+4, "slow-wave sleep"): high-voltage 0.5–2 Hz slow waves, 20–50% of the epoch = stage 3, &gt; 50% = stage 4.</li>
+  <li><b>REM</b>: <b>LAMF EEG + low EMG + rapid eye movements</b>. Fast, desynchronised EEG. Shorthand: "an active brain in a paralysed body". NREM is "a relatively inactive brain in a movable body".</li>
+</ul>
+<h4>Limitations of staging</h4>
+<ul>
+  <li><b>Sleep onset</b> isn't a single event, and no measurement is clear-cut every time. The consensus is that the EEG change to stage 1 marks onset. EEG is scored in <b>30-s epochs</b>, which limits precision.</li>
+  <li><b>Inter-rater agreement</b> (Cohen's kappa): 0.21–0.4 fair, 0.41–0.6 moderate, <b>0.61–0.8 substantial</b>, 0.81–0.99 almost perfect. Human scorers reach "substantial". Agreement is <b>highest for wake, REM and N2</b>, then stages 3/4, and <b>lowest for stage 1</b>.</li>
+  <li>Thalamus: relays all sensory input <b>except smell</b>, plus motor signals, to the cortex.</li>
+</ul>
+<h4>In-lecture MCQs and their answers</h4>
+<ul>
+  <li>Correct statement about young adults: <b>NREM ≈ 80% of total sleep</b> (not a 60-min cycle, not 9–10 REM episodes, and SWS is not in the last third).</li>
+  <li>First hour of sleep: <b>mostly stages 3 and 4</b>.</li>
+  <li>Bed 11 pm–7 am, most likely in stage 4 at: <b>midnight</b>.</li>
+  <li>Sensory processing during sleep: <b>continues, but at a lower level</b> than when awake.</li>
+  <li>Arousal threshold is highest in <b>stage 4</b>.</li>
+</ul>
+<div class="trap"><b>Traps:</b> Spindles and K-complexes are N2 only, not REM. "Spindles" is a waveform, not a stage. Slow waves come from the cortex without the thalamus; spindles come from the thalamus. At sleep onset the EEG goes from alpha to LAMF, not the other way round.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L3</span><h3>Sleep disorders and sleep apnoea</h3><span class="weight">high MCQ weight</span></summary>
+<div class="body">
+<h4>What changes sleep architecture</h4>
+<ul>
+  <li><b>Age is the strongest and most consistent factor.</b> Stages 3/4 peak in young children and <b>fall markedly with age</b>. <b>Arousals increase</b> with age. <b>REM %</b> holds up well into healthy old age.</li>
+  <li><b>Recovery sleep</b> after sleep loss <b>favours stages 3 and 4</b>.</li>
+  <li>Circadian rhythm, temperature, drugs and sleep disorders also matter.</li>
+</ul>
+<h4>The four disorders</h4>
+<div class="tbl"><table>
+<tr><th>Disorder</th><th>What it is</th><th>Prevalence</th></tr>
+<tr><td>Narcolepsy</td><td>Extreme tendency to fall asleep in quiet or monotonous settings. Easily woken and immediately alert. Often with <b>cataplexy</b> and <b>hypnagogic hallucinations</b>.</td><td class="num">1 in 2,000 (0.05%)</td></tr>
+<tr><td>Restless legs / periodic leg movement</td><td>Unease, itching, twitching in the calves in bed at night; only relieved by moving the legs</td><td class="num">≈ 8%</td></tr>
+<tr><td>Obstructive sleep apnoea</td><td>Repeated complete or partial upper-airway obstruction causing desaturation or arousal</td><td class="num">17% ♀, 34% ♂ (age 30–70)</td></tr>
+<tr><td>Insomnia</td><td>Can't fall or stay asleep long enough. Linked to pain, stress, depression.</td><td class="num">1 in 2 in the past year</td></tr>
+</table></div>
+<p>Increasing prevalence: <b>narcolepsy &lt; RLS &lt; OSA &lt; insomnia</b>. About 1 in 5 people has a chronic sleep disorder. <i>Epidemiology</i> is the study of incidence, prevalence and control of disease.</p>
+<h4>Apnoea</h4>
+<ul>
+  <li><b>OSA</b>: effort to breathe is frustrated by obstruction. Comes with loud snoring and daytime sleepiness (hypersomnia).</li>
+  <li><b>CSA</b> (central): <b>no effort</b> to breathe, no obstruction, no loud snoring. Caused by <b>cardiac or neurological</b> disorders, usually in <b>elderly</b> people.</li>
+  <li><b>AHI</b> = average number of apnoea + hypopnea events (each <b>&gt; 10 s</b>) <b>per hour</b>. <b>&lt; 5 normal · 5–15 mild · 15–30 moderate · &gt; 30 severe.</b></li>
+  <li>What OSA looks like on a PSG: <b>no airflow</b>; thorax and abdomen moving <b>out of phase</b> (paradoxical breathing); <b>oxygen desaturation</b>; <b>progressive tachycardia</b> on ECG; an <b>EEG arousal ends the event</b>, then breathing and saturation recover.</li>
+  <li>Prevalence rises with age; <b>by about 50, women catch up with men</b>. Higher in minority populations. There is a genetic component (inherited airway anatomy).</li>
+  <li><b>Risk factors</b>: excess weight, older age, narrow airway, hypertension, chronic nasal congestion, smoking, diabetes, male sex, family history, asthma. <i>Not</i> dehydration.</li>
+  <li><b>Symptoms</b>: excessive sleepiness (most common; 15–50% of screened cases), low energy, waking up gasping or choking, snoring (<b>sensitive but not specific</b>), <b>nocturia</b> (&gt; 2 times a night), morning headache, nocturnal reflux, witnessed apnoeas. <i>Not</i> the hypnic jerk.</li>
+  <li><b>Treatment</b>: behavioural (no alcohol, exercise, weight loss, avoid sleeping on your back); devices (<b>CPAP</b>, which <b>keeps the airway open</b>, and oral mandibular repositioning devices); surgery in severe cases when CPAP fails (e.g. soft-palate resection). CPAP is <b>not the only</b> treatment. Successful CPAP can cause <b>SWS or REM rebound</b>.</li>
+  <li><b>Wearables</b> for OSA screening: bracelet (PPG: HR, SpO₂, respiration), chest band (ECG), adhesive patch (respiration, accelerometer), ring, headset (EEG), EMG.</li>
+</ul>
+<div class="trap"><b>Traps:</b> AHI 25 is <i>moderate</i>, not severe. AHI &lt; 5 is <i>not</i> mild OSA. CSA has no airway obstruction, so soft-palate anatomy is an OSA risk, not a CSA risk. Males are at greater OSA risk. SWS goes <i>down</i> with age.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L4</span><h3>HCI/BCI, pattern recognition and Fisher LDA</h3><span class="weight">short-answer core</span></summary>
+<div class="body">
+<ul>
+  <li><b>HCI</b> loop: <b>input → signal processing → decision / control logic → output → feedback</b>. Example: an OSA wristband goes PPG → artefact removal + feature extraction → classification → record OSA events → OSA report.</li>
+  <li><b>BCI</b> = a direct communication pathway between the brain and an external device.</li>
+  <li><b>Pattern recognition pipeline</b>: input → <b>sense → segment → extract features → classify → post-process</b> → decision. That's 5 stages.</li>
+  <li><b>Classification</b> is a <i>statistical</i> process that sorts observations into classes. You can use it for <b>inference</b> ("are A and B reliably different?") or <b>prediction/decoding</b> (label unseen data). It's statistical because features vary within a class, so accuracy is rarely 100%.</li>
+  <li><b>Feature extraction</b> is <b>domain-dependent</b> and needs specialist knowledge. Good features are similar within a class, different between classes, and invariant to irrelevant changes. <b>Classifiers are usually domain-independent.</b></li>
+  <li>A feature vector lives in an n-D <b>feature space</b> (also called vector or embedding space). <b>Linearly separable</b> means a hyperplane separates the classes perfectly. Data can be separable but not linearly separable, in which case you need a non-linear boundary.</li>
+  <li>Linear boundary in 2-D: <span class="k">a·x₁ + b·x₂ + c = 0</span>. Quadratic: <span class="k">f + a x₁ + b x₂ + c x₁² + d x₁x₂ + e x₂² = 0</span>.</li>
+  <li><b>Linear</b> classifiers: LDA, logistic regression, linear SVM. <b>Non-linear</b>: kernel SVM, decision trees and random forests, neural networks (MLP, CNN, Transformer).</li>
+  <li>The design process (collect data → features → model → train → evaluate) is <b>heuristic</b>, meaning trial and error, and you loop back.</li>
+</ul>
+<h4>Fisher's LDA, step by step</h4>
+<ol>
+  <li><b>Project</b> the data onto a direction <b>w</b>. Choose w to <b>maximise the separation of the projected means</b> and <b>minimise the within-class scatter</b>:
+  <pre class="math">J(w) = (m₂ − m₁)² / (s₁² + s₂²)          m, s = projected mean and scatter</pre></li>
+  <li>The solution:
+  <pre class="math">μᵢ = (1/nᵢ) Σ xᵢ                       class mean
+Sᵢ = Σ (x − μᵢ)(x − μᵢ)ᵀ                 class scatter matrix (2×2)
+S  = S₁ + S₂                             pooled within-class scatter
+w  = S⁻¹ (μ₂ − μ₁)                       points roughly from μ₁ to μ₂</pre></li>
+  <li><b>Threshold</b>: if the projected classes are normal with equal scatter (and equal priors), the error-minimising boundary is <b>perpendicular to w</b> and passes through the <b>midpoint of the means</b>:
+  <pre class="math">wᵀx + b = 0      with   b = −wᵀ(μ₁ + μ₂)/2
+wᵀx + b &gt; 0  → class 2        wᵀx + b &lt; 0  → class 1</pre></li>
+</ol>
+<div class="tip"><b>Shortcut:</b> if both classes have <b>identity (or equal spherical) covariance</b>, then S⁻¹ ∝ I, so w ∝ μ₂ − μ₁ and the boundary is the <b>perpendicular bisector</b> of the line joining the two means. That's what the 2025 question tested.</div>
+<div class="trap"><b>Trap:</b> Fisher LDA uses <i>every</i> point, through the means and scatter. Removing a single observation <b>does</b> change the fit, unlike an SVM, where only the support vectors matter.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L5</span><h3>Prediction and FFT band-power features</h3><span class="weight">medium</span></summary>
+<div class="body">
+<ul>
+  <li><b>Prediction/decoding</b>: record a new 5-s epoch, compute its features, place it in the feature space, and check which side of the boundary it falls on, using the sign of <span class="k">wᵀx + b</span>.</li>
+  <li><b>Band-power features via FFT</b> (course convention):
+<pre class="math">X[k] = (1/N) Σ x[n] e^(−j2πkn/N)           # np.fft.fft(x)/N
+Δf   = fs / N                                 # frequency resolution
+P[k] = |X[k]|²; one-sided: keep 0…N/2, double every bin except DC
+P_band = Σ P[k] for f_k in [f_lo, f_hi]</pre></li>
+  <li>For a sine of amplitude A: the two-sided |X| at ±f is <b>A/2</b>, the one-sided amplitude is <b>A</b>, and the one-sided power is <b>A²/2</b>.</li>
+  <li>Bands: theta 4–8 Hz, <b>alpha 8–12/13 Hz</b>, <b>beta 12/13–30 Hz</b>. Eyes closed means more alpha power; beta and theta barely change.</li>
+  <li>sklearn: <span class="k">LinearDiscriminantAnalysis().fit(X, y)</span> then <span class="k">.predict(X_new)</span>. MATLAB: <span class="k">classify(sample, training, group, type)</span> with type <span class="k">'linear'</span> (pooled full covariance), <span class="k">'diaglinear'</span> (pooled <i>diagonal</i> covariance, i.e. features assumed independent) or <span class="k">'quadratic'</span>.</li>
+  <li>Vibe coding, agents and harnesses are <b>non-examinable</b>.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L6</span><h3>Overfitting, hold-out and cross-validation</h3><span class="weight">medium</span></summary>
+<div class="body">
+<ul>
+  <li><b>Overfitting</b>: a model becomes needlessly complex and "fits the noise", so it predicts new data worse than a simpler model. Lecture example: data generated by y = 2x + noise. Model A (2 parameters, linear) vs Model B (9 parameters, 8th-order polynomial). Model B fits the training points better but predicts badly.</li>
+  <li>LOOCV results: <b>Model A mean predictive SSE 39.5</b> (SD 45.5) vs <b>Model B 891.3</b> (SD 3236.8). Model A is the better model.</li>
+  <li>Ideally you'd test on freshly generated data, but in practice you don't have it. So you keep a <b>hold-out sample</b> that isn't used for training. One hold-out split can be <b>biased</b> by which points land in it.</li>
+  <li><b>k-fold CV</b>:
+<pre class="math">partition data into k groups of equal size
+loop k times
+  hold out a group not previously held out
+  fit / train on the remaining ("held-in") groups
+  score the prediction of the held-out group
+end
+evaluate = average of the k scores</pre></li>
+  <li>k can be anything from 2 to N. <b>k = N is leave-one-out (LOOCV).</b></li>
+  <li><b>Stratified</b> random sampling: each split takes roughly equal proportions from each class, which reduces bias.</li>
+  <li>Use <b>a single hold-out</b> when the dataset is huge and refitting is too expensive (e.g. training an LLM). <b>EEG datasets are small, so k-fold is preferred.</b></li>
+  <li><b>Repeated k-fold</b>: run k-fold n times with different random splits for a more robust estimate.</li>
+  <li>CV can be done at sample, <b>subject</b> (leave-one-subject-out) or dataset level. Subject- or dataset-level CV tests <b>generalisability</b> across people or datasets.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L7</span><h3>Comparing classifiers, chance level and class imbalance</h3><span class="weight">new this year</span></summary>
+<div class="body">
+<h4>Is A really better than B?</h4>
+<ul>
+  <li><b>McNemar's test</b> (single hold-out, or <b>LOOCV</b>, since each fold tests one sample and so gives paired predictions). Build a 2×2 table of A correct/wrong × B correct/wrong. Only the <b>discordant</b> cells matter: n₀₁ (A right, B wrong) and n₁₀ (A wrong, B right).
+  <pre class="math">χ² = (|n₀₁ − n₁₀| − 1)² / (n₀₁ + n₁₀)       ~ χ² with 1 dof under H₀
+reject H₀ at α = 0.05 if χ² &gt; 3.841</pre></li>
+  <li><b>Paired t-test on k-fold differences</b>: <span class="k">t = mean(d) / (std(d)/√k)</span>. It's <b>flawed</b> because the fold training sets overlap, so the differences are <b>not independent</b>. The variance is underestimated, t is inflated, and you get <b>too many false positives</b> (rejecting a true H₀).</li>
+  <li><b>Corrected repeated k-fold CV test</b> (Nadeau &amp; Bengio 2003). Recommended by Bouckaert &amp; Frank (2004) as the most replicable.
+  <pre class="math">t_corr = mean(d_ij) / √[ (1/(n·k) + n_test/n_train) · s² ]</pre></li>
+  <li><b>Null hypothesis</b>: no difference, so results are down to chance. <b>p-value</b>: the probability of getting results at least as extreme by chance alone.</li>
+</ul>
+<h4>Is it better than chance?</h4>
+<ul>
+  <li>Accuracy above theoretical chance (e.g. 55% vs 50%) is <b>not the same</b> as being significantly above chance.</li>
+  <li><b>Permutation test</b>: cross-validate on the true labels to get a₀. Then B times: shuffle the labels, cross-validate again, record a*. <span class="k">p = (#{a* ≥ a₀} + 1)/(B + 1)</span>. Use B = 1000 if you can and at least 100.</li>
+  <li>With imbalanced classes (90/10 medical screening, 98/2 fraud), a dummy classifier that always picks the majority class scores 80–95% and is useless.</li>
+</ul>
+<h4>Metrics</h4>
+<div class="tbl"><table>
+<tr><th></th><th>Predicted 0</th><th>Predicted 1</th></tr>
+<tr><td><b>True 0 (negative)</b></td><td>TN</td><td>FP</td></tr>
+<tr><td><b>True 1 (positive)</b></td><td>FN</td><td>TP</td></tr>
+</table></div>
+<ul>
+  <li><b>Accuracy</b> = (TP+TN)/total. Use it for balanced classes with equal error costs.</li>
+  <li><b>Sensitivity / recall / TPR</b> = TP/(TP+FN). Use it when the positive class is rare but important (disease screening).</li>
+  <li><b>Specificity</b> = TN/(TN+FP). The slides pair it with a rare negative class (their example is fraud detection).</li>
+  <li><b>ROC</b>: y = TPR, x = FPR = 1 − specificity = FP/(FP+TN). Sweep each unique score as a threshold (predict 1 if score ≥ t). <b>AUC 0.5 = random, 1.0 = perfect, whatever the class proportions</b>, so use it for imbalanced data.</li>
+</ul>
+</div>
+</details>
+</section>
+
+<!-- ================= NUMBERS ================= -->
+<section class="view" id="v-numbers" hidden>
+<div class="panel">
+  <h2>Numbers to memorise</h2>
+  <p class="lede" style="margin-top:4px">Cover the right-hand column and test yourself.</p>
+  <div class="tbl"><table>
+  <tr><th>Fact</th><th>Value</th></tr>
+  <tr><td>NREM–REM cycle length</td><td class="num">90–110 min</td></tr>
+  <tr><td>Cycles / REM episodes per night</td><td class="num">4–6 (≈5)</td></tr>
+  <tr><td>First REM after sleep onset</td><td class="num">≈80–100 min</td></tr>
+  <tr><td>Wake during the sleep episode</td><td class="num">&lt; 5%</td></tr>
+  <tr><td>Stage 1 / N1</td><td class="num">2–5%</td></tr>
+  <tr><td>Stage 2 / N2 (largest)</td><td class="num">45–55%</td></tr>
+  <tr><td>Stage 3 · Stage 4</td><td class="num">3–8% · 10–15%</td></tr>
+  <tr><td>REM</td><td class="num">20–25%</td></tr>
+  <tr><td>Alpha (AASM)</td><td class="num">8–13 Hz, occipital</td></tr>
+  <tr><td>Beta</td><td class="num">12–30 Hz</td></tr>
+  <tr><td>LAMF (theta)</td><td class="num">4–7 Hz</td></tr>
+  <tr><td>Spindles</td><td class="num">11–16 Hz (12–14), ≥ 0.5 s, central</td></tr>
+  <tr><td>K-complex</td><td class="num">≥ 0.5 s, frontal</td></tr>
+  <tr><td>Slow waves</td><td class="num">0.5–2 Hz, &gt; 75 µV, frontal</td></tr>
+  <tr><td>Stage 3 vs stage 4 slow-wave content</td><td class="num">20–50% vs &gt; 50%</td></tr>
+  <tr><td>Scoring epoch</td><td class="num">30 s</td></tr>
+  <tr><td>Cortex per scalp electrode</td><td class="num">≥ 6 cm²</td></tr>
+  <tr><td>Kappa "substantial"</td><td class="num">0.61–0.80</td></tr>
+  <tr><td>First human EEG / published</td><td class="num">1924 / 1929 (Berger)</td></tr>
+  <tr><td>REM discovered</td><td class="num">1952 (Aserinsky &amp; Kleitman)</td></tr>
+  <tr><td>R&amp;K manual · AASM N1–N3</td><td class="num">1968–69 · 2007</td></tr>
+  <tr><td>Apnoea/hypopnea event length</td><td class="num">&gt; 10 s</td></tr>
+  <tr><td>AHI mild / moderate / severe</td><td class="num">5–15 / 15–30 / &gt; 30 per h</td></tr>
+  <tr><td>OSA prevalence, age 30–70</td><td class="num">17% ♀, 34% ♂</td></tr>
+  <tr><td>Women catch up with men (OSA)</td><td class="num">≈ age 50</td></tr>
+  <tr><td>Narcolepsy</td><td class="num">1 in 2,000 (0.05%)</td></tr>
+  <tr><td>Restless legs</td><td class="num">≈ 8%</td></tr>
+  <tr><td>Insomnia in past year</td><td class="num">1 in 2</td></tr>
+  <tr><td>Chronic sleep disorder</td><td class="num">1 in 5</td></tr>
+  <tr><td>Nocturia in OSA</td><td class="num">&gt; 2 per night</td></tr>
+  <tr><td>Excessively sleepy among screened OSA</td><td class="num">15–50%</td></tr>
+  <tr><td>χ² critical (1 dof, α = 0.05)</td><td class="num">3.841</td></tr>
+  <tr><td>Permutation B</td><td class="num">≥ 100, ideally 1000</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ================= CALCULATIONS ================= -->
+<section class="view" id="v-calc" hidden>
+
+<div class="panel">
+  <h2>A · Fisher LDA by hand (2024 Q21)</h2>
+  <p>Two samples of six observations each. (i) Linearly separable? (ii) Means. (iii) Fisher boundary. Try it on paper first.</p>
+  <div class="tbl"><table>
+  <tr><th>Sample 1 (x₁, x₂)</th><th>Sample 2 (x₁, x₂)</th></tr>
+  <tr><td class="num">(0.52, 0.00) · (1.82, 1.10) · (−2.18, 1.70)<br>(0.82, 2.60) · (0.32, −0.90) · (−1.28, 1.70)</td><td class="num">(0.28, 4.40) · (−0.42, 4.10) · (0.28, 3.80)<br>(−0.62, 1.90) · (−0.52, 3.50) · (0.98, 5.00)</td></tr>
+  </table></div>
+  <figure><div class="tbl"><svg id="ldaplot" viewBox="0 0 420 330" width="100%" style="max-width:520px" role="img" aria-label="Scatter plot of the two samples with means and Fisher decision boundary"></svg></div>
+  <figcaption>Open circles are sample 1 and filled circles are sample 2. Crosses mark the class means. The dashed line is the Fisher boundary x₂ ≈ 2.408 + 0.042 x₁. The two ringed points are on the wrong side.</figcaption></figure>
+  <details class="reveal"><summary>Show full working</summary>
+<pre class="math">(i)  No. Sample 2's point (−0.62, 1.90) lies inside the region spanned by sample 1
+     (below the segment (−2.18,1.70)–(0.82,2.60), which is at x₂ ≈ 2.17 when x₁ = −0.62).
+     No straight line can put it with sample 2 and still keep (0.82, 2.60) with sample 1.
+
+(ii) μ₁ = ( 0.02/6 , 6.20/6 ) = ( 0.003 , 1.033 )
+     μ₂ = (−0.02/6 , 22.70/6) = (−0.003 , 3.783 )
+
+(iii) Scatter matrices  Sᵢ = Σ (x − μᵢ)(x − μᵢ)ᵀ
+     S₁ = [ 10.748  −2.057 ]     S₂ = [ 1.948  2.552 ]
+          [ −2.057   8.153 ]          [ 2.552  5.588 ]
+     S  = S₁ + S₂ = [ 12.697  0.495 ]     det S = 174.23
+                    [  0.495 13.742 ]
+     S⁻¹ = (1/174.23) [ 13.742  −0.495 ]
+                      [ −0.495  12.697 ]
+     μ₂ − μ₁ = (−0.0067 , 2.750)
+     w = S⁻¹(μ₂ − μ₁) = (−0.0083 , 0.2004)
+
+     Boundary through the midpoint m = (μ₁+μ₂)/2 = (0.000 , 2.408):
+     wᵀ(x − m) = 0  →  −0.0083 x₁ + 0.2004 x₂ − 0.483 = 0
+                    →  x₂ = 2.408 + 0.042 x₁      (almost horizontal)
+     Class 2 if wᵀx − 0.483 &gt; 0, i.e. above the line.
+
+     Assumptions: projected classes normal, equal scatter, equal priors.
+     Check: (0.82, 2.60) → class 2 (wrong); (−0.62, 1.90) → class 1 (wrong).
+     Training accuracy = 10/12 = 83%.
+
+     Faster version (assume identity covariance): w ∝ μ₂ − μ₁ ≈ (0, 2.75), so the boundary is
+     the perpendicular bisector, x₂ ≈ 2.41. It's nearly identical here; say which assumption you used.</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h2>B · Classifying test points (2025 Q21, MATLAB <span class="k">diaglinear</span>)</h2>
+  <p>20 points from N([−1, 0], I) for group 0 (red), 20 from N([−4, −4], I) for group 1 (blue). Test points: (1,1), (0,−8), (0,0), (−6,0), (−5,−5). (a) Sketch the plot. (b) Give the five classes.</p>
+  <details class="reveal"><summary>Show working</summary>
+<pre class="math">Assume the sample means equal the true means and the pooled diagonal variances ≈ 1.
+Identity covariance → boundary = perpendicular bisector of the means.
+  w ∝ μ₁ − μ₀ = (−3, −4)        midpoint = (−2.5, −2)
+  −3(x+2.5) − 4(y+2) = 0   →   3x + 4y + 15.5 = 0   →   y = −(3x + 15.5)/4
+  g(x,y) = 3x + 4y + 15.5 :  g &gt; 0 → group 0 ,  g &lt; 0 → group 1
+
+  (1, 1)   : 3 + 4 + 15.5    =  22.5  → 0
+  (0, −8)  : 0 − 32 + 15.5   = −16.5  → 1
+  (0, 0)   :                    15.5  → 0
+  (−6, 0)  : −18 + 15.5      =  −2.5  → 1   (dist² to μ₀ = 25, to μ₁ = 20)
+  (−5, −5) : −15 − 20 + 15.5 = −19.5  → 1
+  disp(CLASS) → 0 1 0 1 1
+
+Sketch: square axes from −10 to 10, grid, ticks every 5, labelled "Feature 1 (a.u.)" and
+"Feature 2 (a.u.)". Red open circles clustered within about ±2 of (−1,0); blue open circles
+around (−4,−4); black filled dots at each mean. Solid black line from (−10, 3.6) to (8.2, −10).</pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h2>C · McNemar calculator</h2>
+  <p>Lecture example: n₀₀ = 122, n₀₁ = 40, n₁₀ = 28, n₁₁ = 10. Accuracy A = 162/200 = 81%, B = 150/200 = 75%.</p>
+  <div class="calc">
+    <label for="mn01">n₀₁ (A right, B wrong)<input type="number" id="mn01" value="40" min="0"></label>
+    <label for="mn10">n₁₀ (A wrong, B right)<input type="number" id="mn10" value="28" min="0"></label>
+  </div>
+  <div class="out" id="mnout"></div>
+</div>
+
+<div class="panel">
+  <h2>D · Paired t vs corrected t (lecture numbers)</h2>
+<pre class="math">Paired t, 10-fold: mean d = 0.0667, sd = 0.0889
+  t = 0.0667 / (0.0889/√10) = 2.372   (df 9, p ≈ 0.042, "significant", but untrustworthy)
+
+Corrected, 10×10-fold: n_train = 180, n_test = 20, mean d = 0.0387, s² = 0.004685
+  naive denominator     = √0.004685 / √100              = 0.00685 → t = 5.65
+  corrected denominator = √[(1/100 + 20/180) × 0.004685] = 0.02382 → t = 1.62
+  (p ≈ 0.11, not significant: the correction removes the false positive)</pre>
+</div>
+
+<div class="panel">
+  <h2>E · Confusion matrix, ROC and AUC</h2>
+  <p>Lecture example: scores 0.92, 0.81, 0.70, 0.44, 0.12 with true labels 1, 1, 0, 1, 0 (P = 3, N = 2).</p>
+  <div class="tbl"><table>
+  <tr><th>Threshold t</th><th>Predicted 1</th><th>TP</th><th>FP</th><th>TPR</th><th>FPR</th></tr>
+  <tr><td class="num">(&gt; 0.92)</td><td>none</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+  <tr><td class="num">0.92</td><td>x₁</td><td class="num">1</td><td class="num">0</td><td class="num">0.333</td><td class="num">0</td></tr>
+  <tr><td class="num">0.81</td><td>x₁ x₂</td><td class="num">2</td><td class="num">0</td><td class="num">0.667</td><td class="num">0</td></tr>
+  <tr><td class="num">0.70</td><td>x₁–x₃</td><td class="num">2</td><td class="num">1</td><td class="num">0.667</td><td class="num">0.5</td></tr>
+  <tr><td class="num">0.44</td><td>x₁–x₄</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td class="num">0.5</td></tr>
+  <tr><td class="num">0.12</td><td>all</td><td class="num">3</td><td class="num">2</td><td class="num">1</td><td class="num">1</td></tr>
+  </table></div>
+  <p><b>AUC</b> = 0.5 × 0.667 + 0.5 × 1 = <b>0.833</b>. You can check it another way: of the 6 (positive, negative) pairs, 5 have the positive scored higher, and 5/6 = 0.833.</p>
+  <div class="calc">
+    <label for="tp">TP<input type="number" id="tp" value="30" min="0"></label>
+    <label for="fn">FN<input type="number" id="fn" value="10" min="0"></label>
+    <label for="fp">FP<input type="number" id="fp" value="15" min="0"></label>
+    <label for="tn">TN<input type="number" id="tn" value="145" min="0"></label>
+  </div>
+  <div class="out" id="cmout"></div>
+</div>
+
+<div class="panel">
+  <h2>F · FFT band power</h2>
+<pre class="math">fs = 256 Hz, 5-s epoch → N = 1280, Δf = 256/1280 = 0.2 Hz, Nyquist = 128 Hz
+x(t) = 2·sin(2π·10t) + 0.5·sin(2π·20t)
+two-sided |X| at ±10 Hz = A/2 = 1.0      one-sided amplitude = 2.0
+one-sided power at 10 Hz = 2·(1.0)² = 2.0 = A²/2
+P_alpha (8–12 Hz) = 2.0        P_beta (13–30 Hz) = 0.5²/2 = 0.125
+Feature vector = [P_alpha, P_beta] = [2.0, 0.125]   (eyes closed → bigger P_alpha)</pre>
+</div>
+
+<div class="panel">
+  <h2>G · Short-answer patterns from 2023</h2>
+  <p>Context: two LDA models on alpha vs beta power. Sample 1 is elongated along a diagonal (alpha and beta correlated). Model 1's boundary is nearly horizontal; model 2's is tilted.</p>
+  <details class="reveal"><summary>Model answers</summary>
+  <ul>
+    <li><b>Linearly separable?</b> Only if a straight line gets every point right. In that plot a few open and filled points overlap around (1, 2), so the samples are close to, but not perfectly, linearly separable. State your criterion explicitly.</li>
+    <li><b>Remove one observation, does the fit change?</b> Yes, slightly. Fisher LDA is computed from every point's contribution to the class means and scatter matrices, so removing any point moves μ and S, and therefore w and the boundary.</li>
+    <li><b>Covariance assumptions</b>: Model 1 assumed a <b>diagonal</b> covariance (alpha and beta independent, i.e. 'diaglinear'), giving a near-horizontal boundary. Model 2 assumed a <b>full pooled covariance</b> (alpha and beta correlated, 'linear'), so its boundary follows the diagonal elongation of sample 1.</li>
+    <li><b>CV pseudocode</b>: split the data into k stratified folds. For each fold, train model 1 and model 2 on the other k−1 folds, test both on the held-out fold, and record accuracy. Average the k accuracies for each model. Use a corrected repeated k-fold t-test (or McNemar with LOOCV) to decide whether the difference is significant.</li>
+    <li><b>Which generalises better?</b> Model 2. The data clearly show correlated features, so the full-covariance assumption matches how the data were generated, and its boundary should misclassify fewer new points.</li>
+  </ul>
+  </details>
+</div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="view" id="v-quiz" hidden>
+  <div class="panel">
+    <div class="qbar">
+      <label for="qfilter">Lecture</label>
+      <select id="qfilter"><option value="all">All</option><option>L1</option><option>L2</option><option>L3</option><option>L4</option><option>L5</option><option>L6</option><option>L7</option></select>
+      <button id="qshuffle" class="ghost" type="button">Shuffle</button>
+      <button id="qreset" class="ghost" type="button">Reset</button>
+      <span class="score" id="qscore">0 / 0</span>
+    </div>
+  </div>
+  <div id="qlist" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="view" id="v-papers" hidden>
+  <div class="panel">
+    <h2>Past-paper MCQ answer keys</h2>
+    <p>These are my answers, worked out from the lecture content; no official key was in your folder. <span class="chip read">reading</span> means the question relied on an extension reading that isn't examinable this year.</p>
+  </div>
+  <div class="panel">
+    <h3>2025 (Q1–20)</h3>
+    <div class="key">
+      <div><b>1</b> A <span class="chip read">reading</span></div><div><b>2</b> C</div><div><b>3</b> C</div><div><b>4</b> B <span class="chip read">reading</span></div>
+      <div><b>5</b> B</div><div><b>6</b> A</div><div><b>7</b> B</div><div><b>8</b> B</div>
+      <div><b>9</b> B</div><div><b>10</b> A</div><div><b>11</b> A</div><div><b>12</b> C</div>
+      <div><b>13</b> C</div><div><b>14</b> C <span class="chip read">reading</span></div><div><b>15</b> D</div><div><b>16</b> B <span class="chip read">reading</span></div>
+      <div><b>17</b> B</div><div><b>18</b> ? <span class="chip read">reading</span></div><div><b>19</b> B <span class="chip read">reading</span></div><div><b>20</b> B</div>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted)">Q1: narcolepsy shows sleep-onset REM periods. Q4: STOP-Bang. Q14: the two-process model (homeostatic pressure drives early SWS). Q16: newborns enter sleep through REM with a 50–60 min cycle. Q18 compared OSA surgeries from Gottlieb &amp; Punjabi; I'm not sure of the answer and it's off-syllabus this year. Q21 is worked in Calculations B.</p>
+  </div>
+  <div class="panel">
+    <h3>2024 (Q1–20)</h3>
+    <div class="key">
+      <div><b>1</b> a</div><div><b>2</b> b</div><div><b>3</b> b</div><div><b>4</b> c</div>
+      <div><b>5</b> c</div><div><b>6</b> d</div><div><b>7</b> b</div><div><b>8</b> c</div>
+      <div><b>9</b> c</div><div><b>10</b> a</div><div><b>11</b> a</div><div><b>12</b> b</div>
+      <div><b>13</b> d</div><div><b>14</b> b</div><div><b>15</b> c</div><div><b>16</b> a</div>
+      <div><b>17</b> d</div><div><b>18</b> b</div><div><b>19</b> c</div><div><b>20</b> c</div>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted)">Q5: REM episodes get <i>longer</i> across the night, so (c) is the incorrect statement. Q9: the EEG goes from alpha to LAMF at sleep onset; (c) has it reversed. Q14: 25% is the closest option to 17–34%. Q18: CSA is rarer than OSA, RLS and insomnia. Q21 is worked in Calculations A.</p>
+  </div>
+  <div class="panel">
+    <h3>2023 (1.1–1.10, 2 marks each)</h3>
+    <div class="key">
+      <div><b>1.1</b> d</div><div><b>1.2</b> a</div><div><b>1.3</b> d</div><div><b>1.4</b> b</div><div><b>1.5</b> b</div>
+      <div><b>1.6</b> a</div><div><b>1.7</b> b</div><div><b>1.8</b> d</div><div><b>1.9</b> a</div><div><b>1.10</b> c</div>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted)">1.3: REM has fast, desynchronised EEG; spindles are N2, EMG is low, and slow eye movements also happen at sleep onset. 1.5: 25 is moderate; CSA is common in the elderly. 1.9: sleep EEG information sits well below 50 Hz; 3 Hz is slow, not fast; overnight studies use only a few EEG channels, not 32. 1.11–1.15 are in Calculations G.</p>
+  </div>
+</section>
+</div>
+
+<script>
+/* ---------- EEG trace header ---------- */
+(function(){let d="M0 23",y=23,s=1;for(let x=4;x<=800;x+=4){const a=Math.sin(x/9)*7*(x<300?1:0.35)+Math.sin(x/2.3)*(x<300?1.5:4)+(Math.sin(x*12.9898)*43758.5453%1)*3;d+=" L"+x+" "+(23+a).toFixed(1)}document.getElementById("tr").setAttribute("d",d)})();
+
+/* ---------- Tabs (hash routing) ---------- */
+const views=["plan","notes","numbers","calc","quiz","papers"];
+function show(){let h=(location.hash||"#plan").slice(1);if(!views.includes(h))h="plan";
+  views.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));}
+addEventListener("hashchange",()=>{show();window.scrollTo({top:0})});show();
+
+/* ---------- Hypnogram ---------- */
+(function(){const svg=document.getElementById("hypno");const NS="http://www.w3.org/2000/svg";
+ const L=["W","REM","S1","S2","S3","S4"],lv={W:0,REM:1,S1:2,S2:3,S3:4,S4:5};
+ const seq=[["W",0],["S1",8],["S2",14],["S3",30],["S4",38],["S3",68],["S2",74],["REM",84],["S2",94],["S3",122],["S4",130],["S3",152],["S2",158],["REM",176],["S2",196],["S3",238],["S2",248],["REM",270],["S2",302],["REM",352],["W",388],["S2",392],["REM",424],["W",474],["W",480]];
+ const x0=52,x1=705,y0=18,dy=34,X=t=>x0+(x1-x0)*t/480,Y=s=>y0+lv[s]*dy;
+ const el=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t)e.textContent=t;svg.appendChild(e);return e};
+ L.forEach(s=>{el("line",{x1:x0,x2:x1,y1:Y(s),y2:Y(s),stroke:"var(--line)","stroke-width":1});el("text",{x:x0-8,y:Y(s)+4,"text-anchor":"end","font-size":11,fill:"var(--muted)"},s)});
+ for(let h=0;h<=8;h++){el("text",{x:X(h*60),y:y0+5*dy+22,"text-anchor":"middle","font-size":11,fill:"var(--muted)"},h+"h")}
+ seq.forEach(([s,t],i)=>{if(s==="REM"&&i<seq.length-1){el("rect",{x:X(t),y:Y("REM")-6,width:X(seq[i+1][1])-X(t),height:12,fill:"var(--trace)",opacity:.85})}});
+ let d="";seq.forEach(([s,t],i)=>{d+=(i?" L":"M")+X(t)+" "+(i?Y(seq[i-1][0]):Y(s));d+=" L"+X(t)+" "+Y(s)});
+ el("path",{d,fill:"none",stroke:"var(--ink)","stroke-width":1.5});
+ el("text",{x:X(50),y:Y("S4")+20,"font-size":10.5,fill:"var(--accent)","text-anchor":"middle"},"SWS early");
+ el("text",{x:X(440),y:Y("REM")-12,"font-size":10.5,fill:"var(--trace)","text-anchor":"middle"},"long REM late");
+})();
+
+/* ---------- LDA plot ---------- */
+(function(){const svg=document.getElementById("ldaplot"),NS="http://www.w3.org/2000/svg";
+ const s1=[[0.52,0],[1.82,1.1],[-2.18,1.7],[0.82,2.6],[0.32,-0.9],[-1.28,1.7]],s2=[[0.28,4.4],[-0.42,4.1],[0.28,3.8],[-0.62,1.9],[-0.52,3.5],[0.98,5.0]];
+ const L=50,R=400,T=15,B=290,xmin=-3,xmax=3,ymin=-2,ymax=6,X=v=>L+(R-L)*(v-xmin)/(xmax-xmin),Y=v=>B-(B-T)*(v-ymin)/(ymax-ymin);
+ const el=(n,a,t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t)e.textContent=t;svg.appendChild(e);return e};
+ for(let v=xmin;v<=xmax;v++){el("line",{x1:X(v),x2:X(v),y1:T,y2:B,stroke:"var(--grid)"});el("text",{x:X(v),y:B+16,"text-anchor":"middle","font-size":11,fill:"var(--muted)"},v)}
+ for(let v=ymin;v<=ymax;v++){el("line",{x1:L,x2:R,y1:Y(v),y2:Y(v),stroke:"var(--grid)"});el("text",{x:L-8,y:Y(v)+4,"text-anchor":"end","font-size":11,fill:"var(--muted)"},v)}
+ el("rect",{x:L,y:T,width:R-L,height:B-T,fill:"none",stroke:"var(--line)"});
+ el("text",{x:(L+R)/2,y:B+34,"text-anchor":"middle","font-size":11.5,fill:"var(--ink)"},"x₁");
+ el("text",{x:14,y:(T+B)/2,"text-anchor":"middle","font-size":11.5,fill:"var(--ink)"},"x₂");
+ const f=x=>2.408+0.0416*x;el("line",{x1:X(xmin),y1:Y(f(xmin)),x2:X(xmax),y2:Y(f(xmax)),stroke:"var(--trace)","stroke-dasharray":"6 4","stroke-width":1.6});
+ s1.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:5,fill:"var(--paper)",stroke:"var(--ink)","stroke-width":1.5}));
+ s2.forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:5,fill:"var(--ink)"}));
+ [[0.82,2.6],[-0.62,1.9]].forEach(p=>el("circle",{cx:X(p[0]),cy:Y(p[1]),r:10,fill:"none",stroke:"var(--trace)","stroke-width":1.2}));
+ [[0.0033,1.0333],[-0.0033,3.7833]].forEach(p=>{el("path",{d:`M${X(p[0])-6} ${Y(p[1])-6}L${X(p[0])+6} ${Y(p[1])+6}M${X(p[0])-6} ${Y(p[1])+6}L${X(p[0])+6} ${Y(p[1])-6}`,stroke:"var(--accent)","stroke-width":2.2})});
+})();
+
+/* ---------- McNemar + confusion calculators ---------- */
+function erfc(x){const t=1/(1+0.5*Math.abs(x));const r=t*Math.exp(-x*x-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));return x>=0?r:2-r}
+function mcn(){const a=+document.getElementById("mn01").value||0,b=+document.getElementById("mn10").value||0;const o=document.getElementById("mnout");
+ if(a+b===0){o.textContent="Enter at least one discordant pair.";return}
+ const c=Math.pow(Math.max(Math.abs(a-b)-1,0),2)/(a+b),p=erfc(Math.sqrt(c/2));
+ o.textContent=`χ² = (|${a} − ${b}| − 1)² / (${a} + ${b}) = ${c.toFixed(3)}\np = ${p.toFixed(3)}  (critical value 3.841 at α = 0.05)\n${p<0.05?"Reject H₀: the classifiers differ significantly.":"Fail to reject H₀: no significant difference."}`}
+["mn01","mn10"].forEach(i=>document.getElementById(i).addEventListener("input",mcn));mcn();
+function cm(){const g=i=>+document.getElementById(i).value||0;const TP=g("tp"),FN=g("fn"),FP=g("fp"),TN=g("tn"),n=TP+FN+FP+TN;
+ const f=(a,b)=>b?(a/b).toFixed(3):"–";
+ document.getElementById("cmout").textContent=`Accuracy    = (TP+TN)/N   = ${f(TP+TN,n)}\nSensitivity = TP/(TP+FN)  = ${f(TP,TP+FN)}   (= TPR)\nSpecificity = TN/(TN+FP)  = ${f(TN,TN+FP)}\nFPR         = FP/(FP+TN)  = ${f(FP,FP+TN)}\nMajority-class dummy accuracy = ${f(Math.max(TP+FN,TN+FP),n)}`}
+["tp","fn","fp","tn"].forEach(i=>document.getElementById(i).addEventListener("input",cm));cm();
+
+/* ---------- Quiz bank ---------- */
+const Q=[
+["L1","A polysomnogram (PSG) at minimum consists of which signals?",["EEG, ECG, EMG","EEG, EOG, EMG","EEG, EOG, SpO₂","EMG, ECG, respiration"],1,"PSG = EEG + EOG + EMG. Clinicians add respiration and SpO₂ because sleep disorders often involve disrupted breathing."],
+["L1","Scalp EEG mainly reflects:",["Action potentials of interneurons","Summed postsynaptic potentials of pyramidal neurons","Action potentials of thalamic neurons","Muscle artefact from the scalp"],1,"Summed EPSPs/IPSPs of similarly oriented pyramidal cells in layers 3 and 5. Action potentials are too brief to record."],
+["L1","Which best defines sleep?",["A state in which behaviour is absent","A reversible state of perceptual disengagement from, and unresponsiveness to, the environment","A behavioural state of mostly unrousable unconsciousness","A state in which the eyes move rapidly behind the lids"],1,"The lecture's definition, and 2023 Q1.7."],
+["L1","Non-REM sleep stages can only be determined using:",["EMG","EOG","EEG","Behavioural observation"],2,"From the slides: NREM stages can only be determined with EEG."],
+["L1","Who discovered REM sleep, and when?",["Berger, 1924","Loomis et al., 1935","Aserinsky & Kleitman, 1952","Rechtschaffen & Kales, 1968"],2,"1952, found using EOG while studying slow eye movements at sleep onset."],
+["L1","In a healthy young adult, which stage takes up the largest share of total sleep?",["Stage 1","Stage 2","Slow-wave sleep","REM"],1,"Stage 2 is 45–55%."],
+["L1","Which statement is correct?",["Sleep episodes are ultradian and sleep cycles are circadian","Sleep episodes are circadian and sleep cycles are ultradian","Humans enter sleep through REM","The NREM–REM cycle lasts about 60 min"],1,"About 24 h means circadian; between 1 h and 24 h means ultradian (the 90–110 min cycle). Adults enter sleep through NREM."],
+["L1","REM sleep accounts for about what share of a healthy adult's sleep?",["5–10%","12–14%","20–25%","40%"],2,"20–25%, in 4–6 discrete episodes."],
+["L1","Which animals do NOT appear to show REM/NREM sleep like other mammals?",["Rats","Birds","Dolphins, whales and fur seals","Cats"],2,"Cetaceans and fur seals show unihemispheric NREM sleep."],
+["L1","The 'protection hypothesis' is an example of which type of theory, and how testable is it?",["Restorative; tested with sleep deprivation","Adaptive; difficult or impossible to test","Restorative; impossible to test","Adaptive; tested with sleep deprivation"],1,"Restorative theories (memory consolidation) are tested with sleep deprivation. Adaptive theories (protection) are hard to test."],
+["L2","Sleep spindles are:",["0.5–2 Hz, frontal, cortical origin","11–16 Hz, ≥0.5 s, central, from the thalamic reticular nucleus","8–13 Hz, occipital, eyes closed","4–7 Hz low-amplitude background"],1,"Spindles appear in N2 only and gate sensory input."],
+["L2","Which waveform originates in the cortex alone, without thalamic input?",["Alpha rhythm","Sleep spindles","Slow waves","K-complexes"],2,"Slow waves come from cortical ON/OFF oscillation. K-complexes are cortical but involve the thalamus; spindles are thalamic."],
+["L2","Which EEG change is taken as the hallmark of sleep onset?",["Alpha → LAMF (stage 1)","LAMF → alpha","Appearance of spindles","Sudden high-voltage slow waves"],0,"The consensus is that the EEG change to stage 1 (alpha replaced by LAMF) marks sleep onset."],
+["L2","REM sleep is identified by:",["Spindles + high EMG","Slow waves + slow eye movements","LAMF EEG + low EMG + rapid eye movements","Alpha + high EMG"],2,"REM has fast, desynchronised EEG with almost no muscle tone."],
+["L2","A 30-s epoch is 35% high-voltage 0.5–2 Hz activity. Which stage?",["Stage 2","Stage 3","Stage 4","REM"],1,"20–50% slow waves = stage 3; more than 50% = stage 4. Both are N3."],
+["L2","Inter-rater agreement for visual sleep scoring is LOWEST for:",["Wake","REM","Stage 2","Stage 1"],3,"Highest for wake, REM and N2; lowest for stage 1. Overall agreement is 'substantial' (κ 0.61–0.8)."],
+["L2","A person sleeps 11 pm–7 am. When are they most likely to be in stage 4?",["Midnight","2 am","4 am","6 am"],0,"Slow-wave sleep dominates the first third of the night."],
+["L2","Which is NOT an EEG pattern characteristic of sleep?",["High-amplitude slow waves","Alpha rhythm","Spindles","K-complexes"],1,"Alpha rhythm belongs to relaxed wakefulness with eyes closed (2024 Q7)."],
+["L3","The strongest and most consistent factor affecting sleep stage distribution is:",["Sex","Temperature","Age","Caffeine"],2,"With age, stages 3/4 fall and arousals rise; REM % is maintained."],
+["L3","After several nights of sleep loss, recovery sleep favours:",["Stage 1","Stage 2","Stages 3 and 4","Wakefulness"],2,"Recovery sleep favours slow-wave sleep."],
+["L3","Order by increasing prevalence:",["Insomnia, narcolepsy, RLS, OSA","Narcolepsy, RLS, OSA, insomnia","OSA, insomnia, narcolepsy, RLS","Narcolepsy, OSA, insomnia, RLS"],1,"0.05% < 8% < 17–34% < about 50%."],
+["L3","An AHI of 25 events per hour indicates:",["Normal","Mild OSA","Moderate OSA","Severe OSA"],2,"5–15 mild, 15–30 moderate, over 30 severe."],
+["L3","Central sleep apnoea is characterised by:",["Upper-airway obstruction with loud snoring","No respiratory effort; cardiac or neurological cause; usually elderly","Paradoxical breathing","Elongated soft palate"],1,"CSA has no obstruction and no effort to breathe."],
+["L3","Which is NOT a risk factor for OSA?",["Smoking","Hypertension","Dehydration","Being male"],2,"The risk factors are weight, age, narrow airway, hypertension, nasal congestion, smoking, diabetes, male sex, family history and asthma."],
+["L3","What terminates an obstructive apnoea event on the PSG?",["Oxygen desaturation","EEG arousal","Progressive tachycardia","Paradoxical breathing"],1,"The arousal restores breathing and saturation."],
+["L3","Snoring as an OSA symptom is:",["Specific but not sensitive","Sensitive but not specific","Neither","Diagnostic on its own"],1,"Most people with OSA snore, but plenty of people who snore don't have OSA."],
+["L3","Which statement about CPAP is correct?",["It is the only effective OSA treatment","It increases sleep fragmentation","It may produce SWS or REM rebound","It treats central apnoea by removing obstruction"],2,"CPAP keeps the airway open. Behavioural measures, oral devices and surgery are alternatives."],
+["L4","The five-stage pattern recognition pipeline is:",["Sense, filter, classify, train, decide","Sense, segment, extract features, classify, post-process","Collect, choose features, choose model, train, evaluate","Input, process, control, output, feedback"],1,"Option C is the design loop and option D is the HCI loop."],
+["L4","Which is usually domain-INDEPENDENT?",["Feature extraction","The classifier","Choice of EEG electrode site","Artefact removal"],1,"Feature extraction needs domain knowledge; classifiers generally don't."],
+["L4","Fisher's criterion J(w) is maximised when:",["Projected means are close and within-class scatter is large","Projected means are far apart and within-class scatter is small","Total variance is maximised","The number of features is minimised"],1,"J = (m₂−m₁)²/(s₁²+s₂²)."],
+["L4","Fisher's optimal projection for two classes is:",["w = S(μ₂−μ₁)","w = S⁻¹(μ₂−μ₁)","w = μ₂+μ₁","w = S⁻¹(μ₁+μ₂)/2"],1,"S = S₁+S₂ is the pooled within-class scatter."],
+["L4","Which is a NON-linear classifier?",["LDA","Logistic regression","Linear SVM","Random forest"],3,"Kernel SVM, decision trees/forests and neural networks are non-linear."],
+["L5","fs = 256 Hz, 5-s epoch. What is the FFT frequency resolution?",["0.2 Hz","1 Hz","5 Hz","51.2 Hz"],0,"Δf = fs/N = 256/1280 = 0.2 Hz."],
+["L5","A pure 10 Hz sine of amplitude 2 has one-sided FFT power (course normalisation) at 10 Hz of:",["1","2","4","0.5"],1,"Two-sided |X| = A/2 = 1. One-sided power = 2·1² = 2 = A²/2."],
+["L6","Model B (8th-order polynomial) fits the training data better than Model A (linear) but has a much larger LOOCV error. This is:",["Underfitting","Overfitting","Class imbalance","Stratification"],1,"Model B fits the noise. LOOCV SSE was 891 vs 39.5."],
+["L6","Leave-one-out CV is k-fold CV with k equal to:",["2","10","The number of classes","The number of data points"],3,"k can range from 2 to N; k = N is LOOCV."],
+["L6","When is a single hold-out sample preferred over k-fold CV?",["Small EEG datasets","Very large datasets where refitting is impractical","Imbalanced classes","Always"],1,"For example, training an LLM. EEG data are small, so k-fold is preferred."],
+["L6","Leave-one-subject-out CV is mainly used to assess:",["Training speed","Generalisability across subjects","Class balance","Overfitting to features"],1,"Subject- or dataset-level CV tests generalisation."],
+["L7","McNemar's test uses which cells of the 2×2 table?",["n₀₀ and n₁₁","The discordant pairs n₀₁ and n₁₀","All four","Only n₀₀"],1,"Under H₀ the two discordant counts should be roughly equal."],
+["L7","Why is a naïve paired t-test on k-fold CV differences flawed?",["The differences aren't normal","Fold estimates are correlated (shared training data), so variance is underestimated and false positives inflate","It needs more than 2 classifiers","It underestimates t"],1,"Hence Nadeau & Bengio's corrected repeated k-fold test."],
+["L7","A classifier scores 55% on balanced binary data. Which test tells you whether that's significantly above chance?",["McNemar","Permutation test","Paired t-test","ROC"],1,"Shuffle labels B times; p = (#a* ≥ a₀ + 1)/(B + 1)."],
+["L7","90% of samples are healthy. A classifier that always predicts 'healthy' has accuracy ___ and sensitivity ___.",["90%, 90%","90%, 0%","50%, 0%","10%, 100%"],1,"It never detects a positive, so TP = 0 and sensitivity = 0. This is why accuracy misleads with imbalanced classes."],
+["L7","An ROC curve plots:",["Precision vs recall","TPR (y) vs FPR (x)","Accuracy vs threshold","Specificity (y) vs sensitivity (x)"],1,"FPR = 1 − specificity. AUC 0.5 = random, 1.0 = perfect."],
+["L7","McNemar with n₀₁ = 40 and n₁₀ = 28 gives χ² ≈ 1.78. The conclusion at α = 0.05:",["A is significantly better","B is significantly better","No significant difference (p ≈ 0.18)","The test is invalid"],2,"1.78 < 3.841."]
+];
+let order=Q.map((_,i)=>i),answered={};
+function render(){const f=document.getElementById("qfilter").value,list=document.getElementById("qlist");list.innerHTML="";
+ const ids=order.filter(i=>f==="all"||Q[i][0]===f);let n=0,c=0;
+ ids.forEach((i,k)=>{const [lec,stem,opts,ans,why]=Q[i];const card=document.createElement("div");card.className="q";
+  card.innerHTML=`<div class="meta"><span>Q${k+1}</span><span class="chip">${lec}</span></div><div class="stem"></div><div class="opts"></div>`;
+  card.querySelector(".stem").textContent=stem;const box=card.querySelector(".opts");
+  opts.forEach((o,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.innerHTML=`<span class="l">${"ABCD"[j]}</span><span></span>`;b.lastChild.textContent=o;
+   if(i in answered){b.disabled=true;if(j===ans)b.classList.add("right");else if(j===answered[i])b.classList.add("wrong")}
+   b.addEventListener("click",()=>{answered[i]=j;save();render()});box.appendChild(b)});
+  if(i in answered){n++;if(answered[i]===ans)c++;const w=document.createElement("div");w.className="why";w.textContent=(answered[i]===ans?"Correct. ":"Not quite. ")+why;card.appendChild(w)}
+  list.appendChild(card)});
+ document.getElementById("qscore").textContent=`${c} / ${n} answered · ${ids.length} total`}
+function save(){try{localStorage.setItem("q736",JSON.stringify(answered))}catch(e){}}
+try{answered=JSON.parse(localStorage.getItem("q736")||"{}")||{}}catch(e){answered={}}
+document.getElementById("qfilter").addEventListener("change",render);
+document.getElementById("qshuffle").addEventListener("click",()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()});
+document.getElementById("qreset").addEventListener("click",()=>{answered={};save();render()});
+render();
+</script>

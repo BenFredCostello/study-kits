@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Study Kits</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,700&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+:root{--bg:#F5F8F9;--paper:#fff;--ink:#13222E;--muted:#5A6B77;--line:#D9E2E7;--accent:#0B6E8C;--trace:#C2362F}
+@media (prefers-color-scheme:dark){:root{--bg:#0F171D;--paper:#16212A;--ink:#E4ECF0;--muted:#97A8B3;--line:#2A3A46;--accent:#5CC0DD;--trace:#F0726A;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Public Sans",system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:40px 16px 64px}
+h1{font-family:Literata,Georgia,serif;font-size:38px;margin:4px 0 24px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+.course{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.course h2{font-family:Literata,Georgia,serif;font-size:22px;margin:0}
+.course .code{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
+.course ul{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+.course a{color:var(--accent);font-weight:600;text-decoration:none}
+.course a:hover{text-decoration:underline}
+.meta{color:var(--muted);font-size:14px}
+</style></head><body><div class="wrap">
+<div class="eyebrow">Exam prep</div><h1>Study Kits</h1>
+<div id="list"><p class="meta">Loading courses…</p></div>
+</div>
+<script>
+fetch("courses.json").then(r=>r.json()).then(cs=>{const l=document.getElementById("list");l.innerHTML="";
+cs.forEach(c=>{const d=document.createElement("div");d.className="course";
+d.innerHTML=`<div class="code"></div><h2></h2><ul></ul>`;d.querySelector(".code").textContent=c.code;d.querySelector("h2").textContent=c.name;
+const ul=d.querySelector("ul");c.kits.forEach(k=>{const li=document.createElement("li");const a=document.createElement("a");a.href=k.file;a.textContent=k.title;li.appendChild(a);
+const m=document.createElement("div");m.className="meta";m.textContent=[k.lecturer,k.marks?k.marks+" marks":""].filter(Boolean).join(" · ");li.appendChild(m);ul.appendChild(li)});l.appendChild(d)})})
+.catch(()=>{document.getElementById("list").innerHTML='<p class="meta">Open courses.json to see the kits. This page needs to be served (GitHub Pages) to load it.</p>'});
+</script></body></html>

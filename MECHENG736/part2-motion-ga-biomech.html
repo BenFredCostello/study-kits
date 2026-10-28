@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>736 Part 2 Study Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: PSG chart-paper page — single reading column, sticky section tabs, trace-red accent */
+:root{
+  --bg:#F5F8F9; --paper:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --line:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --good:#1E7A46; --good-soft:#E3F3E9; --bad:#B3261E; --bad-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+header.hero{padding-block:36px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;margin-top:6px}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch;margin-top:10px}
+.trace{display:block;width:100%;height:46px;margin-top:18px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:10px;display:flex;gap:4px;padding:5px;overflow-x:auto;margin-bottom:24px}
+nav.tabs a{font-weight:600;font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a:focus-visible{color:var(--ink);background:var(--accent-soft);outline:none}
+nav.tabs a.on{color:var(--paper);background:var(--accent)}
+section.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.panel > * + *{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.stat{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.stat b{font-family:var(--f-mono);font-size:20px;display:block}
+.stat span{color:var(--muted);font-size:14px}
+ul,ol{margin:0;padding-left:22px}
+li + li{margin-top:5px}
+.k{font-family:var(--f-mono);font-size:.92em;background:var(--accent-soft);color:var(--ink);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.hl{background:var(--warn-soft);padding:0 3px;border-radius:3px}
+details.lec{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+details.lec > summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+details.lec > summary::-webkit-details-marker{display:none}
+details.lec > summary .no{font-family:var(--f-mono);font-size:13px;color:var(--trace);min-width:28px}
+details.lec > summary h3{flex:1;min-width:0}
+details.lec > summary .weight{font-size:13px;color:var(--muted)}
+details.lec[open] > summary{border-bottom:1px solid var(--line)}
+details.lec .body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:4px 0 -6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trap{background:var(--bad-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.trap b{color:var(--bad)}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+pre.math{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.55;margin:0;white-space:pre}
+figure{margin:0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg text{font-family:var(--f-mono)}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.qbar label{font-size:14px;color:var(--muted)}
+select,button,input{font:inherit}
+select,input[type=number]{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+input[type=number]{width:90px}
+button{cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);padding:7px 14px;font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.score{font-family:var(--f-mono);font-size:14px;margin-left:auto}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.q .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.q .stem{font-weight:600;margin:6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:400;padding:9px 12px;display:flex;gap:10px}
+.opt .l{font-family:var(--f-mono);color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin-top:12px;font-size:14.5px;padding:10px 14px;border-radius:8px;background:var(--accent-soft)}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line)}
+.chip.read{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+/* calc */
+.calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.calc label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:3px}
+.out{font-family:var(--f-mono);font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;white-space:pre-wrap}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.reveal[open] summary{margin-bottom:10px}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 14px;font-size:14.5px}
+.key div{font-variant-numeric:tabular-nums}
+.key b{font-family:var(--f-mono)}
+@media (prefers-reduced-motion:no-preference){.trace path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MECHENG 736 · Part 2 · Peter Xu · 40 marks</div>
+  <h1>Motion planning, genetic algorithms &amp; jaw biomechanics</h1>
+  <p class="lede">Topics 1–3, condensed. Part 2 is all short answer. Past papers have used the same three questions every year: plan a joint trajectory (about 15 marks), run one GA generation by hand (about 13), and explain biomechanics concepts (about 10–12).</p>
+  <svg class="trace" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"><path id="tr" fill="none" stroke="var(--trace)" stroke-width="1.6"/></svg>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#plan">Plan</a><a href="#notes">Notes</a><a href="#formulas">Formula sheet</a><a href="#calc">Calculators</a><a href="#cards">Recall cards</a><a href="#papers">Past papers</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section class="view" id="v-plan">
+  <div class="panel">
+    <h2>How Part 2 is marked</h2>
+    <div class="grid2">
+      <div class="stat"><b>Q1 · ~15 marks</b><span>Trajectory planning: choose via-point velocities, find cubic coefficients, sketch θ, θ̇ and θ̈. Sometimes quintic or parabolic-blend equations too.</span></div>
+      <div class="stat"><b>Q2 · ~10–15 marks</b><span>Genetic algorithm: build a population, evaluate it, run a roulette wheel, crossover, mutation, next generation. Plus definitions such as the 3 parts of optimisation, p<sub>c</sub> and p<sub>m</sub>.</span></div>
+      <div class="stat"><b>Q3 · ~10–12 marks</b><span>Biomechanics in words: TMJ, sarcomere, Hill model terms, servo hypothesis, CPG/Matsuoka oscillator, Posselt envelope, chewing phases.</span></div>
+      <div class="stat"><b>Formulas given?</b><span>The cubic coefficient formulas were printed on the 2023 and 2025 papers. Don't count on the quintic, parabolic-blend or Hill formulas being given.</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Suggested order (about 6 hours)</h2>
+    <ol>
+      <li><b>Topic 1 notes and formula sheet</b> (1.5 h). Learn the 3 via-velocity rules and how to apply the cubic formula.</li>
+      <li><b>Cubic calculator</b> (30 min). Do the 2025 Q1 by hand, then check it with the calculator and look at the plots so you know what the sketches should look like.</li>
+      <li><b>Topic 2 notes and GA walkthrough</b> (1.5 h). Do one full generation on paper. It's mechanical, so these are easy marks.</li>
+      <li><b>Topic 3 notes and recall cards</b> (1.5 h). These are word answers, so practise saying each one out loud in 2–3 lines.</li>
+      <li><b>Past papers</b> (1 h). Attempt each question before you open the solution.</li>
+    </ol>
+    <div class="tip">Topic 4 (digestive biorobotics) and the "Assistive Device for Jaw" slides aren't listed as examinable, so they're left out here.</div>
+  </div>
+</section>
+
+<!-- ================= NOTES ================= -->
+<section class="view" id="v-notes" hidden>
+
+<details class="lec" open>
+<summary><span class="no">T1</span><h3>Motion planning (Lectures 1–3)</h3><span class="weight">Q1, ~15 marks</span></summary>
+<div class="body">
+<h4>The problem</h4>
+<ul>
+  <li>Closed-loop control tracks a <b>reference trajectory</b>. Motion planning (also called trajectory generation or path planning) <b>creates</b> that reference: θ(t) for each joint.</li>
+  <li>The task is specified in <b>task space</b>: tool frame T<sub>initial</sub> → T<sub>final</sub> = {G}. Inverse kinematics converts it to <b>joint space</b>, θ<sub>i,initial</sub> → θ<sub>i,final</sub> for i = 1…6. Joints seldom rotate continuously.</li>
+  <li><b>Via (path) points</b> are intermediate poses the tool must pass through, e.g. to avoid an obstacle. The <b>application engineer</b> chooses them; the <b>design engineer</b> makes the algorithms accommodate them.</li>
+</ul>
+<h4>Three rules of motion planning (2024 Q1 i, 3 marks)</h4>
+<ol>
+  <li>A <b>smooth function</b> is found for each joint, starting at the initial point, passing through the via points and ending at the goal, <b>in joint space</b>.</li>
+  <li>Every joint takes the <b>same time</b> for each path segment, so all joints reach each via point together and the tool is at the right Cartesian pose.</li>
+  <li>Each joint's function is <b>independent</b> of the other joints' functions.</li>
+</ol>
+<h4>Cubic polynomials</h4>
+<ul>
+  <li>4 constraints (θ₀, θ<sub>f</sub>, θ̇₀, θ̇<sub>f</sub>) need 4 coefficients, so a <b>cubic</b> (3rd order) is the minimum. Polynomials are easy to differentiate and cheap to compute.</li>
+  <li>A straight line isn't used on its own because velocity jumps at the start and end, so acceleration would be <b>infinite</b>.</li>
+  <li>A cubic gives <b>linear acceleration</b> within a segment, but acceleration can <b>jump at via points</b>.</li>
+  <li>Slide example: 15° → 75° in 3 s from rest: <span class="k">θ = 15 + 20t² − 4.44t³</span>, θ̇ = 40t − 13.33t², θ̈ = 40 − 26.67t.</li>
+</ul>
+<h4>Choosing via-point velocities (who and how)</h4>
+<ol>
+  <li><b>User specifies</b> Cartesian linear and angular velocities of the tool at each via point (application engineer).</li>
+  <li><b>System picks them by heuristic</b> (design engineer): if the slope of the line segments <b>changes sign</b> at the via point, use <b>θ̇ = 0</b>; if not, use the <b>average of the two slopes</b>.</li>
+  <li><b>System picks them so acceleration is continuous</b> at the via points (design engineer). For 2 segments this gives 8 equations in 8 unknowns.</li>
+</ol>
+<h4>Quintic (5th order)</h4>
+<ul><li>Use a quintic when you need to specify <b>position, velocity and acceleration</b> at both ends: 6 constraints, so 6 coefficients.</li></ul>
+<h4>Linear segments with parabolic blends</h4>
+<ul>
+  <li>Linear in the middle with <b>constant-acceleration parabolic blends</b> at each end, giving continuous position and velocity.</li>
+  <li>The motion of each joint is linear, but the end-effector generally <b>doesn't</b> move in a straight line, because inverse kinematics is non-linear.</li>
+  <li>There are infinitely many solutions (pick θ̈ and t<sub>b</sub> follows), but the result is always <b>symmetric</b> about t<sub>h</sub> = t<sub>f</sub>/2 and θ<sub>h</sub>.</li>
+  <li>The minimum acceleration is <span class="k">θ̈ ≥ 4(θ<sub>f</sub>−θ₀)/t<sub>f</sub>²</span>. At that value the linear part shrinks to zero length (t<sub>b</sub> = t<sub>h</sub>).</li>
+</ul>
+<div class="trap"><b>Traps:</b> Use <i>local</i> time (t = 0 at the start of each segment) in the cubic formulas, and write the segment's time range next to each equation. At a sign-change via point the velocity is 0, not the average.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">T2</span><h3>Optimal design and genetic algorithms (Lectures 4–5)</h3><span class="weight">Q2, ~13 marks</span></summary>
+<div class="body">
+<h4>Optimal design</h4>
+<ul>
+  <li><b>Design</b> = choosing the values of the design parameters. <b>Optimal design</b> = choosing them so that some performance measure is best. <b>Optimisation</b> = finding the design-variable values that max/minimise a performance function subject to constraints.</li>
+  <li><b>Three components</b> (2024 Q2 i): <b>decision (design) variables</b> (e.g. polynomial coefficients, via points, airframe dimensions); an <b>objective function</b> of those variables (e.g. distance, energy, time, force bandwidth); and <b>constraints</b>, equalities or inequalities (e.g. maximum acceleration, airframe diameter).</li>
+  <li>Standard form: find x to minimise f(x) subject to g<sub>i</sub>(x) ≤ 0 (inequalities) and h<sub>j</sub>(x) = 0 (equalities). With <b>m = p = 0</b> it's <b>unconstrained</b>.</li>
+  <li>Examples: optimal robot motion (shortest, least energy or fastest path with speed, acceleration and collision limits), the Mecanum robot's via points and timing, and a drone airframe (propeller choice and mounting to maximise horizontal force bandwidth).</li>
+</ul>
+<h4>What GAs are</h4>
+<ul>
+  <li>Search algorithms based on <b>natural selection and genetics</b>: survival of the fittest, structured yet randomised information exchange. Robust in complex search spaces. Developed by <b>John Holland, University of Michigan, 1970s</b>.</li>
+  <li><b>How they differ from traditional methods</b> (2023 Q2.2 iv): they work with a <b>coding</b> of the variables, not the variables themselves; search from a <b>population</b> of points, not a single point; use only <b>objective-function values</b>, not derivatives (gradient methods solve f′(x) = 0 and get stuck in local optima, e.g. on x·sin(10πx) + 1); and use <b>probabilistic</b> rules.</li>
+  <li><b>Chromosome = genotype</b> (encoded, binary). <b>Decision variable = phenotype</b> (decoded, decimal). One chromosome holds all variables concatenated, with m = Σ m<sub>i</sub> bits.</li>
+  <li>Evolution works in the <b>encoded</b> world (crossover, mutation). Evaluation and selection work in the <b>decoded</b> world.</li>
+</ul>
+<h4>Top-level loop</h4>
+<ol>
+  <li>Initialise a population (random bits).</li>
+  <li>Evaluate each chromosome (fitness = objective function).</li>
+  <li>Delete poor members: <b>selection</b> by roulette wheel.</li>
+  <li>Mate to create new chromosomes: <b>crossover</b> then <b>mutation</b>.</li>
+  <li>Evaluate the new chromosomes and insert them.</li>
+  <li>Stop if time is up and return the best; otherwise go to 2.</li>
+</ol>
+<h4>Operators</h4>
+<ul>
+  <li><b>Roulette wheel (fitness-proportionate selection)</b>: v<sub>i</sub> = f(x<sub>i</sub>); F = Σv<sub>i</sub>; p<sub>i</sub> = v<sub>i</sub>/F; q<sub>i</sub> = Σ<sub>j≤i</sub> p<sub>j</sub>. Spin r ∈ (0,1): pick the first chromosome if r &lt; q₁, otherwise the i-th with q<sub>i−1</sub> &lt; r ≤ q<sub>i</sub>. The best get more copies, average ones stay, the worst die off.</li>
+  <li><b>Crossover</b>: for each pair, if r &lt; <b>p<sub>c</sub></b> (large, <b>close to 1</b>, e.g. 0.7–0.9) swap the tails after a random crossover point between 1 and m. There are also <b>two-point</b> and <b>uniform</b> crossover (each gene picked at random from either parent).</li>
+  <li><b>Mutation</b>: <b>bit by bit</b>; if r &lt; <b>p<sub>m</sub></b> (very small, <b>close to 0</b>, e.g. 0.01), flip the bit.</li>
+  <li>GAs assume <b>maximisation with positive fitness</b>. To minimise f, maximise g = −f, then add a constant C so it stays positive: <span class="k">max{−f(x) + C}</span>.</li>
+  <li><b>Constraints</b> are handled with a <b>penalty method</b>: minimise U(x) + r·Σ Φ[g<sub>i</sub>(x)], where Φ = g<sub>i</sub>² if g<sub>i</sub> &lt; 0 and 0 otherwise.</li>
+  <li><b>Encoding</b>: a variable in [a, b] with m bits has resolution (b − a)/(2<sup>m</sup> − 1); decode with x = a + decimal·(b − a)/(2<sup>m</sup> − 1).</li>
+  <li>MATLAB example: find the best rational approximation of π with integers 0–1023, minimising |x₁/x₂ − π|. Settings: p<sub>c</sub> = 0.7, p<sub>m</sub> = 0.01, 100 individuals, fitness-proportionate selection. Result: 754/240 (or 710/226), fval ≈ 7.4×10⁻⁵, and different each run because of random initialisation.</li>
+</ul>
+<div class="trap"><b>Traps:</b> The order is initialise → evaluate → select → <b>crossover → mutation</b>, so "selection, mutation, crossover" is FALSE. p<sub>c</sub> ≫ p<sub>m</sub>, so "crossover probability ≈ mutation probability" is FALSE. Crossover happens per <i>pair</i>; mutation happens per <i>bit</i>.</div>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">T3</span><h3>Biomechanics of skeletal systems (Lectures 6–9)</h3><span class="weight">Q3, ~10–12 marks</span></summary>
+<div class="body">
+<h4>Musculoskeletal system and the jaw</h4>
+<ul>
+  <li>Bones, muscles, cartilage, tendons, ligaments, joints and connective tissue. Provides form, support, stability and movement. It's controlled by the <b>CNS</b> (which is where EEG links in), so we talk about the <b>neuro</b>musculoskeletal system.</li>
+  <li><b>Three key elements</b> and their jaw equivalents (2024 Q3 i): <b>skeleton/bones</b> = maxilla (fixed upper jaw, part of the skull) and mandible (moving lower jaw); <b>joint</b> = TMJ; <b>muscles (actuators)</b> = muscles of mastication (masseter, temporalis, pterygoids for closing; digastric for opening). Add <b>control</b> = CNS/CPG via motoneurons.</li>
+  <li><b>TMJ = temporomandibular joint</b>, the jaw joint. It's the most sophisticated joint in the body: a <b>hybrid rotational and translational</b> joint. The condyle doesn't follow a fixed path but moves within a 3-D envelope, because the joint cavity leaves a <b>gap (backlash)</b>.</li>
+  <li>The mandible is pivoted at the condyle via the TMJ and held to the skull by <b>muscles</b>.</li>
+  <li>Forces on the jaw: <b>muscle forces</b> (actuating), <b>food resistance</b> and <b>TMJ reaction forces</b>.</li>
+  <li>Closing muscles: <b>masseter</b> (superficial and deep; elevates), <b>temporalis</b> (anterior and posterior; elevates and retracts), <b>medial pterygoid</b> (elevates), <b>lateral pterygoid</b> (inferior and superior; protrudes and rotates). Opening: <b>digastric</b> (anterior and posterior).</li>
+</ul>
+<h4>Jaw movement</h4>
+<ul>
+  <li><b>Posselt envelope</b> = the <b>workspace of the incisor point</b> in the sagittal plane, i.e. the maximum range of jaw motion (about 50 mm opening). It's bounded by three extreme paths: <b>extreme posterior opening</b> (about a 10° hinge rotation, then rotation combined with forward translation), <b>extreme anterior closing</b>, and the <b>maximum upper glide</b> (irregular because of tooth guidance). Every chewing movement falls inside it.</li>
+  <li><b>Chewing cycle phases</b>: <b>opening, closing, occlusion</b>. Opening starts slow and speeds up. On closing the mandible moves laterally outward, closes fast, then slows for occlusion. Opening is faster than closing. Occlusion ends 0.5 mm from maximum intercuspation.</li>
+  <li>Molar trajectories matter more than incisor trajectories because grinding happens at the molars (bolus formation before swallowing).</li>
+  <li>Forces: <b>70–150 N</b> on a single tooth, <b>190–260 N</b> across all contacting teeth, <b>500–700 N</b> maximum bite at the molars.</li>
+  <li><b>EMG</b> is an indirect measure of muscle activity. Bursts correspond to the closing phase of each chew, and voltage relates to muscle force.</li>
+</ul>
+<h4>Computational skeletal model</h4>
+<ul>
+  <li>Each muscle is a <b>line of action</b>, i.e. a <b>unidirectional line actuator</b>. The <b>origin</b> (short bar) is anchored on the skull and the <b>insertion</b> (small circle) on the mandible. Contraction pulls the insertion towards the origin.</li>
+  <li>For the masseter (2023 Q2.3 vi): model the <b>superficial</b> and <b>deep</b> parts as two separate line actuators, from origins on the zygomatic arch/maxilla to insertions on the mandible's ramus and angle. The superficial part runs obliquely (up and forward from the angle); the deep part is more vertical and further back. Both elevate the jaw. Sketch each as a bar–line–circle.</li>
+  <li><b>Inverse dynamics</b>: given motion and external forces, find the muscle forces. <b>Forward dynamics</b>: given muscle and external forces, find the motion.</li>
+  <li><b>Screw model</b>: the <b>motion screw</b> combines linear and angular velocity; the <b>action screw</b> is the unique axis along which the resultant force and torque are collinear. Both are instantaneous. After that, apply Newton/Lagrange mechanics.</li>
+</ul>
+<h4>Hill muscle model</h4>
+<pre class="math">F = Fmax · ( FL × FV × FQ + FP )
+  Fmax  maximum muscle force (calibrated)
+  FL    force–length factor      ┐ active element (contractile, in series
+  FV    force–velocity factor    │ with a non-linear damper): fibres
+  FQ    activation factor        ┘ generating force
+  FP    parallel elastic factor    passive element (non-linear spring):
+                                   elasticity of surrounding tissue
+  Ls(t), Vs(t)  instantaneous sarcomere length and shortening velocity
+  Ls(t) = [Lm(t) − (Lmᵢ − Lfᵢ)] · Lsᵢ / Lfᵢ</pre>
+<ul>
+  <li><b>Ls(t)</b> (2025 Q3 ii) is the instantaneous sarcomere length. Skeletal motion changes the muscle length Lm(t) (geometry), which changes the fibre and sarcomere lengths through the equation above. So <b>skeletal motion → muscle contraction → sarcomere contraction → muscle force</b>, via FL, FV and FP.</li>
+  <li><b>FQ</b> (2025 Q3 iii) is the <b>activation</b> (alpha-motoneuron activity, i.e. how many sarcomeres are recruited). It's generated by the <b>alpha-MN</b>, driven by the CPG oscillator, or supplied by measured EMG/EEG.</li>
+  <li>Masseter sarcomeres are taken to stretch to <b>4.0 µm</b> at full opening; digastric sarcomeres shorten to <b>2 µm</b> at full closing.</li>
+  <li>Archibald Hill won the Nobel Prize in 1922.</li>
+</ul>
+<h4>Sarcomere and sliding filaments</h4>
+<ul>
+  <li>Muscle → fascicle → fibre → myofibril → <b>sarcomere</b>, the <b>basic contractile unit</b>. Sarcomeres repeat along the myofibril, bounded by <b>Z discs</b>. Length is measured in <b>micrometres (µm)</b>.</li>
+  <li><b>Sliding filament theory</b> (Huxley et al., 1954): thin <b>actin</b> filaments slide past thick <b>myosin</b> filaments. The <b>A band</b> (myosin) stays constant in length; the <b>I band</b> (actin) shortens along with the sarcomere. Together they act like a <b>prismatic joint</b>.</li>
+</ul>
+<h4>Control: servo hypothesis and CPG</h4>
+<ul>
+  <li><b>Servo hypothesis</b>: the <b>CNS (CPG)</b>, through <b>gamma-MNs</b>, sets the desired muscle length (the <b>reference</b> movement). <b>Alpha-MNs</b> act as the <b>controller</b>, varying muscle activation (FQ) to reach that length whatever the external load (food resistance). <b>Muscle spindles</b> feed back the actual length and velocity. It's a closed loop.</li>
+</ul>
+<figure><div class="tbl"><svg id="servo" viewBox="0 0 700 190" width="100%" role="img" aria-label="Block diagram of the neuromusculoskeletal servo loop"></svg></div>
+<figcaption>Block diagram to reproduce in the exam: the gamma-MN sets the reference, the error goes to the alpha-MN (controller), whose activation FQ drives the muscle (Hill model), producing force F on the skeleton. External load enters at the skeleton, and the muscle spindle feeds back the actual movement.</figcaption></figure>
+<h4>Matsuoka oscillator (CPG model)</h4>
+<pre class="math">T_ri · dx_i/dt + x_i = −a_ij · y_j + s_i − b_i · f_i
+y_i = g(x_i) = max(x_i, 0)
+T_ai · df_i/dt + f_i = y_i^q          (i, j = 1, 2)</pre>
+<ul>
+  <li>Two neurons with <b>mutual inhibition</b>: one drives the closing muscle (y₁ = FQ₁), the other the opening muscle (y₂ = FQ₂). When one fires the other is suppressed, so they alternate.</li>
+  <li>x<sub>i</sub> = neuron state; <b>s<sub>i</sub> = tonic input</b> (stimulus, related to the error); y<sub>i</sub> = firing rate (FQ); a<sub>ij</sub> = inhibitory weight from j to i; b<sub>i</sub> = adaptation (firing-rate) constant; T<sub>ri</sub> = rise time constant; T<sub>ai</sub> = adaptation time constant; q<sub>i</sub> = adaptation exponent.</li>
+  <li><b>f<sub>i</sub></b> (2025 Q3 v) is the <b>degree of adaptation (self-inhibition or fatigue)</b> of neuron i. It builds up while that neuron fires (driven by y<sub>i</sub><sup>q</sup>, with time constant T<sub>a</sub>) and, through −b<sub>i</sub>f<sub>i</sub>, reduces its own activity. The firing neuron eventually lets go and the other takes over, so the f<sub>i</sub> are what make the oscillation <b>sustained and alternating</b>.</li>
+  <li>For sustained oscillation, b<sub>i</sub> must be large enough (Matsuoka's criteria). After a transient, y₁ and y₂ become stable and <b>phase-locked</b>.</li>
+  <li><b>Frequency</b> rises with b<sub>i</sub> and falls with T<sub>r</sub>, T<sub>a</sub> and a<sub>ij</sub>. <b>Amplitude ∝ tonic input s</b>. There are 12 parameters to tune, compared with 3 for a PID controller.</li>
+  <li>Fitted to human EMG: s = 1, b = 2.5, T<sub>r</sub> = 0.03, T<sub>a</sub> = 0.4, q = 0.7, a = 1.5, giving T<sub>on</sub> = 0.456 s and period 0.618 s.</li>
+  <li><b>Closed-loop jaw simulation</b>: 20 mm opening, 2 s period, 230 g jaw; F<sub>max</sub> masseter 272.8 N, digastric 46.4 N; feedback gain G = 2.17 adjusts the tonic input. With a step in food resistance, the oscillator adapts the closing force <b>within one chewing cycle</b>, and the muscle settles in 1–2 cycles. With decreasing resistance, force tracks it proportionally.</li>
+  <li><b>Hardware-in-the-loop</b>: a chewing robot (fixed upper jaw, lower jaw driven by two phase-locked artificial muscles) with displacement and force sensors feeding back to the CPG's tonic inputs. The CPG ran in MATLAB Real-Time Windows and drove proportional valves.</li>
+</ul>
+</div>
+</details>
+</section>
+
+<!-- ================= FORMULAS ================= -->
+<section class="view" id="v-formulas" hidden>
+<div class="panel">
+  <h2>Cubic segment (local time t, 0 ≤ t ≤ t<sub>f</sub>)</h2>
+<pre class="math">θ(t) = a0 + a1·t + a2·t² + a3·t³
+θ̇(t) = a1 + 2a2·t + 3a3·t²          θ̈(t) = 2a2 + 6a3·t
+
+a0 = θ0
+a1 = θ̇0
+a2 =  3/tf² (θf − θ0) − 2/tf · θ̇0 − 1/tf · θ̇f
+a3 = −2/tf³ (θf − θ0) + 1/tf² (θ̇f + θ̇0)
+
+At rest at both ends:   a2 = 3Δθ/tf²,   a3 = −2Δθ/tf³</pre>
+</div>
+<div class="panel">
+  <h2>Two segments with continuous acceleration (equal durations t<sub>f</sub>, at rest at the ends)</h2>
+<pre class="math">Segment 1:  a10 = θ0     a11 = 0
+            a12 = (12θv − 3θg − 9θ0) / (4tf²)
+            a13 = (−8θv + 3θg + 5θ0) / (4tf³)
+Segment 2:  a20 = θv     a21 = (3θg − 3θ0) / (4tf)
+            a22 = (−12θv + 6θg + 6θ0) / (4tf²)
+            a23 = (8θv − 5θg − 3θ0) / (4tf³)</pre>
+</div>
+<div class="panel">
+  <h2>Quintic (θ, θ̇, θ̈ given at both ends)</h2>
+<pre class="math">θ(t) = a0 + a1t + a2t² + a3t³ + a4t⁴ + a5t⁵
+θ̇(t) = a1 + 2a2t + 3a3t² + 4a4t³ + 5a5t⁴
+θ̈(t) = 2a2 + 6a3t + 12a4t² + 20a5t³
+
+a0 = θ0     a1 = θ̇0     a2 = θ̈0 / 2
+a3 = [20θf − 20θ0 − (8θ̇f + 12θ̇0)tf − (3θ̈0 − θ̈f)tf²] / (2tf³)
+a4 = [30θ0 − 30θf + (14θ̇f + 16θ̇0)tf + (3θ̈0 − 2θ̈f)tf²] / (2tf⁴)
+a5 = [12θf − 12θ0 − (6θ̇f + 6θ̇0)tf − (θ̈0 − θ̈f)tf²] / (2tf⁵)</pre>
+  <p style="font-size:14.5px;color:var(--muted)">The slide prints the velocity terms as "−8θ̇f + 12θ̇0 tf". The correct grouping is −(8θ̇f + 12θ̇0)tf, which you can check by setting θ̇0 = θ̇f = θ̈0 = θ̈f = 0. Then a3 = 10Δθ/tf³, a4 = −15Δθ/tf⁴ and a5 = 6Δθ/tf⁵.</p>
+</div>
+<div class="panel">
+  <h2>Linear with parabolic blends</h2>
+<pre class="math">Single segment, at rest at both ends (th = tf/2):
+  θ̈·tb² − θ̈·tf·tb + (θf − θ0) = 0
+  tb = tf/2 − √(θ̈²tf² − 4θ̈(θf − θ0)) / (2θ̈)
+  θ̈ ≥ 4(θf − θ0)/tf²       (equality → no linear part, tb = th)
+  blend: θ = θ0 + ½θ̈t²     linear velocity = θ̈·tb
+
+Multiple via points (t_djk = given duration of segment jk, |θ̈k| given):
+  interior k:  θ̇jk = (θk − θj)/t_djk
+               θ̈k  = SGN(θ̇kl − θ̇jk)·|θ̈k|
+               tk  = (θ̇kl − θ̇jk)/θ̈k
+               tjk = t_djk − ½tj − ½tk
+  first:       θ̈1 = SGN(θ2 − θ1)·|θ̈1|
+               t1  = t_d12 − √(t_d12² − 2(θ2 − θ1)/θ̈1)
+               θ̇12 = (θ2 − θ1)/(t_d12 − ½t1)
+               t12 = t_d12 − t1 − ½t2
+  last:        θ̈n = SGN(θn−1 − θn)·|θ̈n|
+               tn  = t_d(n−1)n − √(t_d(n−1)n² + 2(θn − θn−1)/θ̈n)
+               θ̇(n−1)n = (θn − θn−1)/(t_d(n−1)n − ½tn)
+               t(n−1)n = t_d(n−1)n − tn − ½tn−1</pre>
+</div>
+<div class="panel">
+  <h2>GA arithmetic</h2>
+<pre class="math">v_i = f(x_i)      F = Σ v_i      p_i = v_i / F      q_i = Σ_{j≤i} p_j
+expected count = p_i × pop_size
+select i where q_{i−1} &lt; r ≤ q_i
+minimise f  →  maximise  −f(x) + C   (C makes all fitness positive)
+penalty:  U(x) + r·Σ Φ[g_i(x)],   Φ = g_i² if g_i &lt; 0, else 0
+decode:   x = a + (decimal)·(b − a)/(2^m − 1)</pre>
+</div>
+</section>
+
+<!-- ================= CALCULATORS ================= -->
+<section class="view" id="v-calc" hidden>
+<div class="panel">
+  <h2>Cubic segment calculator</h2>
+  <p>Enter one segment in local time. The plot shows θ, θ̇ and θ̈, which are the three sketches the exam asks for.</p>
+  <div class="calc">
+    <label for="c0">θ₀ (°)<input type="number" id="c0" value="-15" step="any"></label>
+    <label for="cf">θ<sub>f</sub> (°)<input type="number" id="cf" value="15" step="any"></label>
+    <label for="cv0">θ̇₀ (°/s)<input type="number" id="cv0" value="0" step="any"></label>
+    <label for="cvf">θ̇<sub>f</sub> (°/s)<input type="number" id="cvf" value="0" step="any"></label>
+    <label for="ctf">t<sub>f</sub> (s)<input type="number" id="ctf" value="5" step="any" min="0.01"></label>
+  </div>
+  <div class="out" id="cout"></div>
+  <div class="tbl"><svg id="cplot" viewBox="0 0 660 330" width="100%" role="img" aria-label="Position, velocity and acceleration of the cubic segment"></svg></div>
+</div>
+
+<div class="panel">
+  <h2>Via-point velocity rule</h2>
+  <p>Enter the path points as time,angle pairs. The joint starts and ends at rest.</p>
+  <div class="calc"><label for="vpts" style="flex:1;min-width:0">Points<input type="text" id="vpts" value="0,30; 10,-30; 25,0; 35,60; 40,0" style="width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px"></label></div>
+  <div class="out" id="vout"></div>
+</div>
+
+<div class="panel">
+  <h2>GA roulette wheel</h2>
+  <p>Enter the chromosomes and a fitness function of x. Use <span class="k">x*x</span>, <span class="k">-x*x+15*x</span>, or <span class="k">961-x*x</span> to minimise x².</p>
+  <div class="calc">
+    <label for="gchr" style="flex:2;min-width:0">Chromosomes<input type="text" id="gchr" value="01101 11000 01000 10011" style="width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px"></label>
+    <label for="gfit" style="flex:1;min-width:0">f(x)<input type="text" id="gfit" value="x*x" style="width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px"></label>
+  </div>
+  <div class="tbl" id="gout"></div>
+</div>
+
+<div class="panel">
+  <h2>Slide walkthrough: maximise f(x) = x², 0 ≤ x ≤ 31, 5 bits, population 4</h2>
+  <div class="tbl"><table>
+  <tr><th>#</th><th>Initial</th><th>x</th><th>f</th><th>p<sub>i</sub></th><th>Expected</th><th>Actual</th><th>Mating pool</th><th>Mate</th><th>Site</th><th>New</th><th>x</th><th>f</th></tr>
+  <tr><td>1</td><td class="num">01101</td><td class="num">13</td><td class="num">169</td><td class="num">0.14</td><td class="num">0.58</td><td class="num">1</td><td class="num">0110|1</td><td class="num">2</td><td class="num">4</td><td class="num">01100</td><td class="num">12</td><td class="num">144</td></tr>
+  <tr><td>2</td><td class="num">11000</td><td class="num">24</td><td class="num">576</td><td class="num">0.49</td><td class="num">1.97</td><td class="num">2</td><td class="num">1100|0</td><td class="num">1</td><td class="num">4</td><td class="num">11001</td><td class="num">25</td><td class="num">625</td></tr>
+  <tr><td>3</td><td class="num">01000</td><td class="num">8</td><td class="num">64</td><td class="num">0.06</td><td class="num">0.22</td><td class="num">0</td><td class="num">11|000</td><td class="num">4</td><td class="num">2</td><td class="num">11011</td><td class="num">27</td><td class="num">729</td></tr>
+  <tr><td>4</td><td class="num">10011</td><td class="num">19</td><td class="num">361</td><td class="num">0.31</td><td class="num">1.23</td><td class="num">1</td><td class="num">10|011</td><td class="num">3</td><td class="num">2</td><td class="num">10000</td><td class="num">16</td><td class="num">256</td></tr>
+  <tr><td></td><td>Sum / avg / max</td><td></td><td class="num">1170 / 293 / 576</td><td></td><td></td><td></td><td></td><td></td><td></td><td>Sum / avg / max</td><td></td><td class="num">1754 / 439 / 729</td></tr>
+  </table></div>
+  <p>Both the average and the best fitness improve after one generation. That's the point the examiners want you to state at the end.</p>
+</div>
+</section>
+
+<!-- ================= CARDS ================= -->
+<section class="view" id="v-cards" hidden>
+  <div class="panel">
+    <div class="qbar">
+      <label for="cfilter">Topic</label>
+      <select id="cfilter"><option value="all">All</option><option>T1</option><option>T2</option><option>T3</option></select>
+      <button id="cshuffle" class="ghost" type="button">Shuffle</button>
+      <button id="creset" class="ghost" type="button">Reset</button>
+      <span class="score" id="cscore"></span>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted)">Say your answer out loud, reveal the model answer, then mark yourself.</p>
+  </div>
+  <div id="clist" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="view" id="v-papers" hidden>
+  <div class="panel"><p>These are my worked solutions; no official answers were in your folder. Attempt each question before you open it.</p></div>
+
+  <div class="panel">
+    <h2>2025 Q1: two-segment cubic</h2>
+    <p>Starts at θ₀ = −15° at rest; reaches θ₁ = 15° at 5 s; returns to θ₂ = −15° 10 s later and stops.</p>
+    <details class="reveal"><summary>Solution</summary>
+<pre class="math">i)  The slope changes sign at θ1 (up, then down), so choose θ̇1 = 0.
+
+ii) Segment 1 (0 ≤ t ≤ 5), Δθ = 30, tf = 5:
+      a0 = −15, a1 = 0, a2 = 3·30/25 = 3.6, a3 = −2·30/125 = −0.48
+      θ(t) = −15 + 3.6t² − 0.48t³
+    Segment 2 (5 ≤ t ≤ 15, τ = t − 5), Δθ = −30, tf = 10:
+      a0 = 15, a1 = 0, a2 = 3(−30)/100 = −0.9, a3 = −2(−30)/1000 = 0.06
+      θ(t) = 15 − 0.9(t−5)² + 0.06(t−5)³
+
+iii) An S-curve from −15 up to 15 at t = 5 (flat there), then a slower S-curve
+     back to −15 at t = 15 (flat there).
+
+iv) θ̇:  seg 1 = 7.2t − 1.44t²        parabola 0 → peak 9°/s at t = 2.5 → 0
+         seg 2 = −1.8τ + 0.18τ²       parabola 0 → min −4.5°/s at t = 10 → 0
+    θ̈:  seg 1 = 7.2 − 2.88t          straight line 7.2 → −7.2
+         seg 2 = −1.8 + 0.36τ         straight line −1.8 → 1.8
+    Acceleration jumps at t = 5 (−7.2 → −1.8), which is a limitation of
+    independent cubics.</pre>
+    <div class="tip">Open the Calculators tab with θ₀ = −15, θ<sub>f</sub> = 15, t<sub>f</sub> = 5 to see segment 1's three curves.</div>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2025 Q2: one GA generation</h2>
+    <p>Maximise f(x) = −x² + 15x, 0 ≤ x ≤ 15, 4 bits, p<sub>m</sub> = 0, p<sub>c</sub> = 1, M = 4. You choose the random numbers.</p>
+    <details class="reveal"><summary>Solution (one valid set of choices)</summary>
+<pre class="math">i)  Initial population: 0011 (3), 0110 (6), 1010 (10), 1101 (13)
+
+ii) f: 36, 54, 50, 26        F = 166   (average 41.5, max 54)
+
+iii) p_i = 0.217, 0.325, 0.301, 0.157
+     q_i = 0.217, 0.542, 0.843, 1.000
+     choose r = 0.30, 0.50, 0.70, 0.20
+       → 0110, 0110, 1010, 0011     (13 is eliminated, 6 is copied twice)
+
+iv) pc = 1, so every pair crosses over.
+     pair (0110, 0011), site 3:  011|0 , 001|1  →  0111 , 0010
+     pair (0110, 1010), site 2:  01|10 , 10|10  →  0110 , 1010
+     pm = 0, so no mutation.
+
+v)  New generation: 0111 (7), 0010 (2), 0110 (6), 1010 (10)
+     f: 56, 26, 54, 50     F = 186   (average 46.5, max 56)
+     Both average and best improved. The optimum is x = 7 or 8, with f = 56.</pre>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2025 Q3: biomechanics</h2>
+    <details class="reveal"><summary>Model answers</summary>
+    <ul>
+      <li><b>(i)</b> The <b>sarcomere</b> is the basic contractile unit, measured in <b>micrometres (µm)</b>.</li>
+      <li><b>(ii)</b> Ls(t) is the instantaneous <b>sarcomere length</b>. Ls = [Lm(t) − (Lmᵢ − Lfᵢ)]·Lsᵢ/Lfᵢ, where Lm(t) is the muscle length, set by the geometry of the skeletal (jaw) position. So skeletal motion changes Lm, which changes Ls, which sets FL and FP (and FV through its rate Vs).</li>
+      <li><b>(iii)</b> FQ is the <b>activation factor</b>, the level of muscle activity (sarcomere recruitment). It comes from the <b>alpha-motoneurons</b>, driven by the CPG, or is taken from measured EMG/EEG.</li>
+      <li><b>(iv)</b> TMJ is the <b>temporomandibular joint</b>, a hybrid joint that both <b>rotates and translates</b>. The condyle moves within a 3-D envelope rather than on a fixed path, because the joint cavity leaves a gap.</li>
+      <li><b>(v)</b> f<sub>i</sub> is the <b>degree of adaptation (self-inhibition)</b> of neuron i. It builds up with that neuron's own output (T<sub>a</sub>·ḟ + f = y<sup>q</sup>) and suppresses it through −b·f. The active neuron fatigues, the other is released from inhibition and fires, and this gives sustained, alternating, phase-locked oscillation.</li>
+    </ul>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2024 Q1: via points A–E</h2>
+    <details class="reveal"><summary>Solution</summary>
+<pre class="math">i)  The three rules (see Notes T1): a smooth function per joint in joint space
+    through all points; the same segment time for every joint; each joint's
+    function independent of the others.
+
+ii) A at rest, B is a turning point, so θ̇B = 0. Δθ = 20, tf = 1:
+      θ(t) = 10 + 60t² − 40t³
+      θ̇(t) = 120t − 120t²       θ̈(t) = 120 − 240t      (0 ≤ t ≤ 1)
+
+iii) Quintic on BC, with τ = t − tB and T = tC − tB:
+      θ(τ) = a0 + a1τ + … + a5τ⁵   (with θ̇ and θ̈ as on the formula sheet)
+      a0 = θB, a1 = θ̇B, a2 = θ̈B/2, and a3, a4, a5 from the quintic formulas
+      with θf = θC, θ̇f = θ̇C, tf = T. (If accelerations aren't given, take
+      θ̈B = θ̈C = 0.)
+
+iv) Linear-parabolic blend for C → D → E, with θ̇C = 0 and θ̇E = 0:
+      θ̇CD = (θD − θC)/(t_dCD − ½tC_b)        (C behaves like a start point)
+      tC_b = t_dCD − √(t_dCD² − 2(θD − θC)/θ̈C)
+      θ̇DE = (θE − θD)/(t_dDE − ½tE_b)
+      tE_b = t_dDE − √(t_dDE² + 2(θE − θD)/θ̈E)   (θ̈E signed as SGN(θD − θE)·|θ̈E|)
+      at D:  θ̈D signed as SGN(θ̇DE − θ̇CD)·|θ̈D|,  tD_b = (θ̇DE − θ̇CD)/θ̈D
+      the blend runs from tD1 = tD − ½tD_b to tD2 = tD + ½tD_b
+      linear times: tCD = t_dCD − tC_b − ½tD_b ,  tDE = t_dDE − tE_b − ½tD_b
+    Velocity sketch: a ramp up from 0 over tC_b, flat at θ̇CD, a ramp over tD_b to
+    θ̇DE, flat, then a ramp to 0 over tE_b. In other words, trapezoidal pieces.</pre>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2024 Q2: GA</h2>
+    <details class="reveal"><summary>Solution</summary>
+<pre class="math">i)  Decision variables, objective function, constraints.
+
+ii) Minimise y = x²: 11010 = 26, 00011 = 3, 01010 = 10, 10100 = 20.
+    Convert to maximising g = −x² + C, with C = 31² = 961 so that g ≥ 0:
+      g = 285, 952, 861, 561     Σ = 2659
+      p = 0.107, 0.358, 0.324, 0.211
+    (Smaller x gives a larger selection probability, which is what you want
+     when minimising.)
+
+iii) a) FALSE. The order is initialise, evaluate, select, crossover, then mutation.
+     b) FALSE. pc is close to 1 and pm is close to 0.</pre>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2024 Q3: biomechanics</h2>
+    <details class="reveal"><summary>Model answers</summary>
+    <ul>
+      <li><b>(i)</b> Skeleton (maxilla and mandible), joint (TMJ), muscles (masseter, temporalis, pterygoids, digastric). Mention the CNS/CPG as the controller for a complete answer.</li>
+      <li><b>(ii)</b> F = F<sub>max</sub>(FL·FV·FQ + FP). The active contractile element is FL (force–length) × FV (force–velocity) × FQ (activation). The passive parallel non-linear spring is FP. F<sub>max</sub> is the calibrated maximum force.</li>
+      <li><b>(iii)</b> Draw the servo/CPG loop from Notes T3. The CPG (part of the CNS) sets the rhythmic reference through gamma-MNs. The alpha-MN oscillator (Matsuoka) produces activations FQ₁ and FQ₂ for the closing and opening muscles. The Hill model turns these into forces; the skeleton moves under muscle and food loads; spindle and sensor feedback adjusts the tonic input s (gain G), so the force adapts to food resistance within one chewing cycle.</li>
+    </ul>
+    </details>
+  </div>
+
+  <div class="panel">
+    <h2>2023 Q2.1: A(0,30), B(10,−30), C(25,0), D(35,60), E(40,0)</h2>
+    <details class="reveal"><summary>Solution</summary>
+<pre class="math">i)  Slopes: AB = −6, BC = +2, CD = +6, DE = −12 °/s
+     B: sign changes → θ̇B = 0
+     C: same sign    → θ̇C = (2 + 6)/2 = 4 °/s
+     D: sign changes → θ̇D = 0
+
+ii) Segment BC: θ0 = −30, θf = 0, θ̇0 = 0, θ̇f = 4, tf = 15
+     a0 = −30, a1 = 0
+     a2 = 3/225·30 − 0 − 4/15 = 0.4 − 0.267 = 0.133
+     a3 = −2/3375·30 + 4/225 = −0.0178 + 0.0178 = 0
+     θ(t) = −30 + 0.133t²   (t = 0 at B, i.e. 10 ≤ t_abs ≤ 25)
+     So it's a parabola: the cubic term vanishes.
+
+iii) θ: a parabola from −30 (flat) up to 0, finishing with slope 4.
+     θ̇ = 0.267t: a straight line from 0 to 4 °/s.
+     θ̈ = 0.267 °/s²: a constant horizontal line.</pre>
+    </details>
+  </div>
+  <div class="panel">
+    <h2>2023 Q2.2 and Q2.3</h2>
+    <details class="reveal"><summary>Model answers</summary>
+    <ul>
+      <li><b>p<sub>c</sub></b>: large, close to 1 (e.g. 0.7–0.9). <b>p<sub>m</sub></b>: very small, close to 0 (e.g. 0.01).</li>
+      <li>Crossover at site 2 of 011010110 and 111100101 gives <b>011100101</b> and <b>111010110</b>.</li>
+      <li>Two differences from traditional search: GAs work on a coding, not the variables; they search from a population, not a point; they use objective values, not derivatives; they use probabilistic rules. Give any two.</li>
+      <li>Mutation: for each bit, draw r ∈ (0,1); if r &lt; p<sub>m</sub>, flip it (0↔1). Example: 1110001110 → 1111001110 at site 4.</li>
+      <li>TMJ: temporomandibular joint, combined rotation and translation. Chewing phases: opening, closing, occlusion. Posselt envelope: the incisor's 3-D motion workspace (see Notes). Sarcomere: the contractile unit, in µm. Servo hypothesis: see the block diagram. Masseter superficial and deep parts: two unidirectional line actuators (see Notes).</li>
+    </ul>
+    </details>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){let d="M0 23";for(let x=4;x<=800;x+=4){const a=Math.sin(x/9)*7*(x<300?1:0.35)+Math.sin(x/2.3)*(x<300?1.5:4)+(Math.sin(x*12.9898)*43758.5453%1)*3;d+=" L"+x+" "+(23+a).toFixed(1)}document.getElementById("tr").setAttribute("d",d)})();
+const views=["plan","notes","formulas","calc","cards","papers"];
+function show(){let h=(location.hash||"#plan").slice(1);if(!views.includes(h))h="plan";views.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));}
+addEventListener("hashchange",()=>{show();window.scrollTo({top:0})});show();
+const NS="http://www.w3.org/2000/svg";
+function mk(svg,n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;svg.appendChild(e);return e}
+
+/* servo diagram */
+(function(){const s=document.getElementById("servo");
+ const box=(x,y,w,h,t1,t2)=>{mk(s,"rect",{x,y,width:w,height:h,rx:6,fill:"var(--accent-soft)",stroke:"var(--accent)"});mk(s,"text",{x:x+w/2,y:y+h/2+(t2?-3:4),"text-anchor":"middle","font-size":12,fill:"var(--ink)"},t1);if(t2)mk(s,"text",{x:x+w/2,y:y+h/2+12,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)"},t2)};
+ mk(s,"defs",{}).innerHTML='<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>';
+ const ar=(x1,y1,x2,y2)=>mk(s,"line",{x1,y1,x2,y2,stroke:"var(--ink)","stroke-width":1.4,"marker-end":"url(#ar)"});
+ box(10,40,110,46,"CPG / γ-MN","reference length");
+ mk(s,"circle",{cx:160,cy:63,r:13,fill:"var(--paper)",stroke:"var(--ink)"});mk(s,"text",{x:160,y:67,"text-anchor":"middle","font-size":12,fill:"var(--ink)"},"Σ");
+ mk(s,"text",{x:142,y:52,"font-size":11,fill:"var(--ink)"},"+");mk(s,"text",{x:163,y:92,"font-size":12,fill:"var(--ink)"},"−");
+ box(205,40,110,46,"α-MN","controller");box(355,40,120,46,"Muscle (Hill)","FL·FV·FQ+FP");box(515,40,120,46,"Skeleton (jaw)","actual movement");
+ ar(120,63,147,63);ar(173,63,205,63);ar(315,63,355,63);ar(475,63,515,63);ar(635,63,690,63);
+ mk(s,"text",{x:335,y:56,"text-anchor":"middle","font-size":11,fill:"var(--trace)"},"FQ");mk(s,"text",{x:495,y:56,"text-anchor":"middle","font-size":11,fill:"var(--trace)"},"F");
+ mk(s,"text",{x:186,y:56,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)"},"error");
+ ar(575,10,575,40);mk(s,"text",{x:582,y:22,"font-size":11,fill:"var(--muted)"},"food load");
+ mk(s,"polyline",{points:"660,63 660,150 160,150 160,76",fill:"none",stroke:"var(--ink)","stroke-width":1.4,"marker-end":"url(#ar)"});
+ mk(s,"rect",{x:330,y:136,width:150,height:28,rx:6,fill:"var(--paper)",stroke:"var(--accent)"});mk(s,"text",{x:405,y:154,"text-anchor":"middle","font-size":11.5,fill:"var(--ink)"},"Muscle spindle feedback");
+})();
+
+/* cubic calculator */
+function cubic(){const g=i=>parseFloat(document.getElementById(i).value);const t0=g("c0"),tf_=g("cf"),v0=g("cv0"),vf=g("cvf"),T=g("ctf");const out=document.getElementById("cout"),svg=document.getElementById("cplot");svg.innerHTML="";
+ if(![t0,tf_,v0,vf,T].every(Number.isFinite)||T<=0){out.textContent="Enter numbers, with tf greater than 0.";return}
+ const D=tf_-t0,a0=t0,a1=v0,a2=3/T**2*D-2/T*v0-vf/T,a3=-2/T**3*D+(vf+v0)/T**2;const f=n=>(Math.abs(n)<5e-10?0:n).toFixed(4).replace(/\.?0+$/,"");
+ out.textContent=`a0 = ${f(a0)}   a1 = ${f(a1)}   a2 = ${f(a2)}   a3 = ${f(a3)}\nθ(t)  = ${f(a0)} + ${f(a1)}t + ${f(a2)}t² + ${f(a3)}t³\nθ̇(t)  = ${f(a1)} + ${f(2*a2)}t + ${f(3*a3)}t²\nθ̈(t)  = ${f(2*a2)} + ${f(6*a3)}t      θ̈(0) = ${f(2*a2)},  θ̈(tf) = ${f(2*a2+6*a3*T)}`;
+ const fs=[t=>a0+a1*t+a2*t*t+a3*t**3,t=>a1+2*a2*t+3*a3*t*t,t=>2*a2+6*a3*t],names=["θ (°)","θ̇ (°/s)","θ̈ (°/s²)"],cols=["var(--ink)","var(--accent)","var(--trace)"];
+ const L=70,R=640,H=92,G=14;
+ fs.forEach((fn,k)=>{const top=10+k*(H+G),bot=top+H;let ys=[];for(let i=0;i<=100;i++)ys.push(fn(T*i/100));let lo=Math.min(...ys,0),hi=Math.max(...ys,0);if(hi-lo<1e-9){hi+=1;lo-=1}
+  const X=t=>L+(R-L)*t/T,Y=v=>bot-(bot-top)*(v-lo)/(hi-lo);
+  mk(svg,"rect",{x:L,y:top,width:R-L,height:H,fill:"none",stroke:"var(--line)"});
+  mk(svg,"line",{x1:L,x2:R,y1:Y(0),y2:Y(0),stroke:"var(--line)","stroke-dasharray":"3 3"});
+  mk(svg,"text",{x:L-8,y:top+10,"text-anchor":"end","font-size":10.5,fill:"var(--muted)"},(+hi.toFixed(2))+"");
+  mk(svg,"text",{x:L-8,y:bot,"text-anchor":"end","font-size":10.5,fill:"var(--muted)"},(+lo.toFixed(2))+"");
+  mk(svg,"text",{x:L-8,y:(top+bot)/2+4,"text-anchor":"end","font-size":11,fill:cols[k]},names[k]);
+  mk(svg,"path",{d:ys.map((v,i)=>(i?"L":"M")+X(T*i/100).toFixed(1)+" "+Y(v).toFixed(1)).join(""),fill:"none",stroke:cols[k],"stroke-width":2});
+ });
+ mk(svg,"text",{x:L,y:326,"font-size":10.5,fill:"var(--muted)"},"t = 0");mk(svg,"text",{x:R,y:326,"text-anchor":"end","font-size":10.5,fill:"var(--muted)"},"t = "+T+" s");
+}
+["c0","cf","cv0","cvf","ctf"].forEach(i=>document.getElementById(i).addEventListener("input",cubic));cubic();
+
+/* via rule */
+function via(){const o=document.getElementById("vout");try{const P=document.getElementById("vpts").value.split(";").map(s=>s.split(",").map(Number)).filter(p=>p.length===2&&p.every(Number.isFinite));
+ if(P.length<2){o.textContent="Enter at least two points as time,angle; separated by semicolons.";return}
+ const sl=[];for(let i=0;i<P.length-1;i++)sl.push((P[i+1][1]-P[i][1])/(P[i+1][0]-P[i][0]));
+ let s="Segment slopes: "+sl.map(v=>+v.toFixed(3)).join(", ")+"\n";
+ P.forEach((p,i)=>{let v,why;if(i===0||i===P.length-1){v=0;why="start/end, at rest"}else if(Math.sign(sl[i-1])!==Math.sign(sl[i])||sl[i-1]===0||sl[i]===0){v=0;why="slope changes sign"}else{v=(sl[i-1]+sl[i])/2;why="average of "+(+sl[i-1].toFixed(3))+" and "+(+sl[i].toFixed(3))}
+  s+=`Point ${i+1} (t=${p[0]}, θ=${p[1]}):  θ̇ = ${+v.toFixed(3)}   [${why}]\n`});o.textContent=s}catch(e){o.textContent="Couldn't read the points."}}
+document.getElementById("vpts").addEventListener("input",via);via();
+
+/* GA roulette */
+function ga(){const box=document.getElementById("gout");const ch=document.getElementById("gchr").value.trim().split(/[\s,]+/).filter(c=>/^[01]+$/.test(c));
+ let fn;try{fn=new Function("x","return ("+document.getElementById("gfit").value+")")}catch(e){box.innerHTML="<div class='out'>Check the f(x) expression.</div>";return}
+ if(!ch.length){box.innerHTML="<div class='out'>Enter binary chromosomes separated by spaces.</div>";return}
+ const xs=ch.map(c=>parseInt(c,2));let v;try{v=xs.map(x=>fn(x))}catch(e){box.innerHTML="<div class='out'>Check the f(x) expression.</div>";return}
+ if(v.some(n=>!Number.isFinite(n))){box.innerHTML="<div class='out'>f(x) didn't give a number for every chromosome.</div>";return}
+ const F=v.reduce((a,b)=>a+b,0);const neg=v.some(n=>n<0);let q=0;
+ let h="<table><tr><th>#</th><th>Chromosome</th><th>x</th><th>f(x)</th><th>p<sub>i</sub></th><th>q<sub>i</sub></th><th>Expected count</th></tr>";
+ ch.forEach((c,i)=>{const p=v[i]/F;q+=p;h+=`<tr><td>${i+1}</td><td class="num">${c}</td><td class="num">${xs[i]}</td><td class="num">${+v[i].toFixed(3)}</td><td class="num">${p.toFixed(3)}</td><td class="num">${q.toFixed(3)}</td><td class="num">${(p*ch.length).toFixed(2)}</td></tr>`});
+ h+=`<tr><td></td><td>Total</td><td></td><td class="num">${+F.toFixed(3)}</td><td></td><td></td><td></td></tr></table>`;
+ if(neg)h+="<div class='trap' style='margin-top:10px'><b>Negative fitness.</b> Roulette selection needs positive values. Add a constant C to f(x).</div>";
+ box.innerHTML=h}
+["gchr","gfit"].forEach(i=>document.getElementById(i).addEventListener("input",ga));ga();
+
+/* recall cards */
+const C=[
+["T1","What is the difference between task space and joint space in motion planning?","Task space describes the tool frame's 6-DOF pose (T_initial → T_final = goal) in the station or base frame: what you want the robot to do. Joint space describes each joint angle θᵢ: how the robot is actuated. Inverse kinematics maps task space to joint space, and planning is done per joint in joint space."],
+["T1","State the three rules of motion planning.","1) Find a smooth function for each joint in joint space, from the start through the via points to the goal. 2) Every joint takes the same time for each segment, so all joints arrive at each via point together. 3) Each joint's function doesn't depend on the other joints'."],
+["T1","Why use a cubic rather than a straight line, and why not a higher order?","Four constraints (θ₀, θf, θ̇₀, θ̇f) need four coefficients, so the cubic is the minimum order that meets them. A straight line gives a velocity jump and infinite acceleration. Higher orders add computation and possible oscillation unless you also need acceleration constraints (then use a quintic)."],
+["T1","Three ways to set via-point velocities, and who is responsible for each?","1) The user specifies Cartesian tool velocities (application engineer). 2) A heuristic: zero if the slope changes sign, otherwise the average of adjacent slopes (design engineer). 3) Chosen so acceleration is continuous at the via points (design engineer)."],
+["T1","When do you need a quintic?","When position, velocity and acceleration are all specified at both ends of a segment: 6 constraints, so 6 coefficients."],
+["T1","Why add parabolic blends to a linear path, and what is the minimum blend acceleration?","A pure linear path has velocity jumps and infinite acceleration at the ends. Constant-acceleration (2nd-order) blends make position and velocity continuous. θ̈ ≥ 4(θf − θ₀)/tf². At the minimum the linear section disappears."],
+["T1","Does linear joint motion mean the end-effector moves in a straight line?","No. Inverse kinematics is non-linear, so linear joint trajectories generally give a curved Cartesian path."],
+["T2","What are the three components of an optimisation problem?","Decision (design) variables, the objective function and the constraints (equalities and inequalities)."],
+["T2","How do GAs differ from traditional search methods?","They work on a coding of the variables; they search from a population, not a single point; they use only objective values, not derivatives; and they use probabilistic transition rules."],
+["T2","Genotype vs phenotype?","Genotype is the encoded chromosome (binary string), where crossover and mutation happen. Phenotype is the decoded decision variable (decimal), where evaluation and selection happen."],
+["T2","Give typical values of p_c and p_m and how each is applied.","p_c is close to 1 (e.g. 0.7–0.9) and is applied per pair: if r < p_c, swap the tails after a random site. p_m is close to 0 (e.g. 0.01) and is applied per bit: if r < p_m, flip the bit."],
+["T2","How do you use a GA (which maximises positive fitness) to minimise f(x)?","Maximise g(x) = −f(x) + C, choosing C large enough that every g is positive (e.g. C = max f)."],
+["T2","How are constraints handled in a GA?","With a penalty method: minimise U(x) + r·Σ Φ[gᵢ(x)], where Φ = gᵢ² when a constraint is violated (gᵢ < 0) and 0 otherwise. This turns it into an unconstrained problem."],
+["T2","Describe one-point, two-point and uniform crossover.","One-point: swap everything after one random site. Two-point: swap the section between two sites. Uniform: each offspring gene is picked at random from either parent."],
+["T2","Who developed GAs, and when?","John Holland, University of Michigan, in the 1970s."],
+["T3","What does TMJ stand for, and what is distinctive about its motion?","Temporomandibular joint. It's a hybrid rotational and translational joint (the most sophisticated in the body). The condyle moves within a 3-D envelope rather than on a fixed path, because the joint cavity leaves a gap."],
+["T3","What is the Posselt envelope?","The 3-D workspace of the incisor point, i.e. the maximum range of jaw motion. It's bounded by extreme posterior opening (about 10° hinge rotation, then rotation with forward translation), extreme anterior closing and the maximum upper glide. All chewing movements lie inside it."],
+["T3","What are the three phases of the chewing cycle?","Opening, closing and occlusion. Opening is faster than closing; closing is fast, then slows for occlusion, which ends 0.5 mm from maximum intercuspation."],
+["T3","What chewing forces are typical?","70–150 N on a single tooth, 190–260 N across all contacting teeth, and a maximum molar bite of 500–700 N."],
+["T3","How is a muscle represented in the skeletal model?","As a unidirectional line actuator (line of action), from an origin on the skull (short bar) to an insertion on the mandible (circle). Contraction pulls the insertion towards the origin. The masseter is split into superficial and deep lines."],
+["T3","Inverse vs forward dynamics?","Inverse: find the muscle forces from known motion and external forces. Forward: find the motion from known muscle and external forces."],
+["T3","Write the Hill model and name each term.","F = Fmax(FL·FV·FQ + FP). FL = force–length, FV = force–velocity, FQ = activation (active contractile element). FP = parallel elastic (passive non-linear spring). Fmax = calibrated maximum force."],
+["T3","What is a sarcomere, and what does the sliding filament theory say?","The sarcomere is the basic contractile unit of the myofibril, bounded by Z discs and measured in µm. In the sliding filament theory (Huxley 1954), actin slides past myosin: the A band (myosin) stays constant and the I band (actin) shortens."],
+["T3","Explain the servo hypothesis.","The CNS (CPG), through gamma-MNs, sets the desired muscle length (the reference). Alpha-MNs act as the controller, varying activation FQ to reach that length whatever the load (food). Muscle spindles feed back the actual movement. It's a closed loop."],
+["T3","What do the Matsuoka oscillator's tonic input s and adaptation f do?","s is the stimulus input (linked to the error or feedback), and the oscillation amplitude is proportional to it. f is each neuron's self-adaptation (fatigue), driven by its own output; it suppresses the active neuron so the other takes over, producing sustained alternating oscillation."],
+["T3","How do Matsuoka parameters affect the frequency?","Frequency increases with the adaptation constant b and decreases with the rise time constant Tr, the adaptation time constant Ta and the inhibitory weights a_ij. Amplitude scales with the tonic input s."],
+["T3","How does the closed-loop CPG jaw model respond to a step in food resistance?","The alpha-MN oscillator raises the closing-muscle activation within one chewing cycle, and the muscle force settles in 1–2 cycles. Jaw motion is briefly disturbed when the food is added or removed (inertia and non-linearity)."]
+];
+let corder=C.map((_,i)=>i),cst={};
+function csave(){try{localStorage.setItem("c736p2",JSON.stringify(cst))}catch(e){}}
+try{cst=JSON.parse(localStorage.getItem("c736p2")||"{}")||{}}catch(e){cst={}}
+function crender(){const f=document.getElementById("cfilter").value,list=document.getElementById("clist");list.innerHTML="";const ids=corder.filter(i=>f==="all"||C[i][0]===f);let got=0,n=0;
+ ids.forEach((i,k)=>{const [t,q,a]=C[i];const card=document.createElement("div");card.className="q";
+  card.innerHTML=`<div class="meta"><span>${k+1}</span><span class="chip">${t}</span>${cst[i]==="y"?'<span class="chip" style="color:var(--good)">got it</span>':cst[i]==="n"?'<span class="chip" style="color:var(--bad)">review</span>':""}</div><div class="stem"></div>`;
+  card.querySelector(".stem").textContent=q;
+  const d=document.createElement("details");d.className="reveal";d.innerHTML="<summary>Show model answer</summary>";const p=document.createElement("p");p.textContent=a;d.appendChild(p);
+  const row=document.createElement("div");row.className="qbar";row.style.marginTop="10px";
+  [["Got it","y"],["Review","n"]].forEach(([lab,val])=>{const b=document.createElement("button");b.type="button";b.className=val==="y"?"":"ghost";b.textContent=lab;b.addEventListener("click",()=>{cst[i]=val;csave();crender()});row.appendChild(b)});
+  d.appendChild(row);card.appendChild(d);list.appendChild(card);if(cst[i]){n++;if(cst[i]==="y")got++}});
+ document.getElementById("cscore").textContent=`${got} got it · ${n-got} to review · ${ids.length} cards`}
+document.getElementById("cfilter").addEventListener("change",crender);
+document.getElementById("cshuffle").addEventListener("click",()=>{for(let i=corder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[corder[i],corder[j]]=[corder[j],corder[i]]}crender()});
+document.getElementById("creset").addEventListener("click",()=>{cst={};csave();crender()});
+crender();
+</script>
