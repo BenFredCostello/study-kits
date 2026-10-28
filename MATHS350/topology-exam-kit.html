@@ -332,6 +332,26 @@ nav.tabs a[aria-current="page"]{color:var(--panel);background:var(--accent)}
     <dt>Chain complex</dt><dd>A sequence of groups and maps … → C<sub>q+1</sub> → C<sub>q</sub> → C<sub>q−1</sub> → … with Im ∂<sub>q+1</sub> ⊆ ker ∂<sub>q</sub>.</dd>
   </dl></div>
   <p class="score" id="defNone" hidden>No definitions match that filter.</p>
+
+  <h3>Definition quizzes</h3>
+  <p class="lede">Both draw from the definitions above. Say your answer out loud or write it down, then reveal. Cards you miss come back sooner.</p>
+  <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+    <div class="flash dq" id="dqA" data-mode="name">
+      <div class="meta"><span>Quiz 1 · name the term</span><span class="pos"></span></div>
+      <div class="sel"></div>
+      <div class="q"></div>
+      <div class="ans" hidden><div class="verdict T term"></div></div>
+      <div class="row"><button class="btn primary rv" type="button">Reveal</button><button class="btn ok" type="button" hidden>Got it</button><button class="btn no" type="button" hidden>Missed it</button><button class="btn nx" type="button">Next</button></div>
+    </div>
+    <div class="flash dq" id="dqB" data-mode="state">
+      <div class="meta"><span>Quiz 2 · state the definition</span><span class="pos"></span></div>
+      <div class="sel"></div>
+      <div class="q"></div>
+      <div class="ans" hidden><div class="def"></div></div>
+      <div class="row"><button class="btn primary rv" type="button">Reveal</button><button class="btn ok" type="button" hidden>Got it</button><button class="btn no" type="button" hidden>Missed it</button><button class="btn nx" type="button">Next</button></div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ================= DRILL ================= -->
@@ -1350,3 +1370,29 @@ addEventListener("click",function(){setTimeout(hint,60)});
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",run);else run();
 new MutationObserver(run).observe(document.documentElement,{childList:true,subtree:true})})();
 </script>
+<script>
+(function(){
+const cards=[];document.querySelectorAll("#defs .defgroup").forEach(g=>{const ch=g.querySelector("h3").textContent.split(" — ")[0];
+ g.querySelectorAll("dt").forEach(dt=>{const c=dt.cloneNode(true);const n=c.querySelector(".num");const num=n?n.textContent:"";if(n)n.remove();
+  const term=c.textContent.trim();const dd=dt.nextElementSibling;cards.push({ch,term,num,defHTML:dd.innerHTML,defText:dd.textContent})})});
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+function mask(c){let t=c.defText;const parts=c.term.replace(/\(.*?\)/g,"").split(/[,\/;]| or /).map(s=>s.trim()).filter(s=>s.length>1);
+ parts.sort((a,b)=>b.length-a.length).forEach(p=>{t=t.replace(new RegExp(esc(p),"gi"),"▢▢▢")});return t}
+const chs=[...new Set(cards.map(c=>c.ch))];
+function setup(root){const mode=root.dataset.mode,key="m350dq"+mode;let miss={};try{miss=JSON.parse(localStorage.getItem(key)||"{}")}catch(e){}
+ const sel=document.createElement("select");sel.setAttribute("aria-label","Chapter");sel.style.cssText="font:inherit;padding:5px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink);max-width:100%";
+ sel.innerHTML='<option value="">All chapters</option>'+chs.map(c=>`<option>${c}</option>`).join("");root.querySelector(".sel").appendChild(sel);
+ const $=s=>root.querySelector(s);let deck=[],i=0;
+ function build(){const pool=cards.filter(c=>!sel.value||c.ch===sel.value);const m=pool.filter(c=>miss[c.term]),r=pool.filter(c=>!miss[c.term]);
+  [m,r].forEach(a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}});deck=[...m,...r];i=0;show()}
+ function show(){const c=deck[i%deck.length];$(".pos").textContent=(i%deck.length+1)+" / "+deck.length;
+  if(mode==="name"){$(".q").textContent=mask(c);$(".term").textContent=c.term+(c.num?"  ("+c.num+")":"")}
+  else{$(".q").textContent=c.term+(c.num?"  ("+c.num+")":"");$(".def").innerHTML=c.defHTML}
+  $(".q").style.fontSize=mode==="name"?"17px":"";$(".ans").hidden=true;$(".rv").hidden=false;$(".ok").hidden=$(".no").hidden=true}
+ $(".rv").onclick=()=>{$(".ans").hidden=false;$(".rv").hidden=true;$(".ok").hidden=$(".no").hidden=false};
+ function mark(v){const c=deck[i%deck.length];if(v)delete miss[c.term];else miss[c.term]=1;try{localStorage.setItem(key,JSON.stringify(miss))}catch(e){}
+  if(!v){deck.splice(Math.min(i+4,deck.length),0,c)}i++;show()}
+ $(".ok").onclick=()=>mark(true);$(".no").onclick=()=>mark(false);$(".nx").onclick=()=>{i++;show()};sel.onchange=build;build()}
+document.querySelectorAll(".dq").forEach(setup)})();
+</script>
+
