@@ -3,8 +3,29 @@
     "code": "MECHENG736",
     "name": "Biomechatronic Systems",
     "kits": [
-      {"file": "MECHENG736/part1-eeg-sleep.html", "title": "Part 1: EEG, sleep & classification", "lecturer": "Carl Tang", "marks": 30},
-      {"file": "MECHENG736/part2-motion-ga-biomech.html", "title": "Part 2: Motion planning, GAs & jaw biomechanics", "lecturer": "Peter Xu", "marks": 40}
+      {
+        "file": "MECHENG736/part1-eeg-sleep.html",
+        "title": "Part 1: EEG, sleep & classification",
+        "lecturer": "Carl Tang",
+        "marks": 30
+      },
+      {
+        "file": "MECHENG736/part2-motion-ga-biomech.html",
+        "title": "Part 2: Motion planning, GAs & jaw biomechanics",
+        "lecturer": "Peter Xu",
+        "marks": 40
+      }
+    ]
+  },
+  {
+    "code": "MATHS350",
+    "name": "Topology",
+    "kits": [
+      {
+        "file": "MATHS350/topology-exam-kit.html",
+        "title": "Final exam: point-set & algebraic topology",
+        "lecturer": "Sina Greenwood"
+      }
     ]
   }
 ]

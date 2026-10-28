@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>MATHS 350 Exam Kit</title>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: study-kits house style (matches MECHENG736 kits) — single reading column, sticky pill tabs, graph-paper ground */
+:root{
+  --bg:#F5F8F9; --panel:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --rule:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --true:#1E7A46; --true-soft:#E3F3E9; --false:#B3261E; --false-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --serif:"Public Sans",system-ui,-apple-system,"Segoe UI","Cambria Math",sans-serif;
+  --display:"Literata",Georgia,"Times New Roman",serif;
+  --ui:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --panel:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --rule:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --true:#6FD39A; --true-soft:#163526; --false:#FF8F86; --false-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --panel:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --rule:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --true:#6FD39A; --true-soft:#163526; --false:#FF8F86; --false-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--panel);border-bottom:1px solid var(--rule)}
+header.top .wrap{padding-block:22px 14px;display:grid;gap:10px}
+.eyebrow{font-family:var(--ui);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0;text-wrap:balance;font-weight:700}
+h1 .sym{color:var(--accent);font-style:italic;font-weight:400}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--ui);font-size:14px;color:var(--muted)}
+.facts b{color:var(--ink);font-weight:600}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--rule)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs a{font-family:var(--ui);font-size:15px;font-weight:500;color:var(--muted);text-decoration:none;padding:11px 12px 9px;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main .wrap{padding-block:26px 80px}
+section.panel{display:grid;gap:18px}
+h2{font-size:27px;margin:6px 0 0;line-height:1.2;text-wrap:balance}
+h3{font-size:20px;margin:18px 0 0;line-height:1.25;text-wrap:balance}
+h4{font-family:var(--ui);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 0;font-weight:600}
+p{margin:0}
+.lede{color:var(--muted);max-width:68ch}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;display:grid;gap:10px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+ul,ol{margin:0;padding-left:1.3em;display:grid;gap:4px}
+.num{font-family:var(--mono);font-size:.82em;color:var(--accent);white-space:nowrap}
+.tag{display:inline-block;font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.04em;padding:1px 7px;border-radius:3px;vertical-align:2px;white-space:nowrap}
+.tag.in{background:var(--true-soft);color:var(--true)}
+.tag.out{background:var(--false-soft);color:var(--false)}
+.tag.hot{background:var(--warn-soft);color:var(--warn)}
+.tag.acc{background:var(--accent-soft);color:var(--accent)}
+.note{border-left:3px solid var(--warn);background:var(--warn-soft);padding:10px 14px;border-radius:0 4px 4px 0}
+.note.err{border-left-color:var(--false);background:var(--false-soft)}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--rule)}
+th{font-family:var(--ui);font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+details{background:var(--panel);border:1px solid var(--rule);border-radius:6px;min-width:0}
+details>summary{cursor:pointer;padding:12px 16px;list-style:none;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"+";font-family:var(--mono);color:var(--accent);width:1ch}
+details[open]>summary::before{content:"−"}
+details>summary .t{font-weight:600}
+details .body{padding:0 18px 16px 34px;display:grid;gap:10px}
+.stmt{font-style:italic}
+.proof{border-top:1px dashed var(--rule);padding-top:10px;display:grid;gap:6px}
+.proof ol{gap:6px}
+.qed{float:right;color:var(--muted)}
+.m{font-style:italic}
+code,.mono{font-family:var(--mono);font-size:.85em}
+.btn{font-family:var(--ui);font-size:15px;font-weight:500;border:1px solid var(--rule);background:var(--panel);color:var(--ink);padding:7px 14px;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.btn:hover{border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--ui);font-size:14px;border:1px solid var(--rule);background:var(--panel);color:var(--muted);padding:4px 11px;border-radius:20px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.flash{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;display:grid;gap:14px;min-height:220px}
+.flash .meta{display:flex;justify-content:space-between;gap:10px;font-family:var(--ui);font-size:13px;color:var(--muted)}
+.flash .q{font-size:20px;line-height:1.45}
+.ans{display:grid;gap:8px;border-top:1px solid var(--rule);padding-top:12px}
+.verdict{font-family:var(--ui);font-weight:600;font-size:15px;letter-spacing:.05em}
+.verdict.T{color:var(--true)} .verdict.F{color:var(--false)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.score{font-family:var(--ui);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tfl{display:grid;gap:8px}
+.tfl .it{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.tfl .v{font-family:var(--ui);font-weight:600;padding-top:2px}
+.tfl .v.T{color:var(--true)} .tfl .v.F{color:var(--false)}
+.tfl .j{grid-column:2;color:var(--muted);font-size:15.5px}
+.kv{margin:0;display:grid;grid-template-columns:minmax(110px,max-content) 1fr;gap:6px 14px}
+.kv dt{font-family:var(--ui);font-weight:600;font-size:14px;color:var(--muted);padding-top:2px}
+.kv dd{margin:0}
+.calc{font-family:var(--mono);font-size:14px;line-height:1.6;background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;overflow-x:auto;white-space:pre}
+svg text{fill:var(--ink);font-family:var(--ui)}
+.fig{display:flex;justify-content:center;overflow-x:auto}
+@media (max-width:520px){body{font-size:16px}.calc{white-space:pre-wrap;font-size:13px}.flash .q{font-size:18px}details .body{padding-left:18px}}
+@media (prefers-reduced-motion:no-preference){.flash{transition:border-color .2s}}
+
+/* house-style overrides */
+h1,h2,h3{font-family:var(--display)}
+header.top{background:transparent;border-bottom:0}
+header.top .wrap{padding-block:36px 16px}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--trace)}
+nav.tabs{background:var(--bg);border-bottom:0;padding-block:8px}
+@media (max-width:520px){.kv{grid-template-columns:1fr;gap:2px 0}.kv dd{margin-bottom:8px}}
+nav.tabs .wrap{gap:4px}
+nav.tabs .wrap>a:first-child{margin-left:0}
+nav.tabs a{font-family:var(--ui);font-weight:600;font-size:14px;padding:7px 12px;border-radius:7px;border-bottom:0;background:var(--panel)}
+nav.tabs .wrap{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:5px;max-width:828px}
+nav.tabs a:hover{color:var(--ink);background:var(--accent-soft)}
+nav.tabs a[aria-current="page"]{color:var(--panel);background:var(--accent)}
+.card,details,.tbl,.flash{border-radius:12px}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="eyebrow">University of Auckland · Topology · Semester 2 2026</div>
+  <h1>MATHS 350 Exam Kit <span class="sym">π(S¹) ≅ ℤ</span></h1>
+  <div class="facts"><span><b>4</b> questions</span><span><b>2</b> hours</span><span>Q1 <b>10</b> marks T/F, Q2–Q4 <b>15</b> each (2024 format)</span><span>Q4 algebraic topology</span></div>
+</div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap">
+  <a href="#plan">Plan</a><a href="#drill">Q1 drill</a><a href="#counter">Counterexamples</a><a href="#bookwork">Bookwork</a><a href="#alg">Q4 toolkit</a><a href="#past">Past papers</a><a href="#mock">Mock exam</a>
+</div></nav>
+<main><div class="wrap">
+
+<!-- ================= PLAN ================= -->
+<section class="panel" id="plan" data-panel>
+  <h2>What's on the exam</h2>
+  <p class="lede">Built from the lecturer's briefing, the current notes (point-set numbering follows the combined <span class="mono">ALL.pdf</span>, which matches Chapter 2, 4 and 5 files; Chapter 3 is shifted by one versus <span class="mono">Chapter3-2026.pdf</span>), the 2022 and 2024 papers, the tests, assignments and tutorials.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Format</h4>
+      <ul>
+        <li><b>Q1</b> true/false + justification: a counterexample, a quick reason or a one-line proof. Two to five lines. No rigorous proof, and you don't have to prove a counterexample works.</li>
+        <li><b>Q2–Q3</b> point-set: mostly bookwork proofs plus "is X…? justify".</li>
+        <li><b>Q4</b> algebraic topology: covering spaces + a simplicial homology computation (both past papers), maybe a point-set piece.</li>
+        <li>Questions this year are a bit longer and more demanding. Questions can mix chapters.</li>
+        <li>Nearly all counterexamples come from the notes. Named theorems may need to be stated exactly.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Timing (≈2 min a mark)</h4>
+      <dl class="kv">
+        <dt>0–20 min</dt><dd>Q1. Skip any you stall on; come back.</dd>
+        <dt>20–55</dt><dd>Your strongest long question.</dd>
+        <dt>55–90</dt><dd>Next one.</dd>
+        <dt>90–115</dt><dd>Last one. Write the statement and proof skeleton first, fill in details second.</dd>
+        <dt>115–120</dt><dd>Re-check Q1 answers and homology arithmetic (Euler characteristic check).</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h3>Scope by chapter</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Chapter</th><th>In</th><th>Out</th></tr></thead>
+    <tbody>
+      <tr><td>0 (both parts)</td><td>Background only</td><td><span class="tag out">not directly examined</span></td></tr>
+      <tr><td>1 Basic notions</td><td>All: bases 1.6, nbhds, closure/interior, subspaces, continuity 1.32, pasting 1.35, products 1.41–1.45, quotients 1.46–1.50, sums, cone, mapping cylinder</td><td>—</td></tr>
+      <tr><td>2 Separation</td><td>T0–T2, 2.4, 2.5, regular 2.6–2.10, normal 2.12–2.16, Urysohn families 2.18–2.20, <b>Urysohn's Lemma 2.21</b>, completely regular / Tychonoff 2.23</td><td><span class="num">2.22</span> Tietze, <span class="num">2.25</span> Tychonoff embedding</td></tr>
+      <tr><td>3 Countability</td><td>3.1–3.8, sequences 3.10–3.15, 3.16 regular + 2nd countable ⇒ normal, 3.17 statement</td><td><span class="num">Ex 3.9</span> (uncountable product of ℕ)</td></tr>
+      <tr><td>4 Connectedness</td><td>4.1–4.15, 4.17–4.24 (path, local connectedness, comb spaces)</td><td><span class="num">Ex 4.16</span> (topologist's sine curve as a worked example; still usable as a counterexample)</td></tr>
+      <tr><td>5 Compactness</td><td>5.1–5.13, tube lemma 5.12, local compactness 5.15–5.17, one-point compactification 5.18–5.24</td><td><span class="num">Thm 5.14</span> Tychonoff's theorem proof, all of <span class="num">§5.3</span> Stone–Čech, <span class="num">§5.4</span> Lindelöf / paracompact</td></tr>
+      <tr><td>A1 Fundamental group</td><td>Loops, homotopy, Lemma 1.2, contractible 1.7–1.8, basepoint change 1.9, induced maps 1.10–1.12</td><td>—</td></tr>
+      <tr><td>A2 Covering projections</td><td>2.1–2.5, path lifting 2.8, map lifting 2.9 (statement), Problem 2.10</td><td><span class="num">2.6</span> Unique lifting, <span class="num">2.7</span> Covering homotopy (know statements so you can quote them)</td></tr>
+      <tr><td>A3 Applications</td><td>π(S¹) ≅ ℤ 3.1, no retraction 3.2, Brouwer 3.3, linking 3.4–3.5, degree 3.6–3.7, 3.8</td><td>Background notes (FTA, hairy ball) are not a chapter</td></tr>
+      <tr><td>A4 Homology</td><td>§4.1 simplicial: Δ-complexes 4.1–4.4, chains, ∂, ∂∂ = 0 (4.6), H<sub>q</sub><sup>Δ</sup> 4.8, circle 4.9, torus 4.10</td><td><span class="num">§4.2</span> singular homology onwards; chapter 5</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Priority list</h3>
+  <p class="lede">Ranked by how often it has appeared on 2020–2024 exams and tests and by the lecturer's hints. <span class="tag hot">seen</span> marks something already examined.</p>
+  <ol>
+    <li><b>Q1-style facts and counterexamples</b> — every exam. Drill tab plus the counterexample table.</li>
+    <li><b>Simplicial homology of a pictured space</b> <span class="tag hot">2020, 2022, 2024</span> — one of these is almost certain. Q4 toolkit has the method.</li>
+    <li><b>Covering-space construction</b> <span class="tag hot">2020, 2022, 2024</span> — draw a cover of a graph-like space, or reason about covers of [0,1].</li>
+    <li><b>Equaliser {f = g} closed / fixed points closed / injective into Hausdorff ⇒ Hausdorff</b> (2.5) <span class="tag hot">2020 test, 2022 test, 2024 exam</span></li>
+    <li><b>Products:</b> product topology is the weakest making projections continuous (1.42) <span class="tag hot">all three tests</span>; products of two connected / compact / separable / first-countable / Hausdorff / regular spaces.</li>
+    <li><b>Compact Hausdorff ⇒ regular, normal</b> (5.8) <span class="tag hot">2022</span>; compact ⊆ Hausdorff ⇒ closed (5.5); 5.7.</li>
+    <li><b>Urysohn machinery</b>: Lemma 2.19, Lemma 2.20 <span class="tag hot">2024</span>, Urysohn's Lemma 2.21 (now examinable).</li>
+    <li><b>Sequences and first countability</b> 3.13, 3.14 <span class="tag hot">2020, 2024 tests</span>; 3.16 <span class="tag hot">2022 test</span>.</li>
+    <li><b>Connectedness</b> 4.2, 4.3, 4.6, 4.21–4.23; local connectedness of a weird space <span class="tag hot">2022</span>.</li>
+    <li><b>One-point compactification</b>: Hausdorff iff locally compact Hausdorff (5.23); first countability / local connectedness of X* <span class="tag hot">2022</span>.</li>
+    <li><b>π(S¹) ≅ ℤ proof, no retraction, Brouwer</b> — the core bookwork of A3.</li>
+  </ol>
+
+  <div class="note err"><b>Two errors in the 2024 official solutions.</b> Q1(f) is <b>true</b>: second countable ⇒ first countable (3.6), and then Theorem 3.13 applies. The co-finite topology on ℕ is itself second countable, so it can't be a counterexample. Q2(c) asks about <i>separable</i> products, but the solution proves the first-countable case. Q4(a) also can't be done as literally stated: every connected cover of [0,1] is homeomorphic to [0,1]. Corrected versions are in Past papers.</div>
+</section>
+
+<!-- ================= DRILL ================= -->
+<section class="panel" id="drill" data-panel hidden>
+  <h2>Q1 drill</h2>
+  <p class="lede">Say true or false and your justification out loud, then reveal. Mark each one; missed cards come back first. Progress is saved in this browser only. Answers follow the course notes' numbering.</p>
+  <div class="chips" id="chapterChips" role="group" aria-label="Filter by chapter"></div>
+  <div class="row">
+    <button class="chip" id="onlyMissed" aria-pressed="false" type="button">Missed only</button>
+    <button class="chip" id="listMode" aria-pressed="false" type="button">Show as list</button>
+    <span class="score" id="score"></span>
+  </div>
+  <div id="flashWrap">
+    <div class="flash" id="flash" aria-live="polite">
+      <div class="meta"><span id="fMeta"></span><span id="fPos"></span></div>
+      <div class="q" id="fQ"></div>
+      <div class="ans" id="fA" hidden>
+        <div class="verdict" id="fV"></div>
+        <div id="fJ"></div>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="reveal" type="button">Reveal</button>
+        <button class="btn" id="got" type="button" hidden>Got it</button>
+        <button class="btn" id="miss" type="button" hidden>Missed it</button>
+        <button class="btn" id="skip" type="button">Next</button>
+        <button class="btn" id="reset" type="button" style="margin-left:auto">Reset progress</button>
+      </div>
+    </div>
+  </div>
+  <div class="tfl" id="tfList" hidden></div>
+  <div class="card">
+    <h4>How to write a Q1 answer</h4>
+    <ul>
+      <li><b>False:</b> name the counterexample and the one feature that breaks it. "False. Sierpiński space {0,1}, opens ∅, {0}, X: normal (vacuously) but 0 and {1} can't be separated, so not regular."</li>
+      <li><b>True:</b> cite the theorem or give the one-line reason. "True. Second countable ⇒ first countable (3.6), so Thm 3.13 applies."</li>
+      <li>Watch the quantifiers. "Any", "every" and "arbitrary" usually signal a counterexample. Also check for finite vs infinite products and for missing T1 or Hausdorff hypotheses.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= COUNTEREXAMPLES ================= -->
+<section class="panel" id="counter" data-panel hidden>
+  <h2>Counterexample catalogue</h2>
+  <p class="lede">Every space here is in the notes, assignments or past papers. Learn the left column as a lookup: when a Q1 statement says "every X is Y", find the space that is X but not Y.</p>
+  <div class="tbl"><table>
+    <thead><tr><th style="min-width:150px">Space</th><th>Definition</th><th>Shows</th></tr></thead>
+    <tbody>
+<tr><td><b>Indiscrete</b> (≥ 2 points)</td><td>Only ∅, X open</td><td>Regular and normal (vacuously) but not T0, so not Hausdorff. Every subset is compact, so compact ⇏ closed. Every sequence converges to every point. Every map <i>into</i> it is continuous.</td></tr>
+<tr><td><b>Discrete</b>, uncountable</td><td>All subsets open; metric d(x,y)=1</td><td>Metric and first countable but not separable or second countable, so metric ⇏ second countable. Every map <i>out of</i> a discrete space is continuous.</td></tr>
+<tr><td><b>Sierpiński space</b></td><td>{0,1}, opens ∅, {0}, {0,1}</td><td>T0 not T1. Normal but not regular (0 vs closed {1}), so normal ⇏ regular without T1. Normal but not completely regular. int cl int{0} = X ≠ {0}. cl{0} = X, so {0} is a dense open point.</td></tr>
+<tr><td><b>Co-finite</b>, X infinite</td><td>∅ and sets with finite complement</td><td>T1 not T2. Compact (every subset is compact). Not normal: {a},{b} are closed but any two nonempty opens meet. On uncountable X: separable but not first countable. On ℕ: countable basis, so second countable.</td></tr>
+<tr><td><b>Co-countable</b>, X uncountable</td><td>∅ and sets with countable complement</td><td>Convergent sequences are eventually constant, so the sequential closure ≠ the closure (Thm 3.13 fails) and preserving limits ⇏ continuous (identity to discrete). Not first countable.</td></tr>
+<tr><td><b>Sorgenfrey line</b> S</td><td>ℝ with basis [a,b)</td><td>Strictly finer than usual. Separable (ℚ), first countable ([x, x+1/n)), not second countable. Normal (Ex 2.15), T4, Tychonoff. <b>S × S is not normal</b>: normal is not productive, and Tychonoff ⇏ normal.</td></tr>
+<tr><td><b>Slit disc</b></td><td>ℝ², points of the x-axis L get nbhds {z} ∪ (disc minus L)</td><td>Hausdorff but not regular: (0,0) vs the closed set L∖{(0,0)}. L is closed and discrete.</td></tr>
+<tr><td><b>Moore plane</b></td><td>Upper half-plane; points on L get {z} ∪ open disc tangent at z</td><td>T3 (closed-nbhd base, Thm 2.9) but not normal; L is a closed discrete subspace of size 𝔠.</td></tr>
+<tr><td><b>Line with two origins</b></td><td>ℝ×{0,1}/(x,0)∼(x,1) for x ≠ 0</td><td>Quotient of a Hausdorff space need not be Hausdorff; the two origins can't be separated.</td></tr>
+<tr><td><b>ℚ</b> (usual)</td><td>Subspace of ℝ</td><td>Components are singletons: closed, not open. Not locally connected. Not locally compact (compact subsets have empty interior), so ℚ* is not Hausdorff (5.23).</td></tr>
+<tr><td><b>Irrationals ℙ</b></td><td>Subspace of ℝ</td><td>Not locally compact, not σ-compact. The one-point compactification ℙ* is compact but not Hausdorff and not first countable at ∞ (2022 Q3c).</td></tr>
+<tr><td><b>Topologist's sine curve</b></td><td>{(x, sin 1/x): x &gt; 0} ∪ {0}×[−1,1]</td><td>Connected (closure of a connected set) but not path connected. Path components need not be closed. Path versions of 4.3 and 4.6 fail.</td></tr>
+<tr><td><b>Comb space</b></td><td>([0,1]×{0}) ∪ ((K∪{0})×[0,1]), K = {1/n}</td><td>Path connected, so connected, but not locally connected. Path connected + connected ⇏ locally connected (2024 Q1g).</td></tr>
+<tr><td><b>Deleted comb + points (0,1/n)</b></td><td>Ex 4.24(4)</td><td>Locally connected at (0,1) but not locally path-connected there.</td></tr>
+<tr><td><b>[0,1) ∪ (1,2]</b></td><td>Subspace of ℝ</td><td>Locally connected but not connected.</td></tr>
+<tr><td><b>Cantor set</b></td><td>Middle-thirds</td><td>Compact, separable, uncountably many components (all singletons) (A3 Q1b).</td></tr>
+<tr><td><b>Hawaiian earring</b></td><td>Circles of radius 1/n tangent at 0</td><td>Locally path-connected (balls at 0 meet it in small circles plus arcs through 0). Compact.</td></tr>
+<tr><td><b>Box ℝ<sup>ℕ</sup></b></td><td>Basis ∏U<sub>n</sub>, all U<sub>n</sub> open</td><td>Box strictly finer than product for infinite products: (−1,1)<sup>ℕ</sup> is box-open, not product-open. So id: product → box is not continuous. Product of connected is connected fails in the box topology.</td></tr>
+<tr><td><b>ℕ<sup>A</sup></b>, A uncountable, ℕ discrete</td><td>Ex 3.9 (excluded as an example)</td><td>Each factor is second countable but the product isn't first countable: countability axioms survive only countable products.</td></tr>
+<tr><td><b>xy = 1 in ℝ²</b></td><td>Hyperbola</td><td>Projections are open but not closed maps: π₁(hyperbola) = ℝ∖{0}.</td></tr>
+<tr><td><b>Singletons in ℝ</b></td><td>X<sub>α</sub> = {α}</td><td>Pasting lemma 1.35(ii) fails for infinitely many closed sets.</td></tr>
+<tr><td><b>[0,2π) → S¹, t ↦ e<sup>it</sup></b></td><td>Continuous bijection</td><td>Not a homeomorphism; the domain isn't compact, so Thm 5.7 doesn't apply. Similarly id: (ℝ, discrete) → (ℝ, usual).</td></tr>
+<tr><td><b>(0,2) → S¹, t ↦ e<sup>2πit</sup></b></td><td>Surjective local homeomorphism</td><td>Not a covering projection: near 1 ∈ S¹ the preimage has a full sheet on one side only.</td></tr>
+<tr><td><b>ℕ ↪ ℤ</b>, or (0,1) ↪ ℝ</td><td>Inclusion</td><td>An embedding between homeomorphic spaces needn't be onto (2024 Q1c).</td></tr>
+<tr><td><b>S¹ ⊔ {p}</b></td><td>Circle plus an isolated point</td><td>π(X,a) depends on the basepoint if X isn't path connected: ℤ vs trivial.</td></tr>
+<tr><td><b>S² vs a point</b>; ℝ vs a point</td><td></td><td>Isomorphic π doesn't imply homeomorphic.</td></tr>
+<tr><td><b>Figure eight</b> / theta graph</td><td>Two circles at a point; rectangle split by a line</td><td>π is the free group on 2 generators: non-abelian, so not ℤ⊕ℤ (2024 Q1j).</td></tr>
+<tr><td><b>Cylinder, annulus, Möbius band, ℝ²∖{0}</b></td><td></td><td>All homotopy equivalent to S¹, so π ≅ ℤ. A loop around the cylinder isn't null-homotopic (2022 Q1h).</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Which property survives which construction</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Property</th><th>Subspace</th><th>Product</th><th>Quotient / cts image</th></tr></thead>
+    <tbody>
+      <tr><td>T0, T1, T2</td><td>yes</td><td>yes (any)</td><td>no (two origins)</td></tr>
+      <tr><td>Regular, T3</td><td>yes</td><td>yes</td><td>no</td></tr>
+      <tr><td>Normal, T4</td><td>closed subspaces only</td><td>no (Sorgenfrey square)</td><td>no</td></tr>
+      <tr><td>Completely regular, Tychonoff</td><td>yes</td><td>yes</td><td>no</td></tr>
+      <tr><td>Separable</td><td>open subspaces (not all)</td><td>countable products (3.8)</td><td>cts image: yes</td></tr>
+      <tr><td>First / second countable</td><td>yes</td><td>countable products only</td><td>no in general</td></tr>
+      <tr><td>Connected, path connected</td><td>no</td><td>yes, any product (4.9, 4.19)</td><td>cts image: yes (4.10, 4.18)</td></tr>
+      <tr><td>Locally connected</td><td>open subspaces</td><td>finite products</td><td>quotient: yes</td></tr>
+      <tr><td>Compact</td><td>closed subspaces (5.3)</td><td>yes (Tychonoff)</td><td>cts image: yes (5.6)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= BOOKWORK ================= -->
+<section class="panel" id="bookwork" data-panel hidden>
+  <h2>Bookwork: statements and proof skeletons</h2>
+  <p class="lede">Each entry gives the exact statement, then the proof as numbered moves. Learn the moves; the sentences come easily once you know them. <span class="tag hot">seen</span> means it has already been examined.</p>
+
+  <div class="card">
+    <h4>Named theorems — recite exactly</h4>
+    <dl class="kv">
+      <dt>Urysohn's Lemma <span class="num">2.21</span></dt><dd>X is normal iff any two disjoint closed subsets are completely separated (there is a continuous f: X → [0,1] with f(A) = {0}, f(B) = {1}).</dd>
+      <dt>Tietze <span class="num">2.22</span> (not examined)</dt><dd>X is normal iff every bounded continuous f: C → ℝ on a closed C ⊆ X has a bounded continuous extension to X.</dd>
+      <dt>Tychonoff embedding <span class="num">2.25</span> (not examined)</dt><dd>A space is Tychonoff iff it embeds in a cube [0,1]<sup>A</sup>.</dd>
+      <dt>Urysohn metrisation <span class="num">3.17</span></dt><dd>Every second countable T3 space is metrisable.</dd>
+      <dt>IVT <span class="num">4.12</span></dt><dd>f: X → ℝ continuous, X connected, f(x₁) ≤ y ≤ f(x₂) ⇒ y = f(x) for some x.</dd>
+      <dt>Brouwer, dim 1 <span class="num">4.13</span></dt><dd>Every continuous f: [a,b] → [a,b] has a fixed point.</dd>
+      <dt>Heine–Borel</dt><dd>A ⊆ ℝⁿ is compact iff closed and bounded.</dd>
+      <dt>Tube lemma <span class="num">5.12</span></dt><dd>Y compact, U open in X × Y with {p} × Y ⊆ U ⇒ there is an open W ∋ p with W × Y ⊆ U.</dd>
+      <dt>Tychonoff's theorem <span class="num">5.14</span></dt><dd>Any product of compact spaces is compact. (Statement usable; proof not examined.)</dd>
+      <dt>Unique lifting <span class="num">A2.6</span></dt><dd>p: E → X covering, f: Y → X, Y <b>connected</b>, p(e₀) = f(y₀) = x₀. Then there is at most one lift g: Y → E of f with g(y₀) = e₀.</dd>
+      <dt>Covering homotopy <span class="num">A2.7</span></dt><dd>If f: Y → X has a lift f̂ with f̂(y₀) = e₀ and F: Y × [a,b] → X has F(y,a) = f(y), then F lifts to F̂ with F̂(y,a) = f̂(y). If F(y₀,t) = x₀ for all t, then F̂(y₀,t) = e₀ for all t.</dd>
+      <dt>Path lifting <span class="num">A2.8</span></dt><dd>For a path σ in X with σ(0) = x₀ and p(e₀) = x₀ there is a <b>unique</b> path τ in E with τ(0) = e₀ and p∘τ = σ.</dd>
+      <dt>Map lifting criterion <span class="num">A2.9</span></dt><dd>Y connected and locally path connected, f(y₀) = x₀ = p(e₀). Then f has a lift f̂ with f̂(y₀) = e₀ iff f<sub>*</sub>(π(Y,y₀)) ⊆ p<sub>*</sub>(π(E,e₀)).</dd>
+      <dt>Brouwer, dim 2 <span class="num">A3.3</span></dt><dd>Every continuous f: B² → B² has a fixed point.</dd>
+    </dl>
+  </div>
+
+  <h3>Chapter 1 — Basic notions</h3>
+
+<details><summary><span class="num">Prop 1.6</span><span class="t">Criterion for a basis</span><span class="tag hot">2022 test</span></summary><div class="body">
+<p class="stmt">B ⊆ 𝒫(X) is a basis for a topology on X iff (1) every x lies in some B ∈ B, and (2) whenever x ∈ B₁ ∩ B₂ there is B₃ ∈ B with x ∈ B₃ ⊆ B₁ ∩ B₂.</p>
+<div class="proof"><ol>
+<li>(⇒) X is open, so it is a union of basis sets: (1). B₁ ∩ B₂ is open, so it is a union of basis sets, one of which contains x: (2).</li>
+<li>(⇐) Let T = all unions of members of B. ∅ = empty union; X ∈ T by (1).</li>
+<li>U, V ∈ T and x ∈ U ∩ V: pick x ∈ B₁ ⊆ U, x ∈ B₂ ⊆ V, then B<sub>x</sub> from (2). So U ∩ V = ⋃<sub>x</sub> B<sub>x</sub> ∈ T.</li>
+<li>A union of unions is a union, so T is closed under arbitrary unions. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 1.32</span><span class="t">Equivalent forms of continuity</span><span class="tag hot">2022 exam Q2a</span></summary><div class="body">
+<p class="stmt">For f: X → Y the following are equivalent: (1) f continuous; (2) continuous at each point; (3) preimages of basis sets open; (4) preimages of subbasis sets open; (5) preimages of closed sets closed; (6) f(cl A) ⊆ cl f(A); (7) cl f⁻¹(B) ⊆ f⁻¹(cl B); (8) f⁻¹(int B) ⊆ int f⁻¹(B).</p>
+<div class="proof">
+<p>The two identities that drive (5)–(8): <b>cl(X∖S) = X∖int S</b> and <b>int(X∖S) = X∖cl S</b>, plus f⁻¹(Y∖B) = X∖f⁻¹(B).</p>
+<ol>
+<li>(5)⇒(6): f⁻¹(cl f(A)) is closed and contains A, so contains cl A.</li>
+<li>(6)⇒(7): put A = f⁻¹(B): f(cl f⁻¹B) ⊆ cl f(f⁻¹B) ⊆ cl B.</li>
+<li>(7)⇒(8): apply (7) to Y∖B and take complements (see 2022 Q2a in Past papers).</li>
+<li>(8)⇒(1): U open ⇒ f⁻¹(U) = f⁻¹(int U) ⊆ int f⁻¹(U) ⊆ f⁻¹(U).</li>
+<li>(4)⇒(5): x ∉ f⁻¹(C) ⇒ f(x) ∈ U₁ ∩ … ∩ Uₙ ⊆ Y∖C with Uᵢ subbasic, whose preimage is an open nbhd of x missing f⁻¹(C).</li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 1.35</span><span class="t">Pasting lemma</span><span class="tag hot">flagged for test</span></summary><div class="body">
+<p class="stmt">If X = ⋃ X<sub>α</sub> and every f↾X<sub>α</sub> is continuous, then f is continuous provided (i) every X<sub>α</sub> is open, or (ii) every X<sub>α</sub> is closed and there are finitely many.</p>
+<div class="proof"><ol>
+<li>(i) U open in Y: f<sub>α</sub>⁻¹(U) = f⁻¹(U) ∩ X<sub>α</sub> is open in X<sub>α</sub>, hence open in X since X<sub>α</sub> is open. f⁻¹(U) = ⋃ f<sub>α</sub>⁻¹(U) is open.</li>
+<li>(ii) Same with C closed: each f<sub>α</sub>⁻¹(C) is closed in X<sub>α</sub>, hence closed in X; a <i>finite</i> union of closed sets is closed.</li>
+<li>Finiteness is needed: X<sub>α</sub> = {α} in ℝ. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 1.42</span><span class="t">Product topology is the weakest making all π<sub>α</sub> continuous</span><span class="tag hot">2020, 2022, 2024 tests</span></summary><div class="body">
+<p class="stmt">The Tychonoff topology τ on X = ∏X<sub>α</sub> is the coarsest topology for which every projection π<sub>α</sub> is continuous.</p>
+<div class="proof"><ol>
+<li>State the subbasis S = {π<sub>α</sub>⁻¹(U): U open in X<sub>α</sub>}; a basis element is ∏U<sub>α</sub> with U<sub>α</sub> = X<sub>α</sub> for all but finitely many α.</li>
+<li>π<sub>α</sub> is τ-continuous: π<sub>α</sub>⁻¹(U) ∈ S ⊆ τ.</li>
+<li>Let σ be any topology making every π<sub>α</sub> continuous. Then each π<sub>α</sub>⁻¹(U) ∈ σ, so S ⊆ σ.</li>
+<li>σ is closed under finite intersections and unions, so it contains every basis set and every union of them: τ ⊆ σ. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 1.43, Cor 1.44, Prop 1.45</span><span class="t">Maps into products; projections are open</span></summary><div class="body">
+<p class="stmt">f: Y → ∏X<sub>α</sub> is continuous iff every π<sub>α</sub>∘f is. Products of continuous maps are continuous. Each π<sub>α</sub> is an open map (not closed: xy = 1).</p>
+<div class="proof"><ol>
+<li>1.43 (⇐): it suffices to check subbasic sets (1.32(4)): f⁻¹(π<sub>α</sub>⁻¹(U)) = (π<sub>α</sub>∘f)⁻¹(U), which is open.</li>
+<li>1.44: ρ<sub>β</sub>∘f = f<sub>β</sub>∘π<sub>β</sub> is continuous, so apply 1.43.</li>
+<li>1.45: U open, x ∈ U ⇒ basic W = ∏W<sub>α</sub> with x ∈ W ⊆ U, so π<sub>β</sub>(x) ∈ W<sub>β</sub> ⊆ π<sub>β</sub>(U) with W<sub>β</sub> open. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 1.50</span><span class="t">Maps inducing quotients</span></summary><div class="body">
+<p class="stmt">g: X → Y continuous surjection, X* = {g⁻¹(y)} with the quotient topology, p: X → X*. Then f: X* → Y, [x] ↦ g(x), is a continuous bijection with f∘p = g, and f is a homeomorphism iff g is a quotient map.</p>
+<div class="proof"><ol>
+<li>Well defined and injective: [x] = [x′] ⇔ g(x) = g(x′). Surjective since g is.</li>
+<li>Continuous by Prop 1.47, since f∘p = g is continuous.</li>
+<li>g quotient ⇒ f open: U open in X* ⇒ p⁻¹(U) = g⁻¹(f(U)) open ⇒ f(U) open.</li>
+<li>f homeo ⇒ g quotient: if g⁻¹(V) = p⁻¹(f⁻¹(V)) is open then f⁻¹(V) is open (p quotient), so V = f(f⁻¹V) is open. <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>Chapter 2 — Separation</h3>
+
+<details><summary><span class="num">Prop 2.4</span><span class="t">T1 ⇔ singletons closed</span></summary><div class="body">
+<div class="proof"><ol>
+<li>(⇒) For y ≠ x take an open U<sub>y</sub> ∋ y missing x. X∖{x} = ⋃U<sub>y</sub> is open.</li>
+<li>(⇐) X∖{y} is an open set containing x and not y. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 2.5</span><span class="t">Equaliser closed; injection into Hausdorff</span><span class="tag hot">2020 test, 2022 test, 2024 exam</span></summary><div class="body">
+<p class="stmt">f, g: X → Y continuous, Y Hausdorff. (1) {x: f(x) = g(x)} is closed. (2) If f is injective, X is Hausdorff. Corollary: the fixed-point set of a map X → X, X Hausdorff, is closed (take g = id).</p>
+<div class="proof"><ol>
+<li>(1) Show A = {f ≠ g} is open. x ∈ A ⇒ f(x) ≠ g(x) ⇒ disjoint open U ∋ f(x), V ∋ g(x).</li>
+<li>W = f⁻¹(U) ∩ g⁻¹(V) is open and contains x. If z ∈ W then f(z) ∈ U and g(z) ∈ V, which are disjoint, so f(z) ≠ g(z): W ⊆ A.</li>
+<li>(2) x ≠ y ⇒ f(x) ≠ f(y) ⇒ separate them by disjoint U, V. Then f⁻¹(U), f⁻¹(V) are disjoint open sets around x, y. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 2.9</span><span class="t">Regular ⇔ closed nbhds form a base</span></summary><div class="body">
+<p class="stmt">X is regular iff for every x and open U ∋ x there is an open V with x ∈ V ⊆ cl V ⊆ U.</p>
+<div class="proof"><ol>
+<li>(⇒) Separate x from the closed set X∖U by U′ ∋ x and V′ ⊇ X∖U, disjoint. Then x ∈ U′ ⊆ X∖V′ ⊆ U, and X∖V′ is closed, so cl U′ ⊆ U.</li>
+<li>(⇐) x ∉ C closed: U = X∖C. Get x ∈ V ⊆ cl V ⊆ X∖C. Then V and X∖cl V separate x and C. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">T3 tutorial</span><span class="t">Products of Hausdorff / regular spaces</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Hausdorff: (x₁,y₁) ≠ (x₂,y₂), say x₁ ≠ x₂. Separate them in X by U, V. Then U × Y and V × Y are disjoint open sets.</li>
+<li>Regular: (x,y) ∈ W open ⇒ basic U × V ⊆ W. Use 2.9: x ∈ M ⊆ cl M ⊆ U and y ∈ N ⊆ cl N ⊆ V. Then cl(M × N) = cl M × cl N ⊆ U × V ⊆ W, so 2.9 holds. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 2.16</span><span class="t">Normal ⇔ shrinking</span></summary><div class="body">
+<p class="stmt">X is normal iff whenever A ⊆ U with A closed and U open there is an open V with A ⊆ V ⊆ cl V ⊆ U.</p>
+<div class="proof"><ol><li>Same proof as 2.9 with the point replaced by the closed set A, and C = X∖U. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Lemma 2.19</span><span class="t">φ<sub>U</sub> is continuous</span></summary><div class="body">
+<p class="stmt">If {U<sub>r</sub>: r ∈ D} is a Urysohn family (D dense in ℝ; ⋃U<sub>r</sub> = X, ⋂U<sub>r</sub> = ∅; r &lt; s ⇒ cl U<sub>r</sub> ⊆ U<sub>s</sub>), then φ(x) = inf{r ∈ D: x ∈ U<sub>r</sub>} is continuous.</p>
+<div class="proof"><ol>
+<li>Well defined: the set {r: x ∈ U<sub>r</sub>} is nonempty (union is X) and bounded below (intersection empty plus nesting).</li>
+<li>Check preimages of basic (a,b). Let a &lt; φ(x) &lt; b. By density pick r, t, s ∈ D with a &lt; r &lt; t &lt; φ(x) &lt; s &lt; b.</li>
+<li>x ∈ U<sub>s</sub> (some r′ &lt; s has x ∈ U<sub>r′</sub> ⊆ U<sub>s</sub>). x ∉ U<sub>t</sub> ⊇ cl U<sub>r</sub>, so x ∉ cl U<sub>r</sub>.</li>
+<li>N = U<sub>s</sub> ∖ cl U<sub>r</sub> is an open nbhd of x. For z ∈ N: z ∈ U<sub>s</sub> ⇒ φ(z) ≤ s &lt; b; z ∉ cl U<sub>r</sub> ⇒ z ∉ U<sub>r′</sub> for all r′ ≤ r ⇒ φ(z) ≥ r &gt; a. So N ⊆ φ⁻¹(a,b). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Lemma 2.20</span><span class="t">Completely separated ⇔ Urysohn family</span><span class="tag hot">2024 exam Q3b</span></summary><div class="body">
+<p class="stmt">Disjoint closed A, B are completely separated iff there is a Urysohn family with 0, 1 ∈ D, A ⊆ U₀ and B ⊆ X∖U₁.</p>
+<div class="proof"><ol>
+<li>(⇒) f: X → [0,1], f(A) = 0, f(B) = 1. Put U<sub>r</sub> = ∅ (r &lt; 0), U<sub>r</sub> = X (r &gt; 1), U<sub>r</sub> = {f &lt; (r+1)/2} for r ∈ [0,1]; D = ℝ.</li>
+<li>Check: each U<sub>r</sub> is open (f continuous); union X, intersection ∅. For r &lt; s in [0,1], cl U<sub>r</sub> ⊆ {f ≤ (r+1)/2} ⊆ U<sub>s</sub>. A ⊆ U₀ = {f &lt; ½}; U₁ = {f &lt; 1} misses B.</li>
+<li>(⇐) Let φ be as in 2.19 and f = min(max(φ,0),1), continuous by pasting (1.35) or as a composition.</li>
+<li>x ∈ A ⇒ x ∈ U₀ ⊆ U<sub>r</sub> for all r &gt; 0 ⇒ φ(x) ≤ 0 ⇒ f(x) = 0.</li>
+<li>x ∈ B ⇒ x ∉ U₁ ⊇ U<sub>r</sub> for all r &lt; 1 ⇒ φ(x) ≥ 1 ⇒ f(x) = 1. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 2.21</span><span class="t">Urysohn's Lemma</span><span class="tag acc">now examinable</span></summary><div class="body">
+<p class="stmt">X is normal iff any two disjoint closed sets are completely separated.</p>
+<div class="proof"><ol>
+<li>(⇐) f⁻¹[0,½) and f⁻¹(½,1] are disjoint open sets around A and B.</li>
+<li>(⇒) Dyadic rationals: D<sub>n</sub> = {m/2ⁿ: 0 ≤ m ≤ 2ⁿ}, D = (−∞,0) ∪ (1,∞) ∪ ⋃D<sub>n</sub>, dense. U<sub>r</sub> = ∅ for r &lt; 0, X for r &gt; 1.</li>
+<li>By 2.16 with A ⊆ X∖B: A ⊆ U₀ ⊆ cl U₀ ⊆ U₁ ⊆ cl U₁ ⊆ X∖B (apply it twice). In particular B ⊆ X∖U₁.</li>
+<li>Induction: given U<sub>r</sub> for r ∈ Dₙ with r &lt; s ⇒ cl U<sub>r</sub> ⊆ U<sub>s</sub>. For t ∈ D<sub>n+1</sub>∖Dₙ, its neighbours r = t − 2<sup>−(n+1)</sup> and s = t + 2<sup>−(n+1)</sup> lie in Dₙ, so 2.16 applied to cl U<sub>r</sub> ⊆ U<sub>s</sub> gives cl U<sub>r</sub> ⊆ U<sub>t</sub> ⊆ cl U<sub>t</sub> ⊆ U<sub>s</sub>.</li>
+<li>This gives a Urysohn family with A ⊆ U₀ and B ⊆ X∖U₁. Lemma 2.20 finishes. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Problem</span><span class="t">Co-finite infinite space: compact, not normal</span><span class="tag hot">2024 exam Q2a</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Compact: take any open cover U and any nonempty U ∈ U. X∖U is finite, so it is covered by finitely many members of U; add U.</li>
+<li>Not normal: a ≠ b. {a} and {b} are closed (complements are cofinite). Any two nonempty open sets have finite complements, so they meet (X is infinite). So {a} and {b} can't be separated. <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>Chapter 3 — Countability</h3>
+
+<details><summary><span class="num">Lemma 3.4, Thm 3.6</span><span class="t">Second countable ⇒ separable and first countable</span><span class="tag hot">2020 test</span></summary><div class="body">
+<p class="stmt">3.4: with a basis B of nonempty sets, D is dense iff it meets every B ∈ B. 3.6: second countable ⇒ separable and first countable.</p>
+<div class="proof"><ol>
+<li>3.4: D dense ⇔ every nonempty open set meets D (1.23) ⇔ every basic set meets D, since every nonempty open set contains one.</li>
+<li>3.6: B countable basis without ∅. Choose x<sub>B</sub> ∈ B; {x<sub>B</sub>} is countable and meets every B, so it is dense by 3.4.</li>
+<li>{B ∈ B: x ∈ B} is a countable nbhd base at x. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 3.8</span><span class="t">Countable products preserve separable / first / second countable</span><span class="tag hot">2024 exam Q2c</span></summary><div class="body">
+<p class="stmt">A countable product of separable (first countable, second countable) spaces is separable (first countable, second countable).</p>
+<div class="proof">
+<p><b>Two factors, separable</b> (what 2024 asked): D ⊆ X, E ⊆ Y countable dense. D × E is countable. A nonempty basic open U × V has U ∩ D ≠ ∅ and V ∩ E ≠ ∅, so (U × V) ∩ (D × E) ≠ ∅. By 3.4, D × E is dense.</p>
+<p><b>Two factors, first countable:</b> {U × V: U ∈ N<sub>x</sub>, V ∈ M<sub>y</sub>} is countable. Any nbhd of (x,y) contains a basic A × B ∋ (x,y), and A ⊇ some U ∈ N<sub>x</sub>, B ⊇ some V ∈ M<sub>y</sub>.</p>
+<p><b>Countably many factors, separable:</b> fix base points x<sub>n,0</sub>; D<sub>m</sub> = sequences with nth coordinate in C<sub>n</sub> for n ≤ m and equal to x<sub>n,0</sub> for n &gt; m. Each D<sub>m</sub> is countable, so D = ⋃D<sub>m</sub> is too. A basic set restricts finitely many coordinates, so it meets some D<sub>m</sub>.</p>
+<p><b>Second countable:</b> finite-support products of basis sets form a countable basis.</p></div></div></details>
+
+<details><summary><span class="num">Problem 3.7 / A2</span><span class="t">Disjoint open families in second countable spaces are countable</span></summary><div class="body">
+<div class="proof"><ol><li>For each F ≠ ∅ in the family pick B<sub>F</sub> ∈ B with B<sub>F</sub> ⊆ F. Disjointness makes F ↦ B<sub>F</sub> injective into a countable set. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 3.12, Thm 3.13, Cor 3.14</span><span class="t">Sequences in first countable spaces</span><span class="tag hot">2020, 2024 tests</span></summary><div class="body">
+<p class="stmt">3.12: limits are unique in Hausdorff spaces. 3.13: X first countable ⇒ cl A = {limits of sequences in A}. 3.14: X first countable ⇒ f is continuous at x iff xₙ → x implies f(xₙ) → f(x).</p>
+<div class="proof"><ol>
+<li>3.12: disjoint nbhds of x ≠ y; a sequence can't be eventually in both.</li>
+<li>3.13 (⊇, any space): every nbhd of x contains a tail of the sequence, so it meets A; by 1.23, x ∈ cl A.</li>
+<li>3.13 (⊆): take a countable base {Nₙ} at x and make it nested: Mₙ = N₁ ∩ … ∩ Nₙ. x ∈ cl A ⇒ choose xₙ ∈ Mₙ ∩ A. Any nbhd N contains some N<sub>k</sub> ⊇ M<sub>n</sub> for n ≥ k, so xₙ ∈ N eventually.</li>
+<li>3.14 (⇐): use 1.32(6). x ∈ cl A ⇒ (3.13) xₙ → x in A ⇒ f(xₙ) → f(x) with f(xₙ) ∈ f(A) ⇒ f(x) ∈ cl f(A).</li>
+<li>Counterexample without first countability: co-countable topology (3.15). <span class="qed">∎</span></li></ol>
+<p>Metric version (2020 test): use Mₙ = B(x, 1/n).</p></div></div></details>
+
+<details><summary><span class="num">Thm 3.16</span><span class="t">Regular + second countable ⇒ normal</span><span class="tag hot">2022 test</span></summary><div class="body">
+<div class="proof"><ol>
+<li>A, B disjoint closed; countable basis B. For x ∈ A, X∖B is an open nbhd of x, so regularity (2.9) gives a basic U<sub>x</sub> with x ∈ U<sub>x</sub> ⊆ cl U<sub>x</sub> ⊆ X∖B. Only countably many distinct sets: U₁, U₂, … cover A, with cl Uᵢ ∩ B = ∅.</li>
+<li>Likewise V₁, V₂, … cover B, with cl Vᵢ ∩ A = ∅.</li>
+<li>Y<sub>i</sub> = U<sub>i</sub> ∖ ⋃<sub>n≤i</sub> cl V<sub>n</sub> and Z<sub>i</sub> = V<sub>i</sub> ∖ ⋃<sub>n≤i</sub> cl U<sub>n</sub> are open (finite unions of closed sets are closed). U = ⋃Yᵢ, V = ⋃Zᵢ.</li>
+<li>A ⊆ U: x ∈ A lies in some Uᵢ and in no cl Vₙ. Similarly B ⊆ V.</li>
+<li>Disjoint: x ∈ Yᵢ ∩ Zⱼ with i ≥ j ⇒ x ∈ Vⱼ ⊆ cl Vⱼ, but Yᵢ removes cl Vⱼ. The case j ≥ i is symmetric. <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>Chapter 4 — Connectedness</h3>
+
+<details><summary><span class="num">Thm 4.2</span><span class="t">Five equivalent forms of connected</span><span class="tag hot">2024 test</span></summary><div class="body">
+<p class="stmt">Equivalent: (i) X connected; (ii) any two points lie in a connected subset; (iii) every continuous f: X → 2 is constant; (iv) X is not a union of two disjoint nonempty closed sets; (v) the only clopen sets are ∅ and X.</p>
+<div class="proof"><ol>
+<li>(i)⇒(ii): use X itself.</li>
+<li>(ii)⇒(iii): if f is not constant, U = f⁻¹(0) and V = f⁻¹(1) are disjoint, open and cover X. A connected C containing x ∈ U and y ∈ V would be separated by them.</li>
+<li>(iii)⇒(iv): X = C ⊔ D closed ⇒ f = 0 on C, 1 on D is continuous (pasting) and not constant.</li>
+<li>(iv)⇒(v): S clopen proper nonempty ⇒ S and X∖S are disjoint nonempty closed sets.</li>
+<li>(v)⇒(i): a separation U ⊔ V has U = X∖V clopen. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Lemma 4.3</span><span class="t">C ⊆ A ⊆ cl C, C connected ⇒ A connected</span><span class="tag hot">2024 test</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Let f: A → 2 be continuous. f↾C is constant, say 0 (4.2(iii)).</li>
+<li>If f(a) = 1 for some a ∈ A, then f⁻¹(1) is an open nbhd of a in A, so it equals A ∩ W with W open in X. Since a ∈ cl C, W meets C, where f = 0. Contradiction.</li>
+<li>So f is constant and A is connected. Corollary 4.5: components are closed.</li>
+<li>The converse fails: cl ℚ = ℝ is connected, ℚ isn't; or (0,1) ∪ (1,2). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 4.6</span><span class="t">Unions of connected sets</span></summary><div class="body">
+<p class="stmt">If each C<sub>α</sub> is connected and there is β such that for every α, C<sub>α</sub> ∩ C<sub>β</sub> ≠ ∅ or C<sub>α</sub> ∩ cl C<sub>β</sub> ≠ ∅, then ⋃C<sub>α</sub> is connected. In particular, connected sets with a common point have a connected union.</p>
+<div class="proof"><ol>
+<li>Let f: C → 2 be continuous. Each f↾C<sub>α</sub> is constant; f↾cl C<sub>β</sub> ∩ C is constant too (4.3), say 0.</li>
+<li>Every C<sub>α</sub> meets C<sub>β</sub> or its closure, where f = 0, so f ≡ 0 on C<sub>α</sub>. Hence f is constant. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Problem 4.8</span><span class="t">Product of two connected spaces is connected</span><span class="tag hot">2024 exam Q3a</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Fix b ∈ X. {b} × Y ≅ Y and X × {y} ≅ X are connected (the slice maps are homeomorphisms).</li>
+<li>For each y, T<sub>y</sub> = (X × {y}) ∪ ({b} × Y) is connected: two connected sets meeting at (b,y) (4.6).</li>
+<li>Every T<sub>y</sub> contains (b, y₀) for a fixed y₀, so X × Y = ⋃<sub>y</sub> T<sub>y</sub> is connected (4.6). <span class="qed">∎</span></li></ol>
+<p>Alternative: any two points (x₁,y₁), (x₂,y₂) lie in the connected set ({x₁} × Y) ∪ (X × {y₂}), which meets at (x₁,y₂). Then use 4.2(ii).</p></div></div></details>
+
+<details><summary><span class="num">Thm 4.9</span><span class="t">Arbitrary products of connected spaces</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Finite products: induction on 4.8.</li>
+<li>Fix b = (b<sub>α</sub>). X(α₁…αₙ) = points that agree with b off {α₁…αₙ}. It is homeomorphic to X<sub>α₁</sub> × … × X<sub>αₙ</sub>, so connected, and it contains b.</li>
+<li>Y = ⋃ X(α₁…αₙ) is connected (common point b).</li>
+<li>Y is dense: a basic U restricts finitely many coordinates α₁…αₙ; pick xᵢ ∈ U<sub>αᵢ</sub> and b elsewhere. That point lies in Y ∩ U. So X = cl Y is connected (4.3). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 4.11, 4.12, Cor 4.13, Prop 4.14</span><span class="t">Intervals, IVT, 1-D Brouwer, size of connected Tychonoff spaces</span></summary><div class="body">
+<div class="proof"><ol>
+<li>4.11 (⇒): A not an interval ⇒ a &lt; c &lt; b with a, b ∈ A, c ∉ A ⇒ (−∞,c) and (c,∞) separate A.</li>
+<li>4.11 (⇐): suppose U, V separate A, a ∈ U, b ∈ V, a &lt; b. Let α = sup{x &lt; b: x ∈ A ∩ U}. α ∉ V: α is a limit of points of A ∩ U, and an open V ∋ α would contain one. If α ∈ U, points just above α (and below b) lie in U but, by the choice of α, not in A: a gap. Otherwise α ∉ U ∪ V ⊇ A, so α ∈ (a,b) ∖ A. Either way A is not an interval.</li>
+<li>4.12: f(X) is connected (4.10), so it is an interval, so it contains [f(x₁), f(x₂)].</li>
+<li>4.13: g(x) = x − f(x) has g(a) ≤ 0 ≤ g(b); apply the IVT.</li>
+<li>4.14: x₁ ≠ x₂. {x₂} is closed (T1), so complete regularity gives f with f(x₁) = 0, f(x₂) = 1. By the IVT f is onto [0,1], so |X| ≥ 𝔠. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 4.18, 4.19</span><span class="t">Path connectedness: images and products</span></summary><div class="body">
+<div class="proof"><ol>
+<li>4.18: if p is a path from x₁ to x₂ then f∘p is a path from f(x₁) to f(x₂).</li>
+<li>4.19: paths p<sub>α</sub> from x<sub>α</sub> to y<sub>α</sub>. p(t) = (p<sub>α</sub>(t)) is continuous by 1.43. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 4.21, 4.22, Cor 4.23</span><span class="t">Local (path) connectedness</span></summary><div class="body">
+<p class="stmt">4.21: equivalent: (i) X locally (path) connected; (ii) (path) components of open subspaces are open; (iii) (path) connected open sets form a basis. 4.22: in a locally path connected space, path components are clopen. 4.23: connected + locally path connected ⇒ path connected.</p>
+<div class="proof"><ol>
+<li>(i)⇒(ii): C a component of open U, x ∈ C. There is a connected open V with x ∈ V ⊆ U; V lies inside the component C. So C is open.</li>
+<li>(ii)⇒(iii): every open U is the union of its components, which are open and connected.</li>
+<li>(iii)⇒(i): immediate.</li>
+<li>4.22: path components are open by (ii). The complement of one is a union of the others, so it is open too.</li>
+<li>4.23: a path component is nonempty and clopen, so it is X (4.2(v)). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">A3 Q1</span><span class="t">Separable + locally connected ⇒ countably many components</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Components are open (4.21), nonempty and disjoint; each contains a point of the countable dense set D. Distinct components get distinct points.</li>
+<li>Sharp: the Cantor set is separable with uncountably many components. <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>Chapter 5 — Compactness</h3>
+
+<details><summary><span class="num">Prop 5.3, 5.5, 5.6</span><span class="t">Closed ⊆ compact; compact ⊆ Hausdorff; images</span></summary><div class="body">
+<div class="proof"><ol>
+<li>5.3: C closed in compact X. An open cover U of C plus X∖C covers X; take a finite subcover and drop X∖C.</li>
+<li>5.5: C compact in Hausdorff X, x ∉ C. For each y ∈ C pick disjoint U<sub>y</sub> ∋ x, V<sub>y</sub> ∋ y. Finitely many V<sub>y₁…yₙ</sub> cover C. Then ⋂U<sub>yᵢ</sub> is an open nbhd of x missing C. So C is closed.</li>
+<li>5.6: pull back an open cover of f(X), take a finite subcover, push forward. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 5.7</span><span class="t">Compact → Hausdorff continuous bijection is a homeomorphism</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Show f is closed: C closed in X ⇒ compact (5.3) ⇒ f(C) compact (5.6) ⇒ closed in Y (5.5).</li>
+<li>f closed bijection ⇒ (f⁻¹)⁻¹(C) = f(C) closed ⇒ f⁻¹ continuous. <span class="qed">∎</span></li></ol>
+<p>T5 tutorial variant: X compact, Y Hausdorff, f a continuous surjection, g∘f continuous ⇒ g continuous. Proof: for C closed, g⁻¹(C) = f((g∘f)⁻¹(C)) is the image of a closed, hence compact, set, so it is closed.</p></div></div></details>
+
+<details><summary><span class="num">Thm 5.8 (+ regular)</span><span class="t">Compact Hausdorff ⇒ regular and normal</span><span class="tag hot">2022 exam Q3a</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Regular: x ∉ C closed. C is compact (5.3). For y ∈ C, disjoint U<sub>y</sub> ∋ x, V<sub>y</sub> ∋ y. Finite subcover V<sub>y₁</sub>, …, V<sub>yₙ</sub> of C. U = ⋂U<sub>yᵢ</sub> and V = ⋃V<sub>yᵢ</sub> are disjoint and open.</li>
+<li>Normal: A, B disjoint closed, hence compact. For each x ∈ A the regular step (with C = B) gives disjoint U<sub>x</sub> ∋ x, V<sub>x</sub> ⊇ B.</li>
+<li>Finitely many U<sub>x₁</sub>, …, U<sub>xₘ</sub> cover A. U = ⋃U<sub>xⱼ</sub> ⊇ A and V = ⋂V<sub>xⱼ</sub> ⊇ B are disjoint and open. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Thm 5.10</span><span class="t">Compactness via the finite intersection property</span></summary><div class="body">
+<p class="stmt">Equivalent: (i) X compact; (ii) every family of closed sets with the FIP has nonempty intersection; (iii) every family F with the FIP has ⋂<sub>F∈F</sub> cl F ≠ ∅.</p>
+<div class="proof"><ol>
+<li>(i)⇒(ii): if ⋂C = ∅ then {X∖C} is an open cover; a finite subcover X∖C₁, …, X∖Cₙ gives C₁ ∩ … ∩ Cₙ = ∅, contradicting the FIP.</li>
+<li>(ii)⇒(iii): {cl F} is closed and has the FIP.</li>
+<li>(iii)⇒(i): an open cover with no finite subcover gives {X∖U} with the FIP and empty intersection. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Lemma 5.12, Problem 5.13</span><span class="t">Tube lemma; product of two compact spaces</span></summary><div class="body">
+<div class="proof"><ol>
+<li>Tube: {p} × Y ≅ Y is compact. Cover it by basic U<sub>y</sub> × V<sub>y</sub> ⊆ U; finitely many cover. W = ⋂U<sub>yᵢ</sub> is open, contains p, and W × Y ⊆ ⋃(U<sub>yᵢ</sub> × V<sub>yᵢ</sub>) ⊆ U.</li>
+<li>Product: given an open cover U of X × Y, for each p finitely many members cover {p} × Y. Their union is open, so the tube lemma gives W<sub>p</sub> × Y inside it.</li>
+<li>Finitely many W<sub>p₁</sub>, …, W<sub>pₙ</sub> cover X; together that's finitely many members of U covering X × Y. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 5.16, 5.17</span><span class="t">Locally compact regular / Hausdorff</span></summary><div class="body">
+<div class="proof"><ol>
+<li>5.16: K a compact nbhd of x, N any nbhd. K ∩ N is a nbhd; regularity (2.9) gives a closed nbhd C ⊆ K ∩ N, and C is compact (closed in K).</li>
+<li>5.17: LCH ⇒ Tychonoff. p ∉ C closed; K a compact nbhd of p (closed by 5.5; compact Hausdorff ⇒ normal by 5.8). A = (K ∖ int K) ∪ (K ∩ C) is closed and misses p. Urysohn on K: g(p) = 0, g(A) = 1. Set f = g on K and 1 on X ∖ int K; this is continuous by pasting two closed sets. <span class="qed">∎</span></li></ol>
+<p class="note">The notes' 5.17 cites "6.5" and "6.8"; they mean 5.5 and 5.8.</p></div></div></details>
+
+<details><summary><span class="num">Thm 5.21, Prob 5.22, Thm 5.23</span><span class="t">One-point compactification X*</span><span class="tag hot">2022 exam Q3b, Q3c</span></summary><div class="body">
+<p class="stmt">Opens of X* = X ∪ {∞}: the open sets of X, and X* ∖ C for C closed and compact in X. X* is compact; if X isn't compact, X is dense in X*. X* is Hausdorff iff X is locally compact and Hausdorff.</p>
+<div class="proof"><ol>
+<li>X* compact: some member X*∖C of an open cover contains ∞. C is compact, so finitely many members cover C (their traces on X are open in X).</li>
+<li>Dense: an open set X*∖C around ∞ misses X only if C = X, but X isn't compact.</li>
+<li>5.23 (⇐): x, y ∈ X: separate in X. x vs ∞: take a compact nbhd K of x (closed, X Hausdorff), x ∈ U ⊆ K; then U and X*∖K separate.</li>
+<li>5.23 (⇒): X is a subspace of a Hausdorff space. For x ∈ X separate x and ∞ by U ∋ x and X*∖C ∋ ∞; then U ⊆ C, so C is a compact nbhd of x. <span class="qed">∎</span></li></ol>
+<p>Examples: ℝ* ≅ S¹ (stereographic projection), ℕ* ≅ {0} ∪ {1/n} (Problem 5.20), (ℝⁿ)* ≅ Sⁿ.</p></div></div></details>
+</section>
+
+<!-- ================= ALGEBRAIC TOOLKIT ================= -->
+<section class="panel" id="alg" data-panel hidden>
+  <h2>Q4 toolkit: algebraic topology</h2>
+  <p class="lede">Both past papers had the same Q4 shape: (a) build or reason about a covering space, then (b) compute the simplicial homology of a pictured space. Expect the same skeleton with more steps, and possibly a bookwork proof from A1–A3.</p>
+
+  <h3>Fundamental groups you should know</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Space</th><th>π</th><th>One-line reason</th></tr></thead>
+    <tbody>
+      <tr><td>Point, ℝⁿ, Bⁿ, any convex set, cone</td><td>trivial</td><td>Contractible (Prop 1.8). Straight-line contraction for convex sets.</td></tr>
+      <tr><td>S¹</td><td>ℤ</td><td>Thm 3.1, via the covering ℝ → S¹.</td></tr>
+      <tr><td>Annulus, cylinder S¹ × I, Möbius band, ℝ² ∖ {0}, solid torus</td><td>ℤ</td><td>Each deformation retracts onto a circle (homotopy equivalent to S¹). Annulus ≅ cylinder (homeomorphic).</td></tr>
+      <tr><td>Disc touching a circle at a point (2022 Q1g)</td><td>ℤ</td><td>Shrink the disc to the touching point: homotopy equivalent to S¹.</td></tr>
+      <tr><td>Torus S¹ × S¹</td><td>ℤ × ℤ = ℤ ⊕ ℤ</td><td>Loops in a product are pairs of loops; abelian. Matches H₁(T) = ℤ ⊕ ℤ (Ex 4.10).</td></tr>
+      <tr><td>Sⁿ, n ≥ 2</td><td>trivial</td><td>A loop can be pushed off a point, and Sⁿ minus a point ≅ ℝⁿ (stereographic projection, Ex 1.28).</td></tr>
+      <tr><td>Figure eight, theta graph, rectangle split by a line (2024 Q1j)</td><td>free group on 2 generators</td><td>Non-abelian: the loop "a then b" isn't homotopic to "b then a". Its universal cover is an infinite 4-valent tree (Problem 2.10). So <b>not</b> ℤ ⊕ ℤ.</td></tr>
+      <tr><td>Projective plane P²</td><td>ℤ₂</td><td>2-sheeted cover by simply connected S² (Ex 2.4). A loop lifting to a path between antipodes isn't null-homotopic.</td></tr>
+      <tr><td>Different basepoints</td><td>isomorphic if a, b are in the same path component</td><td>Prop 1.9: [σ] ↦ [ρ̄ ∗ σ ∗ ρ] for a path ρ from a to b. (The notes print ρ ∗ σ ∗ ρ̄; that's a typo.)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The torus, Sⁿ, figure-eight and P² facts are standard but not proved in the notes. Quote them with the one-line reason; don't present them as numbered results.</p>
+
+  <h3>A1 bookwork</h3>
+
+<details><summary><span class="num">Lemma 1.2</span><span class="t">Loop operations are well defined up to homotopy</span></summary><div class="body">
+<p class="stmt">(1) σ₁ ∼ σ₂, τ₁ ∼ τ₂ ⇒ σ₁∗τ₁ ∼ σ₂∗τ₂. (2) (σ₁∗σ₂)∗σ₃ ∼ σ₁∗(σ₂∗σ₃). (3) σ∗ä ∼ ä∗σ ∼ σ. (4) σ∗σ̄ ∼ ä.</p>
+<div class="proof">
+<p>Write every homotopy as "σ<sub>i</sub>(speed · (s − start))" with start and speed depending on t. Then check the four conditions: H(s,0), H(s,1), H(0,t) = H(1,t) = a, and agreement where the pieces meet (pasting, 1.35).</p>
+<ol>
+<li>(1) G(s,t) = H(2s,t) for s ≤ ½ and K(2s−1,t) for s ≥ ½, where H: σ₁ ∼ σ₂ and K: τ₁ ∼ τ₂. They agree at s = ½ (both equal a).</li>
+<li>(2) H(s,t) = σ₁(4s/(1+t)) on [0, (1+t)/4]; σ₂(4s − 1 − t) on [(1+t)/4, (2+t)/4]; σ₃((4s − 2 − t)/(2 − t)) on [(2+t)/4, 1].</li>
+<li>(3) H(s,t) = σ(2s/(1+t)) for s ≤ (1+t)/2, and a after. At t = 0 this is σ∗ä; at t = 1 it is σ.</li>
+<li>(4) H(s,t) = σ(2s(1−t)) for s ≤ ½ and σ((2−2s)(1−t)) for s ≥ ½. At t = 0: σ then σ̄. At t = 1: constant a. Both pieces give σ(1−t) at s = ½.</li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 1.8</span><span class="t">Contractible ⇒ π trivial</span></summary><div class="body">
+<div class="proof"><ol>
+<li>The naive homotopy c(σ(s),t) shrinks σ to b but moves the basepoint along γ(t) = c(a,t), so it isn't a loop homotopy.</li>
+<li>Fix: at time t, run along γ from a to c(a,t), go around the shrunk loop c(σ(·),t), and come back along γ. This is what the notes' four-triangle picture (regions A–D) does.</li>
+<li>At t = 0 this is σ (after reparametrising); at t = 1 it is γ ∗ b̈ ∗ γ̄ ∼ ä. Endpoints stay at a throughout. Continuity follows from pasting on the four closed triangles. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Prop 1.12</span><span class="t">Induced homomorphisms are functorial</span></summary><div class="body">
+<p class="stmt">f<sub>*</sub>[σ] = [f∘σ] is a well-defined homomorphism; (id)<sub>*</sub> = id; (g∘f)<sub>*</sub> = g<sub>*</sub>∘f<sub>*</sub>; homotopic maps induce the same homomorphism.</p>
+<div class="proof"><ol>
+<li>Well defined: H a loop homotopy ⇒ f∘H is one. Homomorphism: f∘(σ∗τ) = (f∘σ)∗(f∘τ), pointwise.</li>
+<li>(g∘f)∘σ = g∘(f∘σ).</li>
+<li>(3): if F: f ∼ g with <b>F(a,t) = b for all t</b>, then G(s,t) = F(σ(s),t) is a loop homotopy f∘σ ∼ g∘σ. Without the basepoint fixed you only get conjugate homomorphisms; say so if you use it.</li>
+<li>Corollary: h a homeomorphism ⇒ h<sub>*</sub> is an isomorphism with inverse (h⁻¹)<sub>*</sub>. So homeomorphic spaces have isomorphic π. The converse fails (S² and a point). <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>A3 bookwork</h3>
+
+<details open><summary><span class="num">Thm 3.1</span><span class="t">π(S¹, 1) ≅ ℤ</span><span class="tag acc">core proof</span></summary><div class="body">
+<p class="stmt">Let p(t) = e<sup>2πit</sup>: ℝ → S¹. For a loop σ at 1 let σ̂ be its lift with σ̂(0) = 0 (path lifting 2.8, unique). Then θ[σ] = σ̂(1) ∈ p⁻¹(1) = ℤ is an isomorphism.</p>
+<div class="proof"><ol>
+<li><b>Well defined.</b> Let H: σ ∼ τ. Covering homotopy (2.7) with f = σ, f̂ = σ̂ gives Ĥ with Ĥ(s,0) = σ̂(s). Since H(0,t) = 1, Ĥ(0,t) = 0. t ↦ Ĥ(1,t) lies in p⁻¹(1) = ℤ, which is discrete; it is continuous on the connected [0,1], so constant. s ↦ Ĥ(s,1) lifts τ from 0, so it equals τ̂ (uniqueness). Hence σ̂(1) = Ĥ(1,0) = Ĥ(1,1) = τ̂(1).</li>
+<li><b>Homomorphism.</b> The lift of σ∗τ from 0 is σ̂(2s) for s ≤ ½ and σ̂(1) + τ̂(2s−1) for s ≥ ½. Translating by an integer is still a lift since p(x + n) = p(x). So it ends at σ̂(1) + τ̂(1).</li>
+<li><b>Injective.</b> If σ̂(1) = 0 then σ̂ is a loop in ℝ at 0. ℝ is contractible, or use H(s,t) = (1−t)σ̂(s) directly. Then p∘H is a loop homotopy from σ to the constant loop.</li>
+<li><b>Surjective.</b> σₙ(s) = e<sup>2πins</sup> lifts to s ↦ ns, which ends at n. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Cor 3.2, 3.3</span><span class="t">No retraction B² → S¹; Brouwer fixed point theorem</span></summary><div class="body">
+<div class="proof"><ol>
+<li>3.2: suppose r∘i = id<sub>S¹</sub>. Then r<sub>*</sub>∘i<sub>*</sub> = id: ℤ → ℤ (1.12). But i<sub>*</sub> lands in π(B²,1) = 0 (B² is convex, so contractible), so r<sub>*</sub>∘i<sub>*</sub> = 0. Contradiction.</li>
+<li>3.3: suppose f(z) ≠ z for all z. Let r(z) be where the ray from f(z) through z meets S¹: r(z) = z + λ(z)(z − f(z)) with λ(z) ≥ 0 the root of a quadratic, continuous in z. If z ∈ S¹ then r(z) = z. So r is a retraction, contradicting 3.2. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Def 3.4, Prop 3.5</span><span class="t">Linked circles</span></summary><div class="body">
+<div class="proof"><ol>
+<li>J and K are unlinked if some f: B² → ℝ³ ∖ K restricts to an embedding S¹ → J.</li>
+<li>Suppose f exists. g(x,y,z) = (√(x²+y²), 0, z) rotates everything into the half-plane A = {(x,0,z): x ≥ 0} minus (1,0,0), since g(K) = (1,0,0). Radial projection r: A → J from (1,0,0) fixes J.</li>
+<li>(f↾S¹)⁻¹ ∘ r ∘ g ∘ f: B² → S¹ fixes S¹, a retraction. This contradicts 3.2. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Def 3.6, Ex 3.7, Prop 3.8</span><span class="t">Degree</span></summary><div class="body">
+<div class="proof"><ol>
+<li>d(f) = endpoint of the lift of f∘σ starting at 0, where σ(t) = e<sup>2πit</sup>. In general d(f) = (lift)(1) − (lift)(0). Constant maps have degree 0; z ↦ zⁿ has degree n.</li>
+<li>Homotopic maps have the same degree: the same "discrete endpoint is constant" argument as in 3.1.</li>
+<li>3.8: f: B² → ℝ², f(S¹) ⊆ S¹, deg(f↾S¹) = k ≠ 0 ⇒ B² ⊆ f(B²). If a ∈ B² ∖ f(B²), the composite S¹ → B² → ℝ² ∖ {a} → S¹ is f↾S¹, so it induces ×k on ℤ. But it factors through π(B²) = 0. <span class="qed">∎</span></li></ol></div></div></details>
+
+  <h3>Covering projections</h3>
+  <div class="card">
+    <h4>Definition 2.1 (write it exactly)</h4>
+    <p>p: E → X continuous is a <b>covering projection</b> if every x ∈ X has an open V ∋ x such that p⁻¹(V) is a union of pairwise disjoint open sets S<sub>i</sub> ⊆ E, each mapped homeomorphically onto V by p. V is <b>evenly covered</b>; the S<sub>i</sub> are the <b>sheets</b> over V.</p>
+    <h4>Standard examples</h4>
+    <ul>
+      <li>Any homeomorphism (2.2). Trivial cover X × D → X, D discrete: X itself is evenly covered.</li>
+      <li>ℝ → S¹, t ↦ e<sup>2πit</sup> (2.3). V₊ = S¹∖{−1} and V₋ = S¹∖{1} are evenly covered; the sheets are open intervals.</li>
+      <li>S¹ → S¹, z ↦ z<sup>k</sup>: k sheets, each an open arc of angle 2π/k.</li>
+      <li>Sⁿ → Pⁿ (2.4): V = image of an open hemisphere {x·u &gt; 0}. The sheets are that hemisphere and its antipode, which are disjoint.</li>
+      <li>ℝ² → T² = S¹ × S¹, (s,t) ↦ (e<sup>2πis</sup>, e<sup>2πit</sup>). ℝ × I → S¹ × I.</li>
+      <li>Figure eight: unroll circle a into ℝ and hang a copy of circle b at every integer. Or use the infinite 4-valent tree. A 2-sheeted cover is a circle doubling a, with two copies of b attached at antipodal points.</li>
+    </ul>
+    <h4>Checking claims about covers</h4>
+    <ul>
+      <li><b>To prove p is a covering:</b> for each x name V, list the sheets, and say why they are disjoint, open, and mapped homeomorphically onto V. A continuous bijection between compact Hausdorff pieces is a homeomorphism (5.7). Otherwise give the inverse.</li>
+      <li><b>To show p isn't a covering:</b> find a point whose every nbhd fails. For example, a fibre jumps in size, or one sheet is cut short as in (0,2) → S¹. Over a connected X all fibres have the same cardinality.</li>
+      <li><b>"X itself is not evenly covered"</b> (2022 Q4a) just means the cover is not trivial. Any connected cover with ≥ 2 sheets works.</li>
+    </ul>
+  </div>
+
+<details><summary><span class="num">Key fact</span><span class="t">Every connected cover of [0,1] (or any contractible, locally path connected space) is a homeomorphism</span></summary><div class="body">
+<p>This is why 2024 Q4(a) can't be done literally. You can say it in the exam using course theorems:</p>
+<div class="proof"><ol>
+<li>E is locally homeomorphic to X, so it is locally path connected. Connected + locally path connected ⇒ path connected (4.23).</li>
+<li>Suppose p(e₁) = p(e₂) = x. Take a path γ in E from e₁ to e₂. Then p∘γ is a loop at x, null-homotopic since X is contractible (1.8).</li>
+<li>Lift that homotopy starting at γ (2.7). The far endpoint of each stage lies in the discrete fibre p⁻¹(x) and moves continuously, so it is constant. At the end the lift is the constant loop at e₁, so e₂ = e₁.</li>
+<li>So p is a continuous open bijection (a local homeomorphism is open), hence a homeomorphism. <span class="qed">∎</span></li></ol>
+<p>Non-homeomorphic covers of [0,1] therefore need disconnected E: id: [0,1] → [0,1] versus [0,1] × {0,1} → [0,1].</p></div></div></details>
+
+  <div class="card">
+    <h4>Picture: a cover of the figure eight / the 2022 Q4a space</h4>
+    <div class="fig"><svg viewBox="0 0 700 150" width="700" height="150" style="max-width:none" role="img" aria-label="Real line with a loop hanging at each integer, mapping onto a figure eight">
+      <line x1="10" y1="40" x2="640" y2="40" stroke="currentColor" stroke-width="2" fill="none"/>
+      <g fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="90" cy="62" r="22"/><circle cx="190" cy="62" r="22"/><circle cx="290" cy="62" r="22"/><circle cx="390" cy="62" r="22"/><circle cx="490" cy="62" r="22"/>
+      </g>
+      <g><text x="86" y="30" font-size="12">−2</text><text x="186" y="30" font-size="12">−1</text><text x="287" y="30" font-size="12">0</text><text x="387" y="30" font-size="12">1</text><text x="487" y="30" font-size="12">2</text>
+      <text x="20" y="120" font-size="13">E: the line ℝ wraps around circle a (p(t) = e^2πit); each hanging loop maps homeomorphically onto circle b.</text>
+      <text x="20" y="140" font-size="13">For 2022 Q4a, hang a copy of "segment + cross + right circle" at each integer instead.</text></g>
+    </svg></div>
+  </div>
+
+  <h3>Simplicial homology: the method</h3>
+  <div class="card">
+    <ol>
+      <li><b>Build a Δ-complex.</b> Triangulate the picture. Number the vertices and orient every edge from the lower to the higher number. A 2-simplex is [vᵢ, vⱼ, v<sub>k</sub>] with i &lt; j &lt; k. Glued edges must carry the same orientation. A filled triangle is a 2-simplex; a hollow one contributes only its three edges. A hollow cylinder (no lids) is a square with two sides glued: 2 vertices, 4 edges, 2 triangles.</li>
+      <li><b>Chain groups:</b> Δ₀ = ℤ<sup>V</sup>, Δ₁ = ℤ<sup>E</sup>, Δ₂ = ℤ<sup>F</sup>, and 0 above that.</li>
+      <li><b>Boundaries:</b> ∂[v₀,v₁] = v₁ − v₀ and ∂[v₀,v₁,v₂] = [v₁,v₂] − [v₀,v₂] + [v₀,v₁]. In general ∂ = Σ(−1)<sup>i</sup> × (face omitting vᵢ).</li>
+      <li><b>H₀</b> = ℤ<sup>(number of components)</sup>: Δ₀/Im ∂₁, with v ↦ 1 on each component.</li>
+      <li><b>H₂</b> = ker ∂₂ (no 3-simplices). Solve: every edge's coefficient must vanish. Typically 0 unless there is a closed surface.</li>
+      <li><b>H₁</b> = ker ∂₁ / Im ∂₂. rank ker ∂₁ = E − V + (components). Pick one cycle per independent loop of the edge graph, write each ∂(triangle) in that basis, then change basis so the image is spanned by basis vectors or multiples of them. ℤⁿ / ⟨e₁, …, e<sub>k</sub>⟩ ≅ ℤ<sup>n−k</sup>; a generator 2e gives a ℤ₂.</li>
+      <li><b>Check:</b> V − E + F = rank H₀ − rank H₁ + rank H₂.</li>
+    </ol>
+    <p>Intuition: H₀ counts pieces, H₁ counts unfilled loops, H₂ counts enclosed surfaces. Homotopy-equivalent spaces have the same answer, which tells you what to expect (e.g. cylinder + triangle ≃ S¹).</p>
+  </div>
+
+<details><summary><span class="num">Lemma 4.6</span><span class="t">∂∂ = 0 (Problem 4.7)</span></summary><div class="body">
+<div class="proof"><ol>
+<li>∂∂σ = Σ<sub>j</sub> Σ<sub>i</sub> (−1)<sup>i+j</sup> V<sub>j</sub>V<sub>i</sub>σ, where i ranges over the faces of σ and j over the faces of those faces.</li>
+<li>Split the sum into j &lt; i and j ≥ i. For j &lt; i the identity V<sub>j</sub>V<sub>i</sub> = V<sub>i−1</sub>V<sub>j</sub> turns the term into (−1)<sup>i+j</sup> V<sub>i−1</sub>V<sub>j</sub>.</li>
+<li>Rename (i′, j′) = (j, i−1), so j′ ≥ i′. The term becomes −(−1)<sup>i′+j′</sup> V<sub>j′</sub>V<sub>i′</sub>, which is exactly minus a term of the j ≥ i half. Everything cancels in pairs. <span class="qed">∎</span></li></ol>
+<p>Picture for a triangle: ∂[v₀,v₁,v₂] = [v₁,v₂] − [v₀,v₂] + [v₀,v₁], and ∂ of that is (v₂−v₁) − (v₂−v₀) + (v₁−v₀) = 0.</p></div></div></details>
+
+<details><summary><span class="t">Worked: circle, torus, sphere (from the notes and Problem 4.3)</span></summary><div class="body">
+<div class="calc">Circle (Ex 4.9): 1 vertex v, 1 edge e.  ∂e = v − v = 0.
+  H0 = Z, H1 = ⟨e⟩ = Z.
+
+Torus (Ex 4.10): v; edges a,b,c; triangles A,B with ∂A = ∂B = a + b − c.
+  ∂1 = 0, ker∂1 = Z³.  Im∂2 = ⟨a+b−c⟩.  ker∂2 = ⟨A − B⟩.
+  H0 = Z, H1 = Z³/Z ≅ Z⊕Z, H2 = Z.     Check: 1 − 3 + 2 = 0 = 1 − 2 + 1
+
+Sphere: two triangles U, L glued along their whole boundary.
+  Vertices v0,v1,v2; edges a=[v0v1], b=[v1v2], c=[v0v2]; U = L = [v0v1v2].
+  ∂U = ∂L = b − c + a.   ker∂2 = ⟨U − L⟩ ≅ Z  ⇒ H2 = Z
+  ker∂1 has rank 3 − 2 = 1, spanned by a + b − c = ∂U  ⇒ H1 = 0
+  H0 = Z.                               Check: 3 − 3 + 2 = 2 = 1 − 0 + 1</div></div></details>
+
+<details><summary><span class="t">Worked (harder): the Klein bottle</span><span class="tag acc">torsion example</span></summary><div class="body">
+<p>Square with corners P₀ (bottom left), P₁ (bottom right), P₂ (top left), P₃ (top right). Bottom P₀→P₁ and top P₂→P₃ are the same edge a, same direction. Left P₀→P₂ is b, and the right edge is b run downwards, P₃→P₁. Diagonal c: P₀→P₃. All corners are one vertex v.</p>
+<div class="calc">Lower triangle L = [P0, P3, P1]  (order P0 &lt; P3 &lt; P1 so every edge is oriented correctly)
+  ∂L = [P3,P1] − [P0,P1] + [P0,P3] = b − a + c
+Upper triangle U = [P0, P2, P3]
+  ∂U = [P2,P3] − [P0,P3] + [P0,P2] = a − c + b
+
+∂1 = 0 (one vertex), so ker∂1 = ⟨a,b,c⟩ ≅ Z³.
+Im∂2 = ⟨a + b − c, −a + b + c⟩ = ⟨a + b − c, 2b⟩      (add the two)
+Basis of Z³: {a + b − c, b, c}  ⇒  H1 ≅ Z³/⟨a+b−c, 2b⟩ ≅ Z₂ ⊕ Z   (generated by [b] of order 2 and [c])
+ker∂2: x(a+b−c) + y(−a+b+c) = 0 ⇒ x − y = 0 and x + y = 0 ⇒ x = y = 0, so H2 = 0
+H0 = Z.                                 Check: 1 − 3 + 2 = 0 = 1 − 1 + 0</div></div></details>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="panel" id="past" data-panel hidden>
+  <h2>Past papers, solved</h2>
+  <p class="lede">The 2022 paper came without solutions, so these are written from scratch. The 2024 solutions follow the official ones, with corrections where those are wrong. Attempt each question before opening it.</p>
+
+  <h3>2022 exam</h3>
+
+<details><summary><span class="num">Q1</span><span class="t">True / false (10 marks)</span></summary><div class="body">
+<div class="tfl">
+<div class="it"><span class="v F">F</span><span>(a) Any collection of subsets of X is a basis.</span><span class="j">It must satisfy Prop 1.6. On X = {1,2,3}, {{1,2},{2,3}}: 2 is in the intersection {2}, which contains no member.</span></div>
+<div class="it"><span class="v F">F</span><span>(b) id: (∏X<sub>α</sub>, product) → (∏X<sub>α</sub>, box) is continuous for arbitrary A.</span><span class="j">The box topology is finer. In ℝ<sup>ℕ</sup>, (−1,1)<sup>ℕ</sup> is box-open, but its preimage isn't product-open (basic product sets restrict only finitely many coordinates). True only for finite A.</span></div>
+<div class="it"><span class="v F">F</span><span>(c) A open ⇒ int(cl A) = A.</span><span class="j">A = ℝ ∖ {0}: cl A = ℝ, so int cl A = ℝ ≠ A.</span></div>
+<div class="it"><span class="v T">T</span><span>(d) X connected ⇒ cone cX connected.</span><span class="j">cX is the image of the connected X × [0,1] (4.8) under the quotient map, since (x,1) ∼ v; continuous images of connected spaces are connected (4.10). In fact cX is path connected for any nonempty X.</span></div>
+<div class="it"><span class="v F">F</span><span>(e) Separable factors on B, first countable on C ⇒ product first countable.</span><span class="j">The B-factors need not be first countable. Take an uncountable co-finite space (separable, not first countable) × ℝ. It contains a copy of a non-first-countable factor, so it isn't first countable.</span></div>
+<div class="it"><span class="v F">F</span><span>(f) All metric spaces are second countable.</span><span class="j">An uncountable discrete metric space: every singleton is open, so any basis is uncountable.</span></div>
+<div class="it"><span class="v T">T</span><span>(g) Solid disc touching a circle: π = ℤ.</span><span class="j">The disc is contractible, so the space is homotopy equivalent to S¹, and π(S¹) ≅ ℤ (3.1).</span></div>
+<div class="it"><span class="v F">F</span><span>(h) Any two loops on a cylinder are homotopic.</span><span class="j">Cylinder ≃ S¹, π ≅ ℤ. The loop around the cylinder (winding number 1) isn't homotopic to the constant loop.</span></div>
+<div class="it"><span class="v F">F</span><span>(i) Composition of covering projections is a covering projection.</span><span class="j">False in general; the standard counterexamples have infinitely many sheets over a badly behaved base. It is true when q has finitely many sheets: intersect the finitely many evenly covered nbhds. Answer F with that remark.</span></div>
+<div class="it"><span class="v T">T</span><span>(j) Solid rectangle with a segment attached has a Δ-complex structure.</span><span class="j">Two triangles for the rectangle (subdivide so the attachment point is a vertex), plus one 1-simplex for the segment.</span></div>
+</div></div></details>
+
+<details><summary><span class="num">Q2(a)</span><span class="t">cl f⁻¹(A) ⊆ f⁻¹(cl A) for all A ⇔ f⁻¹(int A) ⊆ int f⁻¹(A) for all A</span></summary><div class="body">
+<div class="proof">
+<p>Tools: cl(Z∖S) = Z∖int S, int(Z∖S) = Z∖cl S, and f⁻¹(Y∖A) = X∖f⁻¹(A).</p>
+<ol>
+<li><b>(i) ⇒ (ii).</b> Let A ⊆ Y and apply (i) to Y∖A: cl f⁻¹(Y∖A) ⊆ f⁻¹(cl(Y∖A)).</li>
+<li>Left side: cl(X∖f⁻¹(A)) = X∖int f⁻¹(A). Right side: f⁻¹(Y∖int A) = X∖f⁻¹(int A).</li>
+<li>So X∖int f⁻¹(A) ⊆ X∖f⁻¹(int A). Taking complements, f⁻¹(int A) ⊆ int f⁻¹(A).</li>
+<li><b>(ii) ⇒ (i).</b> Apply (ii) to Y∖A: f⁻¹(int(Y∖A)) ⊆ int f⁻¹(Y∖A).</li>
+<li>Left: f⁻¹(Y∖cl A) = X∖f⁻¹(cl A). Right: int(X∖f⁻¹(A)) = X∖cl f⁻¹(A).</li>
+<li>So X∖f⁻¹(cl A) ⊆ X∖cl f⁻¹(A), and taking complements, cl f⁻¹(A) ⊆ f⁻¹(cl A). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q2(b)</span><span class="t">Is the Hawaiian earring locally path connected?</span></summary><div class="body">
+<p><b>Yes.</b> At a point p ≠ 0, small balls meet H in an open arc of one circle, which is path connected. At 0, take B = B(0,ε) ∩ H. Every circle of diameter &lt; ε lies entirely in B and contains 0. Every larger circle meets B in a single open arc through 0. So B is a union of path connected sets all containing 0, hence path connected. These sets form a nbhd base at 0, so H is locally path connected (4.20).</p>
+<p class="note">It is <i>not</i> semi-locally simply connected (every nbhd of 0 contains whole circles), which is why it has no universal cover. You don't need that here.</p></div></details>
+
+<details><summary><span class="num">Q2(c)</span><span class="t">Are the two graphs homeomorphic?</span></summary><div class="body">
+<p><b>No.</b> The left graph (a triangle with an altitude) is a theta graph: two branch points of degree 3 joined by three arcs. The right graph (a bow-tie) has one point, the crossing, where four arcs meet.</p>
+<p>Cut-point argument: if h: X → Y is a homeomorphism then h restricts to a homeomorphism X∖{x} → Y∖{h(x)}, so the number of components after removing a point is a topological invariant. Removing the crossing point disconnects the bow-tie into two pieces. Removing any single point from the theta graph leaves it connected: one of the three arcs is broken, and the other two still join everything. So no homeomorphism exists. (Also: a small connected nbhd of the crossing minus the point has 4 components, while every point of the theta graph has at most 3.)</p></div></details>
+
+<details><summary><span class="num">Q3(a)</span><span class="t">Compact Hausdorff ⇒ regular</span></summary><div class="body">
+<p>See Bookwork, Thm 5.8, step 1: C closed in compact X ⇒ C compact; separate x from each y ∈ C; finitely many V<sub>y</sub> cover C; U = ⋂U<sub>yᵢ</sub>, V = ⋃V<sub>yᵢ</sub>.</p></div></details>
+
+<details><summary><span class="num">Q3(b)</span><span class="t">X = ℕ × [0,1] ⊆ ℝ². Is X* locally connected?</span></summary><div class="body">
+<p><b>No, not at ∞.</b></p>
+<div class="proof"><ol>
+<li>X is a disjoint union of segments Sₙ = {n} × [0,1], each open in X (Sₙ = X ∩ ((n−½, n+½) × ℝ)), so open in X*.</li>
+<li>Each Sₙ is compact, and X* is Hausdorff by 5.23 (X is locally compact Hausdorff). So Sₙ is closed in X* (5.5). Each Sₙ is clopen in X*.</li>
+<li>Let W be any connected open set containing ∞. W ∩ Sₙ is clopen in W and doesn't contain ∞, so W ∩ Sₙ = ∅ for all n. Then W = {∞}.</li>
+<li>But {∞} isn't open: X isn't compact, so X is dense in X* (5.21). So ∞ has no connected open nbhd inside, say, X*, and X* is not locally connected at ∞. (It isn't even connected.) <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q3(c)</span><span class="t">P = irrationals, X = P*. Is X first countable?</span></summary><div class="body">
+<p><b>No, not at ∞.</b> (Every point of P has a countable base, so ∞ is the only issue.)</p>
+<div class="proof"><ol>
+<li>Compact subsets of P have empty interior in P. If (a,b) ∩ P ⊆ K with K compact, then K is closed in ℝ (5.5), so [a,b] = cl((a,b) ∩ P) ⊆ K ⊆ P. But [a,b] contains rationals.</li>
+<li>Nbhds of ∞ have the form X ∖ K with K compact ⊆ P. Suppose {X ∖ Kₙ} is a countable base at ∞.</li>
+<li>For each n, (√2 − 1/n, √2 + 1/n) ∩ P is a nonempty open set of P, so it isn't inside Kₙ. Pick xₙ in it with xₙ ∉ Kₙ.</li>
+<li>K = {xₙ} ∪ {√2} is compact (a convergent sequence with its limit) and lies in P. So X ∖ K is a nbhd of ∞.</li>
+<li>It contains no X ∖ Kₙ: that would need K ⊆ Kₙ, but xₙ ∈ K ∖ Kₙ. Contradiction, so X isn't first countable. <span class="qed">∎</span></li></ol>
+<p>Also worth a line: P isn't locally compact, so X isn't Hausdorff (5.23).</p></div></div></details>
+
+<details><summary><span class="num">Q4(a)</span><span class="t">Cover of "circle – cross – circle" that isn't trivial</span></summary><div class="body">
+<p>Call the left circle a. Let E be ℝ with a copy of the rest of X (the segment with its cross and the right circle) attached at every integer n. Map ℝ → a by t ↦ e<sup>2πit</sup>, with the attachment point of X going to the image of the integers. Map each attached copy homeomorphically onto its original. (Picture in the Q4 toolkit.)</p>
+<p>Points of a have evenly covered arcs with ℤ-many sheets in ℝ. Points elsewhere have an evenly covered nbhd with one sheet in each copy. E is connected with infinitely many sheets, so X itself is not evenly covered: that would make E a disjoint union of copies of X.</p>
+<p>A 2-sheeted alternative: replace a with a circle mapped by z ↦ z², and attach two copies of the rest at the two preimages of the attachment point.</p></div></details>
+
+<details><summary><span class="num">Q4(b)</span><span class="t">Homology of two triangles sharing an edge: left hollow, right filled</span></summary><div class="body">
+<div class="calc">Vertices: v0 = bottom-left, v1 = bottom-middle, v2 = bottom-right, v3 = top.
+Edges (low → high): a=[v0v1], b=[v0v3], c=[v1v3], d=[v1v2], e=[v2v3].
+2-simplex (right, filled): A = [v1 v2 v3].
+
+Δ0 = Z⁴, Δ1 = Z⁵, Δ2 = Z.
+
+∂1: a ↦ v1−v0, b ↦ v3−v0, c ↦ v3−v1, d ↦ v2−v1, e ↦ v3−v2
+∂2: A ↦ [v2v3] − [v1v3] + [v1v2] = e − c + d
+
+H0: the graph is connected, Im∂1 has rank 3, H0 = Z⁴/Im∂1 ≅ Z   (Σ nᵢvᵢ ↦ Σ nᵢ)
+ker∂1: rank 5 − 3 = 2, basis z1 = a + c − b (left loop), z2 = d + e − c (right loop)
+Im∂2 = ⟨z2⟩
+H1 = ⟨z1, z2⟩/⟨z2⟩ ≅ Z        (generated by the hollow triangle)
+ker∂2 = 0 since ∂A ≠ 0, so H2 = 0;  Hq = 0 for q ≥ 3.
+Check: V − E + F = 4 − 5 + 1 = 0 = 1 − 1 + 0</div></div></details>
+
+  <h3>2024 exam</h3>
+
+<details><summary><span class="num">Q1</span><span class="t">True / false (10 marks)</span></summary><div class="body">
+<div class="tfl">
+<div class="it"><span class="v T">T</span><span>(a) {[a,b]: a &lt; b} as a subbasis gives the finest topology.</span><span class="j">[a,b] ∩ [b,c] = {b}, so singletons are open: discrete, the finest topology.</span></div>
+<div class="it"><span class="v F">F</span><span>(b) int cl int A = int A.</span><span class="j">A = (0,1) ∪ (1,2) in ℝ gives (0,2). Or Sierpiński with A = {0}: int cl{0} = X.</span></div>
+<div class="it"><span class="v F">F</span><span>(c) Homeomorphic X, Y ⇒ every embedding X → Y is onto.</span><span class="j">ℕ ↪ ℤ, or (0,1) ↪ ℝ.</span></div>
+<div class="it"><span class="v F">F</span><span>(d) ℤ<sup>ℕ</sup> with ℤ discrete is discrete.</span><span class="j">A basic open set restricts only finitely many coordinates, so no singleton is open.</span></div>
+<div class="it"><span class="v T">T</span><span>(e) Hausdorff ⇒ singletons closed.</span><span class="j">Hausdorff ⇒ T1, then 2.4.</span></div>
+<div class="it"><span class="v T">T</span><span>(f) Second countable ⇒ cl A = {limits of sequences in A}.</span><span class="j">Second countable ⇒ first countable (3.6), then Thm 3.13. <b>The official solution says F with the co-finite topology on ℕ. That's wrong:</b> co-finite ℕ has the countable basis of cofinite sets, and an injective sequence in an infinite A converges to every point.</span></div>
+<div class="it"><span class="v F">F</span><span>(g) Path connected + connected ⇒ locally connected.</span><span class="j">Comb space.</span></div>
+<div class="it"><span class="v F">F</span><span>(h) Every path has a unique lift.</span><span class="j">Unique only once the starting point is fixed (2.8): for ℝ → S¹ a path lifts to start at any integer n.</span></div>
+<div class="it"><span class="v T">T</span><span>(i) Annulus and cylinder have isomorphic π.</span><span class="j">They are homeomorphic (both ≅ S¹ × [1,2]).</span></div>
+<div class="it"><span class="v F">F</span><span>(j) Rectangle split by a vertical line has π = ℤ ⊕ ℤ.</span><span class="j">It is a theta graph ≃ figure eight. π is free on 2 generators, which is non-abelian, so not ℤ ⊕ ℤ.</span></div>
+</div></div></details>
+
+<details><summary><span class="num">Q2</span><span class="t">Co-finite compact and not normal; equaliser closed; product of separable spaces</span></summary><div class="body">
+<p>(a) and (b): see Bookwork (the co-finite Problem, and Prop 2.5).</p>
+<p class="note err"><b>(c) The official solution proves the wrong thing</b> (first countable instead of separable). Correct answer: if D ⊆ X and E ⊆ Y are countable and dense, then D × E is countable. Every nonempty basic open U × V meets it, because U ∩ D ≠ ∅ and V ∩ E ≠ ∅. By Lemma 3.4, D × E is dense in X × Y.</p></div></details>
+
+<details><summary><span class="num">Q3</span><span class="t">Product of two connected spaces; Lemma 2.20</span></summary><div class="body">
+<p>Both are in Bookwork (Problem 4.8 and Lemma 2.20). The official 4.8 solution says "(X × {y₂}) ∩ ({x₁} × Y) is connected"; it means the <i>union</i>.</p></div></details>
+
+<details><summary><span class="num">Q4(a)</span><span class="t">Two connected, non-homeomorphic covers of [0,1]</span></summary><div class="body">
+<p class="note err">As literally stated this is impossible: every connected covering space of [0,1] is homeomorphic to [0,1] (proof in the Q4 toolkit). The official answer, E = [0,1] with p = id and E′ = [0,1] × D → [0,1] with D discrete, satisfies (i) but E′ isn't connected. In the exam, if something like this appears, give the non-homeomorphic pair, then state and briefly justify why connected covers of [0,1] are trivial. That shows you understood the question.</p></div></details>
+
+<details><summary><span class="num">Q4(b)</span><span class="t">Hollow cylinder with a solid triangle attached along the seam</span></summary><div class="body">
+<div class="calc">Cylinder = square with left and right sides glued (the seam c), no lids.
+Vertices: v0 (bottom of seam), v1 (top of seam), w (tip of triangle).
+Edges: a = bottom circle (v0→v0), b = top circle (v1→v1), c = seam (v0→v1),
+       d = square diagonal (v0→v1), f = [v0,w], g = [v1,w].
+2-simplices: P = lower half of square, Q = upper half, T = attached triangle [v0,v1,w].
+  ∂P = c − d + a        ∂Q = b − d + c        ∂T = g − f + c
+
+Δ0 = Z³, Δ1 = Z⁶, Δ2 = Z³.
+∂1: a, b ↦ 0;  c, d ↦ v1 − v0;  f ↦ w − v0;  g ↦ w − v1.
+H0 = Z (connected; Im∂1 has rank 2).
+ker∂1: rank 6 − 2 = 4, basis a, b, d − c, g − f + c.
+In that basis Im∂2 = ⟨a − (d−c), b − (d−c), g − f + c⟩.
+H1 = Z⁴/⟨these three⟩ ≅ Z         ([a] = [b] = [d − c] generates: the loop round the cylinder)
+ker∂2: xP + yQ + zT ↦ coefficient of a is x, of b is y, of f is −z ⇒ all 0 ⇒ H2 = 0.
+Check: 3 − 6 + 3 = 0 = 1 − 1 + 0.   Sanity: the space deformation retracts to a circle.</div></div></details>
+
+  <h3>Tests (point-set warm-ups)</h3>
+  <div class="card"><ul>
+    <li><b>2020:</b> basis of product topology + 1.42; sequences ⇒ closure, and the converse in metric spaces; 2.5(1); ℝ regular; 3.6 + examples (uncountable discrete; uncountable co-finite).</li>
+    <li><b>2022:</b> Prop 1.6; 1.42; fixed points closed + injective into Hausdorff; 3.16.</li>
+    <li><b>2024:</b> 1.42; Thm 3.13; Thm 4.2 (i)⇔(iii); Lemma 4.3 and its converse (false: ℚ, or (0,1) ∪ (1,2)).</li>
+    <li>ℝ regular (2020): x ∉ C closed ⇒ some (x−ε, x+ε) misses C; then (x−ε/2, x+ε/2) and ℝ ∖ [x−ε/2, x+ε/2] separate x and C. Or use the metric.</li>
+  </ul></div>
+</section>
+
+<!-- ================= MOCK ================= -->
+<section class="panel" id="mock" data-panel hidden>
+  <h2>Mock exam</h2>
+  <p class="lede">Written to the 2026 brief: same 10/15/15/15 shape, longer questions that cross chapters, Q4 algebraic. Set a 2-hour timer, write it on paper, then open the solutions.</p>
+
+  <div class="card">
+    <h4>Question 1 (10 marks) — true or false, with a brief justification</h4>
+    <ol type="a">
+      <li>If X is compact and A ⊆ X is compact, then A is closed in X.</li>
+      <li>The Sorgenfrey line is second countable.</li>
+      <li>Every regular T0 space is Hausdorff.</li>
+      <li>If f: X → Y is a continuous surjection and X is separable, then Y is separable.</li>
+      <li>In a locally connected space every component is open.</li>
+      <li>The one-point compactification of ℚ is Hausdorff.</li>
+      <li>If X is path connected then π(X,a) ≅ π(X,b) for all a, b ∈ X.</li>
+      <li>The map (0,2) → S¹, t ↦ e<sup>2πit</sup>, is a covering projection.</li>
+      <li>If f: S¹ → S¹ extends to a continuous map B² → S¹, then f has degree 0.</li>
+      <li>For the torus T, H₂<sup>Δ</sup>(T) ≅ ℤ.</li>
+    </ol>
+    <h4>Question 2 (15 marks)</h4>
+    <ol type="a">
+      <li>[5] Prove that X is Hausdorff if and only if the diagonal Δ = {(x,x): x ∈ X} is closed in X × X.</li>
+      <li>[5] Prove that a continuous bijection from a compact space to a Hausdorff space is a homeomorphism. Deduce that the quotient [0,1]/(0 ∼ 1) is homeomorphic to S¹.</li>
+      <li>[5] Prove that the Sorgenfrey line S is not second countable.</li>
+    </ol>
+    <h4>Question 3 (15 marks)</h4>
+    <ol type="a">
+      <li>[6] Prove that every connected, locally path connected space is path connected.</li>
+      <li>[5] Let X be locally compact, Hausdorff and not compact. Prove that X* is Hausdorff, and identify ℝ*.</li>
+      <li>[4] Let X be ℝ with the co-countable topology and A = (0,1). Find cl A, and show that no sequence in A converges to 0. What does this tell you about X?</li>
+    </ol>
+    <h4>Question 4 (15 marks)</h4>
+    <ol type="a">
+      <li>[6] Let p: ℝ → S¹, p(t) = e<sup>2πit</sup>. For a loop σ at 1, let σ̂ be its lift with σ̂(0) = 0. Prove that θ[σ] = σ̂(1) is a well-defined, injective map π(S¹,1) → ℤ. State each lifting theorem you use.</li>
+      <li>[4] Let X be the figure eight (two circles joined at a point). Describe a connected 3-sheeted covering space of X and explain why X is not evenly covered.</li>
+      <li>[5] Let K be the hollow tetrahedron (its four triangular faces, no interior) together with one extra edge e joining two of its vertices outside the tetrahedron. Compute H<sub>q</sub><sup>Δ</sup>(K) for all q.</li>
+    </ol>
+  </div>
+
+  <h3>Solutions</h3>
+
+<details><summary><span class="num">Q1</span><span class="t">Answers</span></summary><div class="body"><div class="tfl">
+<div class="it"><span class="v F">F</span><span>(a)</span><span class="j">Infinite co-finite space: every subset is compact, but infinite proper subsets aren't closed. Needs Hausdorff (5.5).</span></div>
+<div class="it"><span class="v F">F</span><span>(b)</span><span class="j">Separable and first countable but not second countable (Ex 3.3; proof in Q2c).</span></div>
+<div class="it"><span class="v T">T</span><span>(c)</span><span class="j">Noted after Def 2.6. For x ≠ y, T0 gives an open U containing exactly one of them, say y ∈ U, x ∉ U. Regularity separates y from the closed set X∖U ∋ x.</span></div>
+<div class="it"><span class="v T">T</span><span>(d)</span><span class="j">D countable dense ⇒ f(D) countable. Y = f(cl D) ⊆ cl f(D) by 1.32(6), so f(D) is dense.</span></div>
+<div class="it"><span class="v T">T</span><span>(e)</span><span class="j">4.21 (i)⇒(ii) with the open subspace X itself.</span></div>
+<div class="it"><span class="v F">F</span><span>(f)</span><span class="j">ℚ isn't locally compact (compact subsets have empty interior), so ℚ* isn't Hausdorff by 5.23.</span></div>
+<div class="it"><span class="v T">T</span><span>(g)</span><span class="j">Prop 1.9: a path ρ from a to b gives [σ] ↦ [ρ̄ ∗ σ ∗ ρ], an isomorphism.</span></div>
+<div class="it"><span class="v F">F</span><span>(h)</span><span class="j">Surjective local homeomorphism but not a covering: every small arc around 1 ∈ S¹ has preimage with one full sheet near t = 1 and two half-sheets near 0 and 2, which aren't mapped onto the arc.</span></div>
+<div class="it"><span class="v T">T</span><span>(i)</span><span class="j">f = F∘i, so f<sub>*</sub> = F<sub>*</sub>∘i<sub>*</sub> factors through π(B²) = 0. So f∘σ is null-homotopic, and its lift from 0 ends at 0 (θ well defined).</span></div>
+<div class="it"><span class="v T">T</span><span>(j)</span><span class="j">Ex 4.10: ker ∂₂ = ⟨A − B⟩ ≅ ℤ.</span></div>
+</div></div></details>
+
+<details><summary><span class="num">Q2(a)</span><span class="t">Hausdorff ⇔ diagonal closed</span></summary><div class="body"><div class="proof"><ol>
+<li>(⇐) Let x ≠ y. Then (x,y) lies in the open set (X × X) ∖ Δ, so there is a basic U × V with (x,y) ∈ U × V ⊆ (X × X) ∖ Δ.</li>
+<li>If z ∈ U ∩ V then (z,z) ∈ (U × V) ∩ Δ = ∅, impossible. So U and V are disjoint open sets separating x and y.</li>
+<li>(⇒) π₁, π₂: X × X → X are continuous (1.42) and X is Hausdorff, so Δ = {π₁ = π₂} is closed by Prop 2.5(1). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q2(b)</span><span class="t">Thm 5.7 and [0,1]/(0∼1) ≅ S¹</span></summary><div class="body"><div class="proof"><ol>
+<li>Thm 5.7: see Bookwork (closed ⇒ compact ⇒ compact image ⇒ closed, so f⁻¹ is continuous).</li>
+<li>g: [0,1] → S¹, g(t) = e<sup>2πit</sup>, is a continuous surjection. Its fibres are {0,1} and the singletons {t}, 0 &lt; t &lt; 1. So the decomposition space of Thm 1.50 is exactly [0,1]/(0 ∼ 1).</li>
+<li>By 1.50 (or 1.47), the induced f: [0,1]/∼ → S¹ is a continuous bijection.</li>
+<li>[0,1]/∼ is compact: it is the continuous image of the compact [0,1] under the quotient map (5.6). S¹ ⊆ ℝ² is Hausdorff. So by 5.7, f is a homeomorphism. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q2(c)</span><span class="t">Sorgenfrey line is not second countable</span></summary><div class="body"><div class="proof"><ol>
+<li>Suppose B is a countable basis. For each x ∈ ℝ, [x, x+1) is open, so there is B<sub>x</sub> ∈ B with x ∈ B<sub>x</sub> ⊆ [x, x+1).</li>
+<li>Then x = min B<sub>x</sub>, since B<sub>x</sub> contains x and nothing below it. So x ≠ y ⇒ B<sub>x</sub> ≠ B<sub>y</sub>.</li>
+<li>x ↦ B<sub>x</sub> is an injection from uncountable ℝ into the countable B. Contradiction. <span class="qed">∎</span></li></ol>
+<p>Complete the picture: ℚ is dense (every [a,b) meets ℚ) and {[x, x + 1/n)} is a countable base at x.</p></div></div></details>
+
+<details><summary><span class="num">Q3(a)</span><span class="t">Connected + locally path connected ⇒ path connected</span></summary><div class="body"><div class="proof"><ol>
+<li>Let C be a path component and x ∈ C. Local path connectedness gives an open path connected V ∋ x. Any point of V joins x by a path in V, so V ⊆ C. Hence C is open.</li>
+<li>X ∖ C is the union of the other path components, each open by the same argument. So C is also closed.</li>
+<li>C is nonempty and clopen, and X is connected, so C = X by 4.2(v). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q3(b)</span><span class="t">X* Hausdorff; ℝ* ≅ S¹</span></summary><div class="body"><div class="proof"><ol>
+<li>Points x ≠ y in X: separate them in X; open sets of X are open in X*.</li>
+<li>x vs ∞: K a compact nbhd of x, so x ∈ U ⊆ K with U open. K is closed in X (5.5), so X* ∖ K is open in X* and contains ∞. U ∩ (X* ∖ K) = ∅.</li>
+<li>ℝ*: stereographic projection h: S¹ ∖ {N} → ℝ is a homeomorphism (Ex 1.28). Extend it by N ↦ ∞. This gives a bijection S¹ → ℝ*.</li>
+<li>Continuity at N: a basic nbhd of ∞ is ℝ* ∖ C with C compact, so C ⊆ [−M, M]. Its preimage contains an arc around N. Elsewhere h is continuous.</li>
+<li>S¹ is compact and ℝ* is Hausdorff (step 2), so by 5.7 the extension is a homeomorphism: ℝ* ≅ S¹. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q3(c)</span><span class="t">Co-countable ℝ and A = (0,1)</span></summary><div class="body"><div class="proof"><ol>
+<li>Closed sets are the countable sets and ℝ. A is uncountable, so cl A = ℝ, and 0 ∈ cl A.</li>
+<li>Suppose xₙ ∈ A and xₙ → 0. N = ℝ ∖ {xₙ: xₙ ≠ 0} is open (its complement is countable) and contains 0. So eventually xₙ ∈ N, which forces xₙ = 0. But 0 ∉ A. Contradiction.</li>
+<li>So 0 ∈ cl A is not a limit of a sequence in A. Thm 3.13 fails, so X is not first countable (3.15). <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q4(a)</span><span class="t">θ well defined and injective</span></summary><div class="body">
+<p>Statements: <b>Path lifting (2.8)</b>: a path σ from x₀ has a unique lift from any e₀ over x₀. <b>Covering homotopy (2.7)</b>: as in the Bookwork list, including "if F(y₀,t) = x₀ for all t then F̂(y₀,t) = e₀".</p>
+<div class="proof"><ol>
+<li>σ̂ exists and is unique by 2.8. p(σ̂(1)) = σ(1) = 1, so σ̂(1) ∈ ℤ.</li>
+<li>Well defined: steps 1 of Thm 3.1 (lift H, the endpoint t ↦ Ĥ(1,t) lies in discrete ℤ, so it is constant; the top edge Ĥ(·,1) is τ̂ by uniqueness).</li>
+<li>Injective: θ is a homomorphism (step 2 of 3.1), so it suffices to show the kernel is trivial. If σ̂(1) = 0, H(s,t) = p((1−t)σ̂(s)) is a loop homotopy from σ to the constant loop: H(0,t) = p(0) = 1 and H(1,t) = p(0) = 1. <span class="qed">∎</span></li></ol></div></div></details>
+
+<details><summary><span class="num">Q4(b)</span><span class="t">3-sheeted cover of the figure eight</span></summary><div class="body">
+<p>Let a, b be the two circles, joined at x₀. Take a circle Ã mapped onto a by z ↦ z³. The preimage of x₀ is three points e₁, e₂, e₃. At each eᵢ attach a copy bᵢ of b, mapped homeomorphically onto b. E = Ã ∪ b₁ ∪ b₂ ∪ b₃ is connected.</p>
+<p>Evenly covered nbhds: an arc of a away from x₀ has three arcs of Ã as sheets. An arc of b away from x₀ has one arc in each bᵢ. A small "plus-shaped" nbhd of x₀ has three plus-shaped sheets around e₁, e₂, e₃. If X itself were evenly covered, E would be a disjoint union of 3 copies of X, which is disconnected. E is connected.</p></div></details>
+
+<details><summary><span class="num">Q4(c)</span><span class="t">Hollow tetrahedron plus an extra edge</span></summary><div class="body">
+<div class="calc">Vertices 0,1,2,3. Edges [ij] (i &lt; j), six of them, plus e from 0 to 1.
+2-simplices [012], [013], [023], [123].  Δ0 = Z⁴, Δ1 = Z⁷, Δ2 = Z⁴.
+
+∂[012] = [12] − [02] + [01]  =: z1
+∂[013] = [13] − [03] + [01]  =: z2
+∂[023] = [23] − [03] + [02]  =: z3
+∂[123] = [23] − [13] + [12]  =  z1 − z2 + z3
+
+H0 = Z (connected).
+ker∂1: rank 7 − (4 − 1) = 4, basis z1, z2, z3, z4 = e − [01]
+       (spanning tree {01, 02, 03}; the other edges 12, 13, 23, e each close one loop)
+Im∂2 = ⟨z1, z2, z3⟩       ⇒  H1 = ⟨z4⟩ ≅ Z    (the extra edge makes a loop)
+ker∂2: x[012] + y[013] + u[023] + w[123] ↦ 0
+   [01]: x + y = 0   [02]: −x + u = 0   [12]: x + w = 0
+   ⇒ y = −x, u = x, w = −x; the other edges check.
+   ker∂2 = ⟨[012] − [013] + [023] − [123]⟩ ≅ Z  ⇒  H2 = Z   (the enclosed sphere)
+Hq = 0 for q ≥ 3.
+Check: 4 − 7 + 4 = 1 = 1 − 1 + 1.   K ≃ S² ∨ S¹.</div></div></details>
+</section>
+
+</div></main>
+
+<script>
+const CH={1:"1 Basics",2:"2 Separation",3:"3 Countability",4:"4 Connectedness",5:"5 Compactness",A:"A1–A3 π & covers",H:"A4 Homology"};
+const D=[
+["1",0,"Any collection of subsets of a set X is a basis for some topology on X.","Must satisfy Prop 1.6. On {1,2,3}, {{1,2},{2,3}} fails condition (2) at 2. (2022 Q1a, T6)"],
+["1",1,"Any family of subsets of X that includes X is a subbasis for a unique topology on X.","Ex 1.8(5): finite intersections form a basis."],
+["1",1,"{[a,b] : a < b} is a subbasis for the discrete topology on ℝ.","[a,b] ∩ [b,c] = {b}, so singletons are open. (2024 Q1a)"],
+["1",1,"The lower limit (Sorgenfrey) topology on ℝ is strictly finer than the usual topology.","(a,b) = ⋃[a+1/n, b), but [0,1) isn't usual-open (Problem 1.10)."],
+["1",0,"int(A ∪ B) = int A ∪ int B for all A, B.","A = ℚ, B = ℝ∖ℚ: the right side is ∅, the left is ℝ."],
+["1",1,"cl(A ∪ B) = cl A ∪ cl B for all A, B.","cl A ∪ cl B is closed and contains A ∪ B; conversely cl A ⊆ cl(A ∪ B)."],
+["1",0,"cl(A ∩ B) = cl A ∩ cl B for all A, B.","ℚ and ℝ∖ℚ: ∅ versus ℝ."],
+["1",0,"If A is open then int(cl A) = A.","A = ℝ∖{0}: int cl A = ℝ. (2022 Q1c)"],
+["1",0,"int(cl(int A)) = int A for every A.","A = (0,1) ∪ (1,2) gives (0,2). Or Sierpiński, A = {0}. (2024 Q1b)"],
+["1",0,"The intersection of any family of open sets is open.","⋂(−1/n, 1/n) = {0}. Only finite intersections."],
+["1",1,"Every function into an indiscrete space is continuous.","The only preimages to check are of ∅ and Y."],
+["1",0,"Every function out of an indiscrete space is continuous.","id: {0,1} indiscrete → {0,1} discrete; the preimage of {0} isn't open."],
+["1",0,"The pasting lemma holds for any cover of X by closed sets.","X_α = {α} in ℝ: every function is continuous on each singleton. Needs finitely many (1.35)."],
+["1",0,"Projections π_α of a product are closed maps.","π₁{xy = 1} = ℝ∖{0}, not closed. (They are open: 1.45.)"],
+["1",1,"Projections π_α : ∏X_α → X_α are open maps.","Prop 1.45: the image of a basic set is open."],
+["1",0,"For any indexing set the box and product topologies on ∏X_α coincide.","Only for finite products. (−1,1)^ℕ is box-open, not product-open."],
+["1",0,"The identity (∏X_α, product) → (∏X_α, box) is continuous for any indexing set.","Box is strictly finer for infinite products with nontrivial factors. (2022 Q1b, T6)"],
+["1",1,"The identity (∏X_α, box) → (∏X_α, product) is continuous.","Box is finer than product."],
+["1",0,"A quotient of a Hausdorff space is Hausdorff.","Line with two origins (Ch 2 note 6)."],
+["1",0,"A continuous bijection is a homeomorphism.","[0,2π) → S¹, t ↦ e^{it}. Or id: discrete ℝ → usual ℝ."],
+["1",0,"If X ≅ Y then every embedding X → Y is surjective.","ℕ ↪ ℤ, or (0,1) ↪ ℝ. (2024 Q1c)"],
+["1",1,"The cone on a connected space is connected.","Image of the connected X × [0,1] under the quotient map. (2022 Q1d, T6)"],
+["1",1,"f is continuous iff f(cl A) ⊆ cl f(A) for every A ⊆ X.","Thm 1.32(6)."],
+["1",1,"A retraction r : X → A is a quotient map.","A1 Q2b: r is continuous, and r(r⁻¹(U) ∩ A) = U shows U is open when r⁻¹(U) is."],
+["2",0,"Every T1 space is Hausdorff.","Infinite co-finite space."],
+["2",1,"X is T1 iff every singleton is closed.","Prop 2.4."],
+["2",0,"Every regular space is Hausdorff.","An indiscrete 2-point space is vacuously regular but not T0."],
+["2",1,"Every regular T0 space is Hausdorff.","T0 gives U with y ∈ U, x ∉ U; regularity separates y from the closed X∖U."],
+["2",0,"Every Hausdorff space is regular.","Slit disc (Ex 2.7)."],
+["2",0,"Every normal space is regular.","Sierpiński space: normal vacuously, can't separate 0 from {1}."],
+["2",1,"Every T4 space is T3.","Singletons are closed, so normality separates a point from a closed set."],
+["2",0,"The product of two normal spaces is normal.","Sorgenfrey square S × S (Ex 2.15)."],
+["2",1,"The product of two regular spaces is regular.","T3 tutorial: closed-nbhd base via cl(M × N) = cl M × cl N."],
+["2",0,"The Moore plane is normal.","T3 but not normal; the x-axis is a closed discrete subspace (Ex 2.14)."],
+["2",1,"The Sorgenfrey line is normal.","Ex 2.15: U = ⋃[a, a′), V = ⋃[b, b′)."],
+["2",1,"Every compact Hausdorff space is normal.","Thm 5.8."],
+["2",0,"Every normal space is completely regular.","Sierpiński space. (T4 ⇒ Tychonoff is true, by Urysohn.)"],
+["2",1,"X is normal iff any two disjoint closed sets are completely separated.","Urysohn's Lemma 2.21."],
+["2",1,"If f : X → X is continuous and X is Hausdorff, the fixed-point set of f is closed.","Prop 2.5(1) with g = id."],
+["2",1,"If f : X → Y is a continuous injection and Y is Hausdorff, then X is Hausdorff.","Prop 2.5(2): pull back disjoint nbhds of f(x), f(y)."],
+["2",0,"Every Tychonoff space is normal.","Sorgenfrey square: Tychonoff (product of T4) but not normal."],
+["3",0,"Every metric space is second countable.","Uncountable discrete metric. (2022 Q1f, T6)"],
+["3",0,"Every separable space is first countable.","Uncountable co-finite space (Ex 3.3(2))."],
+["3",0,"Every first countable space is separable.","Uncountable discrete (Ex 3.3(1))."],
+["3",0,"The Sorgenfrey line is second countable.","Separable and first countable but not second countable (x ↦ basic B_x with min x is injective)."],
+["3",1,"Every second countable space is separable and first countable.","Thm 3.6."],
+["3",0,"Any product of second countable spaces is second countable.","Only countable products (3.8). ℕ^A, A uncountable, isn't even first countable."],
+["3",1,"A countable product of separable spaces is separable.","Thm 3.8(i)."],
+["3",1,"If X is second countable and A ⊆ X, then cl A is the set of limits of sequences in A.","Second countable ⇒ first countable ⇒ Thm 3.13. (2024 Q1f; the official solution's 'F' is wrong.)"],
+["3",0,"In any space, cl A is the set of limits of sequences in A.","Co-countable topology on ℝ: cl(0,1) = ℝ, but sequences are eventually constant (Ex 3.15)."],
+["3",0,"A function that preserves limits of sequences is continuous.","id: co-countable ℝ → discrete ℝ (Ex 3.15). True when the domain is first countable (3.14)."],
+["3",1,"In a Hausdorff space a sequence has at most one limit.","Prop 3.12."],
+["3",1,"Every regular second countable space is normal.","Thm 3.16."],
+["3",1,"In a second countable space every family of pairwise disjoint open sets is countable.","Problem 3.7 / A2 Q2: choose a basic set inside each."],
+["3",0,"ℝ with the co-finite topology is first countable.","It is uncountable co-finite: separable, not first countable."],
+["3",0,"A product of separable spaces with first countable spaces is first countable.","The separable factors needn't be first countable. (2022 Q1e, T6)"],
+["4",1,"Every path connected space is connected.","Image of [0,1] (Prop 4.10, Thm 4.11)."],
+["4",0,"Every connected space is path connected.","Topologist's sine curve."],
+["4",0,"Components are always open.","ℚ: components are singletons."],
+["4",1,"Components are always closed.","Cor 4.5, from Lemma 4.3."],
+["4",0,"Path components are always closed.","Topologist's sine curve: X₁ is a path component, not closed."],
+["4",1,"The closure of a connected set is connected.","Lemma 4.3."],
+["4",0,"If cl A is connected then A is connected.","A = ℚ, or (0,1) ∪ (1,2). (2024 test)"],
+["4",0,"A path connected, connected space is locally connected.","Comb space. (2024 Q1g)"],
+["4",1,"A connected, locally path connected space is path connected.","Cor 4.23."],
+["4",1,"An arbitrary product of connected spaces is connected.","Thm 4.9 (product topology; fails for box)."],
+["4",0,"Every locally connected space is connected.","[0,1) ∪ (1,2] (Ex 4.24)."],
+["4",1,"A connected Tychonoff space with at least two points is uncountable.","Prop 4.14: Urysohn-type function + IVT gives a surjection onto [0,1]."],
+["4",0,"[0,1) and (0,1) are homeomorphic.","Removing 0 leaves [0,1) connected; removing any point disconnects (0,1)."],
+["4",0,"ℝ and ℝ² are homeomorphic.","ℝ minus a point is disconnected; ℝ² minus a point isn't."],
+["4",1,"A separable, locally connected space has countably many components.","A3 Q1: components are open and each meets the dense set."],
+["4",1,"The Hawaiian earring is locally path connected.","Balls at 0 meet it in small whole circles plus arcs through 0. (2022 Q2b)"],
+["5",0,"Every compact subset of a topological space is closed.","Indiscrete or co-finite spaces. True in Hausdorff spaces (5.5)."],
+["5",1,"Every closed subset of a compact space is compact.","Prop 5.3."],
+["5",1,"An infinite set with the co-finite topology is compact.","Any one open set misses only finitely many points. (2024 Q2a)"],
+["5",1,"A continuous bijection from a compact space onto a Hausdorff space is a homeomorphism.","Thm 5.7."],
+["5",1,"Any product of compact spaces is compact.","Tychonoff's theorem (5.14), statement only."],
+["5",1,"Every locally compact Hausdorff space is Tychonoff.","Prop 5.17."],
+["5",0,"ℚ is locally compact.","A compact nbhd would contain (a,b) ∩ ℚ, whose closure in ℝ contains irrationals."],
+["5",0,"The one-point compactification of ℚ is Hausdorff.","Thm 5.23 needs locally compact."],
+["5",1,"The one-point compactification of ℝ is homeomorphic to S¹.","Stereographic projection + Thm 5.7."],
+["5",0,"The one-point compactification of the irrationals is first countable.","At ∞: a diagonal sequence escapes any countable family of compact sets. (2022 Q3c)"],
+["5",0,"The one-point compactification of ℕ × [0,1] ⊆ ℝ² is locally connected.","Each segment is clopen in X*, so ∞ has no connected open nbhd. (2022 Q3b)"],
+["5",1,"X is compact iff every family of closed sets with the FIP has nonempty intersection.","Thm 5.10."],
+["5",1,"If T is a compact Hausdorff topology, every strictly coarser topology on the same set fails to be Hausdorff.","Remark after Thm 5.7."],
+["5",1,"Any product of compact Hausdorff spaces is normal.","Compact by Tychonoff, Hausdorff as a product, then 5.8. (T6)"],
+["A",0,"π(X,a) ≅ π(X,b) for any space X and any a, b ∈ X.","S¹ ⊔ {p}: ℤ versus trivial. True if a, b are in the same path component (1.9)."],
+["A",1,"If a, b are points of the Möbius band M, then π(M,a) ≅ π(M,b).","M is path connected (Prop 1.9). (T6)"],
+["A",1,"Any two loops on a sphere based at the same point are homotopic.","π(S²) is trivial. (T6)"],
+["A",0,"Any two loops on a cylinder are homotopic.","Cylinder ≃ S¹, π ≅ ℤ. (2022 Q1h)"],
+["A",1,"Homeomorphic spaces have isomorphic fundamental groups.","Prop 1.12: h_* has inverse (h⁻¹)_*."],
+["A",0,"Spaces with isomorphic fundamental groups are homeomorphic.","S² and a point; ℝ and a point."],
+["A",1,"The fundamental group of a contractible space is trivial.","Prop 1.8."],
+["A",0,"The fundamental group of the figure eight is ℤ ⊕ ℤ.","Free on 2 generators: non-abelian. (2024 Q1j)"],
+["A",1,"The fundamental groups of the annulus and the cylinder are isomorphic.","They're homeomorphic. (2024 Q1i)"],
+["A",1,"A solid disc touching a circle at one point has fundamental group ℤ.","Homotopy equivalent to S¹. (2022 Q1g)"],
+["A",0,"The projective plane P² is simply connected.","S² → P² is a 2-sheeted cover; a path between antipodes projects to a loop that isn't null-homotopic. π(P²) ≅ ℤ₂."],
+["A",0,"Every surjective local homeomorphism is a covering projection.","(0,2) → S¹, t ↦ e^{2πit}: no evenly covered nbhd of 1."],
+["A",0,"For a covering projection p, every path in X has a unique lift.","Unique once the start point is fixed (2.8). (2024 Q1h)"],
+["A",1,"Two lifts of f : Y → X agreeing at one point agree everywhere, if Y is connected.","Unique lifting theorem 2.6: the agreement set is clopen."],
+["A",1,"S¹ → S¹, z ↦ z^k (k ≥ 1) is a covering projection.","k-sheeted; sheets are arcs of angle 2π/k."],
+["A",1,"The quotient map Sⁿ → Pⁿ is a covering projection.","Ex 2.4: an open hemisphere and its antipode are the sheets."],
+["A",0,"A composite of covering projections is always a covering projection.","False in general (counterexamples are outside the notes). True if q is finitely sheeted. (2022 Q1i)"],
+["A",1,"Every connected covering space of [0,1] is homeomorphic to [0,1].","[0,1] is contractible; lifting a null-homotopy shows p is injective. (Why 2024 Q4a is impossible as stated.)"],
+["A",0,"There is a retraction B² → S¹.","Cor 3.2: r_*∘i_* = id_ℤ can't factor through π(B²) = 0."],
+["A",1,"Every continuous f : B² → B² has a fixed point.","Brouwer, Cor 3.3."],
+["A",1,"Homotopic maps S¹ → S¹ have the same degree.","Lift the homotopy; the endpoint moves continuously in ℤ."],
+["A",1,"The circles J and K of Prop 3.5 are linked.","An unlinking map would give a retraction B² → S¹."],
+["H",1,"For every Δ-complex, ∂_q ∂_{q+1} = 0.","Lemma 4.6: terms cancel in pairs."],
+["H",1,"For the torus, H₁^Δ ≅ ℤ ⊕ ℤ and H₂^Δ ≅ ℤ.","Ex 4.10."],
+["H",0,"For the circle with one vertex and one edge, H₁^Δ = 0.","∂e = v − v = 0, so H₁ = ⟨e⟩ ≅ ℤ (Ex 4.9)."],
+["H",1,"A solid rectangle with a line segment attached has a Δ-complex structure.","Two triangles plus a 1-simplex. (2022 Q1j)"],
+["H",1,"A hollow cylinder with a solid triangle attached along its seam has H₁^Δ ≅ ℤ and H₂^Δ = 0.","2024 Q4b; it deformation retracts to a circle."],
+["H",0,"ℚ (usual topology) admits a Δ-complex structure.","Images of 1- and 2-simplices are connected, so only 0-simplices fit; condition (c) would make ℚ discrete."],
+["H",1,"For a Δ-complex with three connected components, H₀^Δ ≅ ℤ³.","Vertices in the same component differ by a boundary."],
+["H",0,"A Δ-complex with H₁^Δ ≅ ℤ₂ ⊕ ℤ must have a 3-simplex.","Klein bottle: H₁ = ℤ ⊕ ℤ₂ from two 2-simplices."]
+];
+// ---------- router ----------
+const panels=[...document.querySelectorAll("[data-panel]")], links=[...document.querySelectorAll("nav.tabs a")];
+function show(){const id=(location.hash||"#plan").slice(1);const t=panels.find(p=>p.id===id)?id:"plan";
+  panels.forEach(p=>p.hidden=p.id!==t);links.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+t?"page":"false"));}
+window.addEventListener("hashchange",()=>{show();window.scrollTo(0,0)});show();
+// ---------- drill ----------
+let st={};try{st=JSON.parse(localStorage.getItem("m350drill")||"{}")}catch(e){st={}}
+const save=()=>{try{localStorage.setItem("m350drill",JSON.stringify(st))}catch(e){}};
+const items=D.map((d,i)=>({id:i,ch:d[0],t:d[1],s:d[2],j:d[3]}));
+let filt=new Set(Object.keys(CH)),missedOnly=false,deck=[],pos=0;
+const $=id=>document.getElementById(id);
+const chips=$("chapterChips");
+Object.entries(CH).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=v+" ("+items.filter(x=>x.ch===k).length+")";b.setAttribute("aria-pressed","true");
+  b.onclick=()=>{filt.has(k)?filt.delete(k):filt.add(k);b.setAttribute("aria-pressed",filt.has(k));build()};chips.appendChild(b)});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function build(){let pool=items.filter(x=>filt.has(x.ch));if(missedOnly)pool=pool.filter(x=>st[x.id]==="m");
+  const missed=shuffle(pool.filter(x=>st[x.id]==="m")),fresh=shuffle(pool.filter(x=>!st[x.id])),known=shuffle(pool.filter(x=>st[x.id]==="g"));
+  deck=[...missed,...fresh,...known];pos=0;render();renderList();score()}
+function score(){const n=items.length,g=items.filter(x=>st[x.id]==="g").length,m=items.filter(x=>st[x.id]==="m").length;
+  $("score").textContent=`${g} known · ${m} missed · ${n-g-m} unseen of ${n}`}
+function render(){const f=$("flash");if(!deck.length){$("fQ").textContent=missedOnly?"No missed cards in these chapters. Nice.":"No cards match the filter.";$("fMeta").textContent="";$("fPos").textContent="";$("fA").hidden=true;["got","miss"].forEach(i=>$(i).hidden=true);$("reveal").hidden=true;return}
+  const c=deck[pos%deck.length];$("fMeta").textContent=CH[c.ch]+(st[c.id]==="m"?" · missed before":st[c.id]==="g"?" · known":"");
+  $("fPos").textContent=(pos%deck.length+1)+" / "+deck.length;$("fQ").textContent=c.s;
+  $("fV").textContent=c.t?"TRUE":"FALSE";$("fV").className="verdict "+(c.t?"T":"F");$("fJ").textContent=c.j;
+  $("fA").hidden=true;$("reveal").hidden=false;["got","miss"].forEach(i=>$(i).hidden=true);f.style.borderColor=""}
+$("reveal").onclick=()=>{$("fA").hidden=false;$("reveal").hidden=true;["got","miss"].forEach(i=>$(i).hidden=false);$("flash").style.borderColor=deck[pos%deck.length].t?"var(--true)":"var(--false)"};
+function mark(v){const c=deck[pos%deck.length];st[c.id]=v;save();score();pos++;render();renderList()}
+$("got").onclick=()=>mark("g");$("miss").onclick=()=>mark("m");$("skip").onclick=()=>{pos++;render()};
+$("reset").onclick=()=>{st={};save();build()};
+$("onlyMissed").onclick=e=>{missedOnly=!missedOnly;e.currentTarget.setAttribute("aria-pressed",missedOnly);build()};
+$("listMode").onclick=e=>{const on=e.currentTarget.getAttribute("aria-pressed")!=="true";e.currentTarget.setAttribute("aria-pressed",on);$("tfList").hidden=!on;$("flashWrap").hidden=on};
+function renderList(){const L=$("tfList");L.innerHTML="";items.filter(x=>filt.has(x.ch)&&(!missedOnly||st[x.id]==="m")).forEach(c=>{
+  const d=document.createElement("div");d.className="it";const v=document.createElement("span");v.className="v "+(c.t?"T":"F");v.textContent=c.t?"T":"F";
+  const s=document.createElement("span");s.textContent=c.s;const j=document.createElement("span");j.className="j";j.textContent=c.j+" — "+CH[c.ch];d.append(v,s,j);L.appendChild(d)})}
+document.addEventListener("keydown",e=>{if($("drill").hidden||$("flashWrap").hidden||e.target.closest("input,textarea"))return;
+  if(e.key===" "&&!$("reveal").hidden){e.preventDefault();$("reveal").click()}else if(e.key==="ArrowRight")$("skip").click();else if(e.key==="g"&&!$("got").hidden)$("got").click();else if(e.key==="m"&&!$("miss").hidden)$("miss").click()});
+build();
+</script>
+
+</html>
