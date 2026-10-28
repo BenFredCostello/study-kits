@@ -18,6 +18,10 @@ courses.json        list of courses and their kits (edit this when adding a kit)
 2. Each kit is a single self-contained HTML file (inline CSS/JS; Google Fonts allowed).
    Reuse the styling of `MECHENG736/part1-eeg-sleep.html` so kits look consistent:
    tabs for Plan / Notes / Numbers or Formulas / Calculations / Quiz or Cards / Past papers.
+   **Phone layout:** copy the `<style id="mobile-fit">` block (end of `<head>`) and the
+   `<script id="mobile-fit-js">` block (end of `<body>`) from any existing kit into the new one,
+   unchanged. They wrap the tab bar onto extra lines and turn tables into stacked cards on phones.
+   Check the page at ~390px wide before pushing: no sideways scrolling, every tab visible.
 3. Add an entry to `courses.json` (new course object, or a new item in its `kits` array).
 4. Commit with a message like `Add MECHENG736 part 3 kit` and push to `main`.
 

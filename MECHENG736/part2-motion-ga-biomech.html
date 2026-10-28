@@ -707,4 +707,47 @@ document.getElementById("cfilter").addEventListener("change",crender);
 document.getElementById("cshuffle").addEventListener("click",()=>{for(let i=corder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[corder[i],corder[j]]=[corder[j],corder[i]]}crender()});
 document.getElementById("creset").addEventListener("click",()=>{cst={};csave();crender()});
 crender();
+</script><style id="mobile-fit">
+/* mobile-fit: phone layout. Keep this block in every kit. */
+@media (max-width:600px){
+ nav.tabs,nav.tabs .wrap{flex-wrap:wrap;overflow-x:visible}
+ nav.tabs a{padding:6px 10px;font-size:13.5px}
+ table.mf-stack,table.mf-stack tbody,table.mf-stack tr,table.mf-stack td,table.mf-stack th{display:block;width:auto}
+ table.mf-stack thead,table.mf-stack tr.mf-head{display:none}
+ table.mf-stack tr{padding:9px 0;border-bottom:1px solid var(--line,var(--rule))}
+ table.mf-stack td,table.mf-stack th{border:0;padding:2px 12px;text-align:left}
+ table.mf-stack td[data-label]{position:relative;padding-left:calc(34% + 14px);min-height:1.4em}
+ table.mf-stack td[data-label]::before{content:attr(data-label);position:absolute;left:12px;top:3px;width:calc(34% - 4px);font-family:var(--f-body,var(--ui,inherit));font-size:12px;line-height:1.35;letter-spacing:.02em;color:var(--muted);font-weight:600;font-style:normal;white-space:normal}
+ table.mf-stack:not(.mf-notitle) tr>:first-child[data-label]{padding-left:12px}
+ table.mf-stack tr>:first-child{display:block}
+ table.mf-compact{font-size:13px}
+ table.mf-compact th,table.mf-compact td{padding:6px 5px;letter-spacing:0}
+ table.mf-compact th{text-transform:none;font-size:11.5px;white-space:normal}
+ table.mf-compact td,table.mf-compact td.num{font-size:12.5px}
+ table.mf-stack:not(.mf-notitle) tr>:first-child{font-weight:600}
+ table.mf-stack:not(.mf-notitle) tr>:first-child::before{display:none!important}
+ table.mf-stack td.num{white-space:normal}
+ pre{white-space:pre-wrap;overflow-wrap:break-word}
+ code,kbd,.k{white-space:normal;overflow-wrap:anywhere}
+ p,li,td,th,dd,dt,h1,h2,h3,h4,summary,.card{overflow-wrap:break-word}
+ img,svg,canvas,video{max-width:100%;height:auto}
+ .mf-hint{font-size:12px;color:var(--muted);margin:4px 2px}
+}
+</style>
+
+<script id="mobile-fit-js">
+/* mobile-fit: labels table cells so they stack as cards on phones. Keep in every kit. */
+(function(){function prep(t){if(t.dataset.mf)return;t.dataset.mf="1";var rows=[].slice.call(t.rows);if(!rows.length)return;
+var h=t.tHead&&t.tHead.rows[0];if(!h){var r0=rows[0];if([].every.call(r0.cells,function(c){return c.tagName==="TH"}))h=r0}
+if(!h)return;var cells=t.querySelectorAll("td"),tot=0;[].forEach.call(cells,function(c){tot+=c.textContent.trim().length});
+if(h.cells.length>=4&&cells.length&&tot/cells.length<9){t.classList.add("mf-compact");return}
+var labels=[];[].forEach.call(h.cells,function(c){for(var k=0;k<(c.colSpan||1);k++)labels.push(c.textContent.trim())});
+t.classList.add("mf-stack");h.classList.add("mf-head");
+var fc=rows.filter(function(r){return r!==h&&r.cells[0]}).map(function(r){return r.cells[0]});if(fc.length&&fc.filter(function(c){return c.classList.contains("num")}).length*2>=fc.length)t.classList.add("mf-notitle");
+rows.forEach(function(r){if(r===h)return;var i=0;[].forEach.call(r.cells,function(c){if(labels[i]&&!c.hasAttribute("data-label"))c.setAttribute("data-label",labels[i]);i+=c.colSpan||1})})}
+function hint(){if(innerWidth>600)return;[].forEach.call(document.querySelectorAll("table.mf-compact"),function(t){var w=t.parentElement;if(!w||w.dataset.mfh||t.offsetWidth===0)return;if(w.scrollWidth>w.clientWidth+2){w.dataset.mfh="1";var p=document.createElement("p");p.className="mf-hint";p.textContent="Swipe the table sideways to see all columns \u2192";w.parentNode.insertBefore(p,w)}})}
+function run(){[].forEach.call(document.querySelectorAll("table"),prep);hint()}
+addEventListener("click",function(){setTimeout(hint,60)});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",run);else run();
+new MutationObserver(run).observe(document.documentElement,{childList:true,subtree:true})})();
 </script>
