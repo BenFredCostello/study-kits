@@ -14,6 +14,12 @@
         "title": "Part 2: Motion planning, GAs & jaw biomechanics",
         "lecturer": "Peter Xu",
         "marks": 40
+      },
+      {
+        "file": "MECHENG736/part3-hri-devices.html",
+        "title": "Part 3: Human–robot interaction & medical devices",
+        "lecturer": "Andrew McDaid",
+        "marks": 30
       }
     ]
   },

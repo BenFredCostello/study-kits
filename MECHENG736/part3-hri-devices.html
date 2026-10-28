@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>736 Part 3 Study Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: PSG chart-paper page — single reading column, sticky section tabs, trace-red accent */
+:root{
+  --bg:#F5F8F9; --paper:#FFFFFF; --ink:#13222E; --muted:#5A6B77; --line:#D9E2E7; --grid:#E9EFF2;
+  --accent:#0B6E8C; --accent-soft:#E2F1F5; --trace:#C2362F;
+  --good:#1E7A46; --good-soft:#E3F3E9; --bad:#B3261E; --bad-soft:#FBE7E5; --warn:#8A5A00; --warn-soft:#FFF3D6;
+  --f-display:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --paper:#16212A; --ink:#E4ECF0; --muted:#97A8B3; --line:#2A3A46; --grid:#1C2933;
+  --accent:#5CC0DD; --accent-soft:#163542; --trace:#F0726A;
+  --good:#6FD39A; --good-soft:#163526; --bad:#FF8F86; --bad-soft:#3A1C1A; --warn:#F2C25B; --warn-soft:#352A12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+header.hero{padding-block:36px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--trace)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(30px,6vw,44px);font-weight:700;margin-top:6px}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch;margin-top:10px}
+.trace{display:block;width:100%;height:46px;margin-top:18px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:10px;display:flex;gap:4px;padding:5px;overflow-x:auto;margin-bottom:24px}
+nav.tabs a{font-weight:600;font-size:14px;color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap}
+nav.tabs a:hover,nav.tabs a:focus-visible{color:var(--ink);background:var(--accent-soft);outline:none}
+nav.tabs a.on{color:var(--paper);background:var(--accent)}
+section.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.panel > * + *{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.stat{border-left:3px solid var(--accent);padding:4px 0 4px 12px}
+.stat b{font-family:var(--f-mono);font-size:20px;display:block}
+.stat span{color:var(--muted);font-size:14px}
+ul,ol{margin:0;padding-left:22px}
+li + li{margin-top:5px}
+.k{font-family:var(--f-mono);font-size:.92em;background:var(--accent-soft);color:var(--ink);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.hl{background:var(--warn-soft);padding:0 3px;border-radius:3px}
+details.lec{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+details.lec > summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+details.lec > summary::-webkit-details-marker{display:none}
+details.lec > summary .no{font-family:var(--f-mono);font-size:13px;color:var(--trace);min-width:28px}
+details.lec > summary h3{flex:1;min-width:0}
+details.lec > summary .weight{font-size:13px;color:var(--muted)}
+details.lec[open] > summary{border-bottom:1px solid var(--line)}
+details.lec .body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:4px 0 -6px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.trap{background:var(--bad-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.trap b{color:var(--bad)}
+.tip{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14.5px}
+pre.math{font-family:var(--f-mono);font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.55;margin:0;white-space:pre}
+figure{margin:0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+svg text{font-family:var(--f-mono)}
+/* quiz */
+.qbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.qbar label{font-size:14px;color:var(--muted)}
+select,button,input{font:inherit}
+select,input[type=number]{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+input[type=number]{width:90px}
+button{cursor:pointer;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);padding:7px 14px;font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.score{font-family:var(--f-mono);font-size:14px;margin-left:auto}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.q .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.q .stem{font-weight:600;margin:6px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:400;padding:9px 12px;display:flex;gap:10px}
+.opt .l{font-family:var(--f-mono);color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin-top:12px;font-size:14.5px;padding:10px 14px;border-radius:8px;background:var(--accent-soft)}
+.chip{font-family:var(--f-mono);font-size:11.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line)}
+.chip.read{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+/* calc */
+.calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.calc label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:3px}
+.out{font-family:var(--f-mono);font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;white-space:pre-wrap}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.reveal[open] summary{margin-bottom:10px}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 14px;font-size:14.5px}
+.key div{font-variant-numeric:tabular-nums}
+.key b{font-family:var(--f-mono)}
+@media (prefers-reduced-motion:no-preference){.trace path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MECHENG 736 · Part 3 · Andrew McDaid · 30 marks</div>
+  <h1>Human–robot interaction &amp; medical devices</h1>
+  <p class="lede">Lectures 1–6 plus the industry guest lectures. The project isn't examinable. The 2024 and 2025 papers were almost identical: eight short questions of 2–5 marks, answered in sentences and lists. Almost no maths, so it's mostly lists and definitions to learn.</p>
+  <svg class="trace" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"><path id="tr" fill="none" stroke="var(--trace)" stroke-width="1.6"/></svg>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#plan">Plan</a><a href="#notes">Notes</a><a href="#equations">Equations</a><a href="#cards">Recall cards</a><a href="#guests">Guest lectures</a><a href="#papers">Past papers</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section class="view" id="v-plan">
+  <div class="panel">
+    <h2>What gets asked, almost every year</h2>
+    <div class="tbl"><table>
+      <tr><th>Question</th><th>2024</th><th>2025</th><th>Lecture</th></tr>
+      <tr><td>Three requirements for a device that physically interacts with a human</td><td class="num">3</td><td class="num">3</td><td>L1</td></tr>
+      <tr><td>Why variable stiffness/damping; SEA vs VSA</td><td class="num">2</td><td class="num">2</td><td>L2</td></tr>
+      <tr><td>Example of a VSA or VDA and how you'd use it in a device</td><td class="num">4</td><td class="num">4</td><td>L2</td></tr>
+      <tr><td>Bio-inspired actuator types, each with an application</td><td class="num">6</td><td class="num">4</td><td>L3</td></tr>
+      <tr><td>Interaction controller types; why pure motion control fails; why model and compensate</td><td class="num">2</td><td class="num">5</td><td>L4–L5</td></tr>
+      <tr><td>Assist-as-needed: how it works and its features</td><td class="num">5</td><td class="num">4</td><td>L6</td></tr>
+      <tr><td>Guest lectures: describe one device, and give 3 go-to-market challenges</td><td class="num">8</td><td class="num">8</td><td>Guests</td></tr>
+    </table></div>
+    <p>Learn the recall cards and you've covered about 22 of the 30 marks. The other 8 come from the guest lectures. <b>Their slides aren't in your folder</b>, so go to the Guest lectures tab and write down one device you remember well.</p>
+  </div>
+  <div class="panel">
+    <h2>Suggested order (about 4 hours)</h2>
+    <ol>
+      <li><b>Notes L1–L3</b> (1.5 h). Requirements, compliance, SEA/VSA/VDA, MR knee, PMA/EAP/SMA.</li>
+      <li><b>Notes L4–L6 and equations</b> (1.5 h). Impedance vs admittance, partitioned control, AAN and PASCAL.</li>
+      <li><b>Guest lectures</b> (30 min). Prepare one device answer (5 marks) and the challenges list (3 marks).</li>
+      <li><b>Recall cards and past papers</b> (1 h). Write each answer as 3–4 bullet points against the clock: about 1 minute per mark.</li>
+    </ol>
+    <div class="tip">For the 2023 paper, Part 3 was taught by a different lecturer (robot hands, myography, machine learning). It doesn't match this year's content, so it's left out. The EMG lab isn't listed in the exam scope either.</div>
+  </div>
+</section>
+
+<!-- ================= NOTES ================= -->
+<section class="view" id="v-notes" hidden>
+
+<details class="lec" open>
+<summary><span class="no">L1</span><h3>Physical and cognitive human–robot interaction</h3><span class="weight">3 marks every year</span></summary>
+<div class="body">
+<ul>
+  <li><b>pHRI</b> = physical human–robot interaction (forces and contact). <b>cHRI</b> = cognitive (intention, signals such as EMG and EEG). Part 3 is organised as: actuators (pHRI) → controllers (p/cHRI) → cognitive interfaces (cHRI).</li>
+  <li>Traditional control systems and actuators are <b>ill-suited to interacting safely with humans</b> (e.g. the human–robot collision video).</li>
+  <li>Elements of a (bio)mechatronic system: <b>sensor → controller → actuator → real world</b>. Controllers and actuators matter because they are the interface to the real world.</li>
+  <li>Biomechatronic controllers <b>can't act as rigid positioning systems</b>, because they interact with soft and hard objects, and they <b>can't assume a predictable environment</b>, because it may be unknown or change over time.</li>
+  <li>Exoskeleton physiological factors: <b>kinematic compatibility</b> and <b>human–robot joint misalignment</b>. More than <b>35% of orthotic devices are abandoned</b>, so actuators must be light, unobtrusive and comfortable.</li>
+</ul>
+<h4>Requirements (learn this list)</h4>
+<div class="grid2">
+  <div><b>Conventional design</b><ul><li>Speed and torque, i.e. power</li><li>Weight and dimensions</li></ul></div>
+  <div><b>Biomechatronic and medical devices</b><ul><li>Ergonomics and comfort</li><li>Aesthetics</li><li>Weight</li><li>Ease of use (donning and doffing)</li><li>Stiffness vs compliance (loads applied to the human)</li><li>Inherent safety (low voltage, fail-safes, dead-man switch, E-stop)</li><li>Backdrivability</li></ul></div>
+</div>
+<ul>
+  <li>Robots as tools for: <b>therapy</b> (stretching, strengthening, range of motion, functional tasks), <b>assistance</b> (augmenting strength, muscle control, activities of daily living, replacing function) and <b>diagnosis</b> (neuromuscular characteristics, clinical biomarkers, prevention and prediction).</li>
+  <li>McDaid's examples: an elbow exoskeleton with gamification; a wrist exoskeleton (3-D scanned and printed, adjusts for misalignment, easy to put on and take off, patented); an over-ground lower-limb gait trainer (multi-objective design optimisation, force fields that converge to natural gait); a passive assist-as-needed gait trainer for acute stroke; soft robotics (pneumatic muscles, SMA wrist exoskeleton); 4D-printed smart skin for osseointegrated prostheses (sensing infection by "smell"); a wearable neuroprosthesis (FES) for hand function.</li>
+  <li><b>OPUM Digital Knee</b>: a remote, clinically accurate digital goniometer (a patented polycentric knee sensor that clips onto braces) with a patient app and clinician portal. In a 12-week RCT for knee osteoarthritis (Shirley Ryan AbilityLab) it improved pain and function, raised patient retention to <b>89%</b>, increased brace wear from <b>5.6 to 8.41 h/day</b>, and <b>67%</b> of patients said they were less likely to have a knee replacement. <b>Fios Health</b> makes a digital medical assistant (an AI agent for clinic staff and patients).</li>
+  <li>Key lessons: get <b>clinical and user input early</b> ("engineers need clinicians"). The journey is long (be prepared), complex (experience matters) and full of setbacks (be resilient), but highly rewarding.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L2</span><h3>Series elastic, variable stiffness and variable damping actuators</h3><span class="weight">6 marks</span></summary>
+<div class="body">
+<ul>
+  <li><b>Stiff actuator</b>: moves to and holds a position whatever the external force (within its limits). <b>Compliant actuator</b>: allows deviation from its <b>equilibrium position</b> (the position where it produces zero force) depending on the external force. Stiffness is the opposite of compliance; think Hooke's law, F = k(x − x₀).</li>
+  <li><b>High stiffness</b> gives precision, high gearing (torque), high bandwidth. <b>Low stiffness</b> feels spongy and is harder to control precisely at speed, because it adds a low resonance.</li>
+  <li><b>Why use compliance</b> (2024 Q2): to <b>limit large forces from shocks</b> and uncertain environments; for <b>safe pHRI</b>; for <b>comfort</b>; to <b>store and release energy</b> in elastic elements; and to <b>improve energy efficiency</b> by matching the actuator's resonant frequency.</li>
+  <li><b>Passive compliance</b>: naturally compliant materials (e.g. EAPs) or a spring. It's inherently safer (doesn't rely on power), stores energy, and can be fixed or variable. <b>Active compliance</b>: a stiff actuator plus a sensor and controller that mimic a spring. Everything must be fast enough; compliance can be changed online, but the limited controller bandwidth means it <b>can't absorb shocks</b>.</li>
+  <li><b>SEA</b>: a <b>fixed-stiffness</b> spring in series between the motor or hydraulics and the load. The spring's inertia is much lower than the gearbox and motor's. Fixed compliance means it <b>can't change the system's natural frequency</b>. The spring deflection also gives a force measurement: T<sub>s</sub> = k(θ<sub>l</sub> − θ<sub>m</sub>).</li>
+  <li><b>VSA</b>: an elastic element <b>plus a way to adjust its stiffness</b>, so k is variable. <b>SEA vs VSA</b> (2025 Q2): an SEA's spring stiffness is fixed; a VSA's can be changed, so it can adapt compliance and natural frequency to the task.</li>
+  <li><b>Four VSA principles</b>:
+    <ol>
+      <li><b>Equilibrium-controlled</b>: a fixed spring whose equilibrium position is moved (effectively an SEA with a controller).</li>
+      <li><b>Antagonistic-controlled</b>: two non-linear springs or actuators pulling against each other, like the biceps and triceps. Co-contraction stiffens the joint; moving both together shifts the position. Every human joint has at least 2 muscles. (Biceps contracts and triceps relaxes = flexed; the reverse = extended; both contract = stiffened; both relax = relaxed.)</li>
+      <li><b>Structure-controlled</b>: change the spring's geometry, e.g. rotate a beam to change its second moment of area (I = width × thickness³/12), use a laminated structure, or the "Jack Spring" with active and inactive coils.</li>
+      <li><b>Mechanically controlled</b>: change the preload or the effective lever arm, e.g. the VS-Joint with a cam disk and rollers, or a mechanical impedance adjuster.</li>
+    </ol></li>
+  <li>Active-compliance examples: the <b>da Vinci</b> surgical robot (Maxon motors), <b>Lokomat</b>, <b>Armeo Power</b>.</li>
+  <li>Applications: bio-inspired actuators, humanoid bipedal walking, <b>exoskeletons</b>, <b>prosthetics</b>, robots that operate safely near humans.</li>
+</ul>
+<h4>Variable damping</h4>
+<ul>
+  <li>Damping <b>dissipates</b> stored oscillation energy, through friction (gears, Bowden cables, joints) or viscous drag. It's velocity-related and can be linear or non-linear.</li>
+  <li>Varying damping changes the resonance properties for pHRI: it can <b>vary responsiveness</b>, <b>allow low stiffness while staying stable</b>, <b>shorten settling time</b>, and <b>add resistance for exercise</b>. Like stiffness, it can be controlled actively or passively.</li>
+  <li><b>MR (magnetorheological) fluid</b>: micron-sized iron particles whose rheology (viscosity) changes with a magnetic field. Uses: vehicle seat suspension, clutches, seismic dampers, beam vibration dampers, a "seal-less" small damper (0 to ±125 N over ±3 mm, can also lock).</li>
+  <li><b>Case study: MR knee prosthesis</b> (Herr and Wilkenfeld, 2003; the basis of Össur's Rheo Knee). It's self-contained: <b>MR fluid in shear mode</b>, angle sensor (potentiometer), strain gauges for axial load (is the foot on the ground?) and torque, electronics and battery, 1.4 kg in total. A <b>state machine</b> follows the 5 gait states and applies a different damping in each. It starts stiff in state 1 and compliant in state 2; after 20 steps it adapts to the user (B = A·F<sub>max</sub>). Pre-swing (state 3) has zero active damping. The swing states (4 and 5) adapt damping to walking speed and foot-contact time.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L3</span><h3>Bio-inspired actuators</h3><span class="weight">4–6 marks</span></summary>
+<div class="body">
+<div class="tbl"><table>
+<tr><th>Actuator</th><th>How it works</th><th>Pros</th><th>Cons</th><th>Example application</th></tr>
+<tr><td><b>Hydraulic</b></td><td>Pressurised fluid in cylinders</td><td>Large forces from compact actuators; precise at low speed</td><td>Lots of infrastructure; noisy; can leak</td><td>Lockheed Martin exoskeleton (HULC)</td></tr>
+<tr><td><b>Pneumatic muscle (PMA, McKibben)</b></td><td>A rubber bladder in a scissor-weave mesh; pressure makes it contract. Pull-only, so used in <b>agonist–antagonist pairs</b>.</td><td>Light (thin membrane); <b>inherently compliant</b></td><td>Complex force–contraction–pressure relationship; needs a compressor; stiffness and damping depend on the operating point</td><td>Shadow Hand (24 movements, 40 air muscles); gait exoskeleton; soft rehabilitation glove</td></tr>
+<tr><td><b>Soft fluidic actuators</b></td><td>Multi-material 3-D-printed chambers that bend when inflated</td><td>Compliant, can be designed for each user</td><td>Needs a fluid supply</td><td>Soft prosthetic finger optimised with a GA from a 3-D scan; soft glove (Harvard); Pneubotics inflatable robots</td></tr>
+<tr><td><b>Ionic EAP</b> (IPMC, gels, CNT, conductive polymers, ER fluids)</td><td>Ions move or diffuse</td><td><b>Low voltage</b> (IPMC &lt; 5 V); bi-directional depending on polarity; light, flexible, biocompatible, mW power, can sense too</td><td>Needs an electrolyte or encapsulation; slow (fractions of a second); low force; electrolysis above 1.23 V; most don't hold strain under DC</td><td>IPMC micropump, cell micromanipulator, robotic rotary joint</td></tr>
+<tr><td><b>Electronic EAP</b> (dielectric elastomer, electrostrictive, ferroelectric)</td><td>Driven by an electric field</td><td>Fast (ms); holds strain under DC; large forces; high energy density</td><td><b>High voltage</b> (~100 MV/m); mostly one-directional</td><td><b>DEA</b> as an actuator, a sensor (capacitance changes with stretch) or a generator</td></tr>
+<tr><td><b>Shape memory alloy</b> (NiTi, CuZnAl, CuAlNi)</td><td>A solid-state phase change between <b>martensite and austenite</b>, triggered by about a 10 °C temperature change. Two effects: <b>pseudo-elasticity</b> and the <b>shape memory effect</b>. Discovered 1938, researched from the 1960s.</td><td>High force-to-weight ratio; biocompatible; strong and corrosion-resistant; strong pull at the start of the stroke; no inrush current or back-EMF</td><td>Low efficiency; expensive; poor fatigue life; wires <b>creep</b>, so open-loop position control isn't possible and a sensor is needed</td><td>SMA prosthetic hand; SMA wrist and forearm exoskeleton; hand rehabilitation; Miga Motor</td></tr>
+</table></div>
+<ul>
+  <li><b>Smart materials</b> have one or more properties that change significantly and controllably with stress, temperature, moisture, pH, or electric or magnetic fields.</li>
+  <li><b>DEA principle</b>: an elastomer film with electrodes on both sides. A voltage creates electrostatic pressure, so the film gets thinner and expands in area, and returns when the charge is removed.</li>
+  <li>Conclusion: every actuator type has different characteristics. Work out the requirements first, then choose the actuator configuration.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L4</span><h3>Active controllers for compliant pHRI</h3><span class="weight">2–5 marks</span></summary>
+<div class="body">
+<ul>
+  <li><b>Controller hierarchy</b>: traditional (motion and force) → interaction controllers → advanced interaction controllers based on health outcomes. <b>Low-level</b> controllers regulate state and behaviour (position, force) for safe, efficient physical interaction. <b>High-level</b> controllers generate the low-level inputs that produce the desired interactions.</li>
+  <li><b>Impedance (Z)</b>: velocity (motion) in, force out. <b>Admittance (Y)</b>: force in, velocity (motion) out.</li>
+  <li><b>Key pHRI rule</b>: the human and robot must <b>physically complement</b> each other. If one is an impedance (takes motion, gives force), the other must be an admittance, and vice versa. The interaction is a dynamic balance of the masses and compliances of both "systems". The robot's compliance can be varied to dominate or yield, and cognitive information can be used to set the robot's impedance.</li>
+  <li><b>Feedforward</b> (based on a model; must anticipate the action) vs <b>feedback</b> (acts on error; copes with model error and perturbations).</li>
+  <li>Taxonomy of low-level pHRI control: feedback (hybrid force/position, made of force and position control; impedance control, made of damping and stiffness control) and feedforward (model-based, e.g. repetitive control).</li>
+  <li><b>Control design procedure</b>: 1) specify the desired behaviour; 2) select actuators and sensors; 3) model the plant; 4) design the control law; 5) analyse and simulate; 6) implement in hardware.</li>
+  <li><b>Modelling</b>: keep the essential effects and discard insignificant ones in the range of interest. A more accurate model isn't necessarily better. Include parametric and non-parametric uncertainties for robust or adaptive design. Open-loop control would be perfect only with a perfect model and no disturbances, so in practice closed loop is needed. The minimum-jerk trajectory is good for pHRI.</li>
+  <li>A 2nd-order system can be over-, under- or critically damped. Any passive physical system (m, b, k &gt; 0) is stable.</li>
+  <li><b>Why model and compensate</b> (2025 Q6): <b>gravity compensation</b> cancels the limb or robot weight; the model-based part cancels the plant's own dynamics (m, b, k), so the servo gains can be tuned independently of the system (e.g. for critical damping); it improves tracking and transparency; and it means lower feedback gains, which makes interaction safer and more compliant.</li>
+  <li><b>Why traditional motion control isn't suitable</b> (2025 Q5): high-gain position control rejects external forces, so when a human pushes back it fights them (unsafe and uncomfortable; human and robot want different motions). It assumes a predictable environment, and contact with soft or hard objects needs force or interaction to be controlled.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L5</span><h3>Active interaction control</h3><span class="weight">2–3 marks</span></summary>
+<div class="body">
+<ul>
+  <li>The two extremes: <b>free space</b> (all forces zero, so pure motion control) and <b>stuck to a wall</b> (position constrained, so control force). Biomechatronic systems sit in between.</li>
+  <li><b>High-gain motion control</b> is good for strict tracking and disturbance rejection. The higher the gain, the less the system responds to external forces. Once contact is made, position control alone isn't enough.</li>
+  <li>The solution is to <b>control the force or interaction directly</b>, giving the interaction specific controlled properties, as our bodies do (gait states, golf swing).</li>
+  <li><b>Force control</b>: control the force on the environment, f<sub>e</sub> = k<sub>e</sub>x. Sensed forces are noisy (strain gauges), so derivatives aren't practical, and the desired force is usually constant. The practical law uses force error plus velocity damping (see Equations).</li>
+  <li><b>Impedance control</b> (two interaction controller architectures, 2024 Q5) sets a target relationship between interaction force and position: M<sub>d</sub>ë + D<sub>d</sub>ė + K<sub>d</sub>e = F<sub>ext</sub>. It's an inner force loop with an outer position loop. <b>Stable with stiff environments</b>, but <b>poor accuracy in free space</b> because of friction and unmodelled dynamics.</li>
+  <li><b>Admittance control</b>: measure the force and compute the motion. The plant is position-controlled (so behaves as an impedance) and an outer admittance loop generates x<sub>d</sub>. <b>Accurate in free space</b>, but can be <b>unstable with stiff environments</b>.</li>
+  <li><b>Tele-impedance</b>: combines kinematic sensors with EMG to set the robot's impedance from the user's muscle activity.</li>
+  <li><b>Traditional hybrid control</b>: control force in some directions and position in the others, with selection matrices S and S′ (e.g. industrial grinding). <b>Biomechatronic hybrid control</b>: continually switch between impedance and admittance modes so performance stays good <b>whatever the environment's stiffness</b>.</li>
+</ul>
+</div>
+</details>
+
+<details class="lec">
+<summary><span class="no">L6</span><h3>Advanced control for health outcomes</h3><span class="weight">4–5 marks</span></summary>
+<div class="body">
+<ul>
+  <li>In biomechatronics, the end goal is often a <b>health outcome</b>, not regulating motion or force. <b>Active patient participation</b> maximises the benefit of therapy.</li>
+  <li>Rehabilitation after stroke or spinal cord injury must be <b>intensive, repetitive and task-specific</b>, to trigger <b>neuroplasticity</b> so the brain relearns tasks (speech, walking, reaching and grasping).</li>
+  <li><b>Assist-as-needed (AAN)</b>: copied from therapists' "active assist exercise". Help the patient complete the movement with the <b>minimum assistance</b> possible, <b>allowing position and timing errors</b>, because making errors drives motor learning while fixed guidance hampers it. Aim: <b>minimise robot effort and maximise patient effort</b>.</li>
+  <li><b>AAN vs impedance control</b>: impedance control just makes the robot compliant so the patient can deviate from a fixed trajectory. AAN actively minimises support while still making sure the task gets done, giving <b>spatial and temporal freedom</b>.</li>
+  <li><b>AAN as optimisation</b> (Emken 2005, gait swing phase): minimise J = ½(x<sub>i+1</sub> − x<sub>d</sub>)² + (λ<sub>R</sub>/2)R<sub>i+1</sub>², where x is step height, R is peak robot force and λ<sub>R</sub> weights how much robot force costs relative to error.</li>
+  <li><b>PASCAL robot</b>: an end-effector robot with 3 active DoF for children with cerebral palsy, training reach and grasp toward on-screen targets. Its AAN path controller has four features:
+    <ol>
+      <li><b>Virtual tunnel</b> around the path, with a dead band of radius R<sub>w</sub>. Outside it, a wall force (impedance control) pushes the arm back towards the nearest point on the path.</li>
+      <li><b>Minimum and maximum speed walls</b> (minimum-jerk profiles). They push a patient who is too slow and limit one who is too fast (e.g. falling under gravity).</li>
+      <li><b>Direction-dependent supportive flux</b>: f<sub>flux</sub> = k<sub>flux</sub>·t<sub>flux</sub> along the path tangent, with the gain set by the therapist for mildly affected patients. The total force is the flux plus the tunnel force.</li>
+      <li><b>Gain scheduling</b>: if the target isn't reached, wait 2 s after the minimum-speed wall arrives, then increase the stiffness and shrink R<sub>w</sub> until the hand reaches the target or the maximum stiffness is hit.</li>
+    </ol></li>
+  <li>Evaluation: soft tunnel walls give large deviations, while stiffer walls and a smaller R<sub>w</sub> keep trajectories close to the path.</li>
+  <li><b>Why active assist works</b>: effort provokes plasticity; stretching prevents soft-tissue stiffening and spasticity; novel somatosensory input helps induce plasticity; and the patient learns the movement pattern.</li>
+  <li><b>Downside: slacking</b>. Humans let the robot do the work, which hinders learning.</li>
+  <li><b>Challenge-based alternatives</b>: <b>error augmentation</b> (amplifying curvature errors with force fields made chronic stroke patients move straighter afterwards; Abdollahi 2014); <b>motor exploration</b> force fields; matching training to skill level and task; <b>user-intention control</b> (e.g. an EMG-controlled soft glove).</li>
+</ul>
+</div>
+</details>
+</section>
+
+<!-- ================= EQUATIONS ================= -->
+<section class="view" id="v-equations" hidden>
+<div class="panel">
+  <h2>Actuator models</h2>
+<pre class="math">Mass–spring–damper:   m·ẍ + b·ẋ + k·x = 0     roots s = −b/2m ± √(b² − 4mk)/2m
+  b² &gt; 4mk overdamped · b² = 4mk critically damped · b² &lt; 4mk underdamped
+SEA:   Jm·θ̈m = Tm + Tbm + Ts     Jl·θ̈l = Tl − Ts     Ts = k(θl − θm)   (k fixed)
+VSA:   same equations, but k is variable
+Structure stiffness:  I = width·thickness³/12  (rotate a beam → I_stiff vs I_compliant)</pre>
+</div>
+<div class="panel">
+  <h2>Partitioned control (L4)</h2>
+<pre class="math">Plant:          m·ẍ + b·ẋ + k·x = f
+Model part:     f = α·f′ + β,   α = m,  β = b·ẋ + k·x   →   ẍ = f′   (a unit mass)
+Servo part:     f′ = −kv·ẋ − kp·x   →   ẍ + kv·ẋ + kp·x = 0
+                gains are independent of the plant; critical damping when kv = 2√kp
+Trajectory:     f′ = ẍd + kv·ė + kp·e,  e = xd − x   →   ë + kv·ė + kp·e = 0
+Disturbance:    ë + kv·ė + kp·e = f_dist   (bounded in → bounded out)
+                steady-state error  e = f_dist / kp</pre>
+</div>
+<div class="panel">
+  <h2>Interaction control (L5)</h2>
+<pre class="math">Force control (plant f = m·ẍ + ke·x + f_dist, fe = ke·x, ef = fd − fe):
+  theoretical:  f = m·ke⁻¹[ f̈d + kvf·ėf + kpf·ef ] + fd
+  practical:    f = m[ kpf·ke⁻¹·ef − kvf·ẋ ] + fd     (no force derivatives)
+
+Impedance:   plant m·ẍ = F + Fext
+  objective:  Md·ë + Dd·ė + Kd·e = Fext
+  controller: F = (m/Md − 1)·Fext + m·ẍ0 − (m/Md)(Dd·ė + Kd·e)
+
+Admittance:  inner position loop  F = kp(xd − x) − kd·ẋ
+  admittance law:  Md(ẍd − ẍ0) + Dd(ẋd − ẋ0) + Kd(xd − x0) = Fext   → gives xd</pre>
+</div>
+<div class="panel">
+  <h2>Assist-as-needed (L6)</h2>
+<pre class="math">Emken cost:   J = ½(x_{i+1} − xd)² + (λR/2)·R_{i+1}²
+Tunnel force: f_t = K·(Δd − Rw)·(p_act − p_NN)/Δd   if Δd &gt; Rw,   else 0
+Flux:         f_flux = k_flux · t_flux     (along the path tangent)
+Total:        f = f_t + f_flux</pre>
+</div>
+</section>
+
+<!-- ================= CARDS ================= -->
+<section class="view" id="v-cards" hidden>
+  <div class="panel">
+    <div class="qbar">
+      <label for="cfilter">Lecture</label>
+      <select id="cfilter"><option value="all">All</option><option>L1</option><option>L2</option><option>L3</option><option>L4</option><option>L5</option><option>L6</option><option>Guest</option></select>
+      <button id="cshuffle" class="ghost" type="button">Shuffle</button>
+      <button id="creset" class="ghost" type="button">Reset</button>
+      <span class="score" id="cscore"></span>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted)">Write or say your answer first, then reveal the model answer. The marks in brackets are what the question was worth on the paper.</p>
+  </div>
+  <div id="clist" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<!-- ================= GUESTS ================= -->
+<section class="view" id="v-guests" hidden>
+  <div class="panel">
+    <h2>Guest lectures (8 marks, every year)</h2>
+    <p>This year's guests were <b>Hanie Yee</b> (Executive &amp; Director), <b>Prof David White</b> (Co-Director &amp; CSO), <b>Kent Lee</b> (IP &amp; commercialisation) and <b>Juan Schutte</b> (R&amp;D engineer). There are <b>no guest slides in your folder</b>, so I can't write up what they actually presented. Use the template below with your own memory or notes.</p>
+    <div class="trap"><b>Check:</b> the 2024 and 2025 questions named that year's speakers, so this year's will name these four. Prepare one device in depth from whichever talk you remember best.</div>
+  </div>
+  <div class="panel">
+    <h2>Template for the 5-mark device answer</h2>
+    <ol>
+      <li><b>Name, company and speaker.</b></li>
+      <li><b>Patient population and clinical problem</b>, with numbers if you remember any.</li>
+      <li><b>How the device works</b>: sensors, actuators, software or AI, and where it's used (clinic or home).</li>
+      <li><b>How it helps the patient or clinician</b>: diagnosis, treatment, monitoring, outcomes.</li>
+      <li><b>Evidence and status</b>: clinical trials, regulatory approval (FDA, CE mark), reimbursement, deployment.</li>
+    </ol>
+  </div>
+  <div class="panel">
+    <h2>Worked example: Alimetry (Hanie Yee)</h2>
+    <p>Hanie Yee was COO of Alimetry and led its global strategy and US commercialisation. She previously worked at Fisher &amp; Paykel Healthcare and Roche. Check this against what she presented.</p>
+    <ul>
+      <li><b>Device</b>: <i>Gastric Alimetry</i>, a wearable, non-invasive array of body-surface electrodes on the abdomen that records the stomach's electrical activity during a test meal, alongside an app where the patient logs symptoms.</li>
+      <li><b>Patients</b>: chronic gastroduodenal symptoms, which affect about 10% of people, e.g. functional dyspepsia, gastroparesis, chronic nausea and vomiting. These were previously hard to diagnose.</li>
+      <li><b>How it helps</b>: data goes to the cloud for analysis, and clinicians get a report that identifies the likely cause of symptoms and guides treatment.</li>
+      <li><b>Status</b>: CE mark in Europe, an ISO 13485 quality system, and investment to fund clinical trials towards US approval.</li>
+    </ul>
+    <p style="font-size:13.5px;color:var(--muted)">Sources: <a href="https://www.scoop.co.nz/stories/SC2104/S00017.htm">Scoop, Alimetry CE mark announcement</a> · <a href="https://bridgewest.ventures/impactful-innovation/hanie-yee">Bridgewest Ventures, Hanie Yee profile</a></p>
+  </div>
+  <div class="panel">
+    <h2>Go-to-market challenges (3 marks): pick any three and explain each in a line</h2>
+    <ul>
+      <li><b>Regulatory approval</b>: FDA 510(k)/De Novo/PMA, CE mark under the MDR, a quality management system (ISO 13485), risk management (ISO 14971). Slow and expensive.</li>
+      <li><b>Clinical evidence</b>: trials (often RCTs) to prove safety, efficacy and outcomes; ethics approval; recruiting patients.</li>
+      <li><b>Reimbursement</b>: getting insurers or health systems to pay (billing codes such as remote patient monitoring); without it clinicians won't adopt the device.</li>
+      <li><b>Funding</b>: long development timelines, investment rounds before any revenue (the "valley of death").</li>
+      <li><b>IP and freedom to operate</b>: patents (e.g. PCT filings), protecting the invention while avoiding infringement (this was Kent Lee's area).</li>
+      <li><b>Manufacturing and scale-up</b>: design for manufacture, supply chain, quality at volume, cost.</li>
+      <li><b>Clinical adoption and workflow</b>: clinicians must trust the device and it must fit existing workflow ("engineers need clinicians"); training, sales channels and distribution partners.</li>
+      <li><b>User acceptance</b>: comfort and usability (over 35% of orthoses are abandoned), compliance, and data privacy.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= PAST PAPERS ================= -->
+<section class="view" id="v-papers" hidden>
+  <div class="panel"><p>These are my model answers, written from the lecture slides; there's no official key. Try each question first, at about 1 minute per mark.</p></div>
+  <div class="panel">
+    <h2>2025</h2>
+    <details class="reveal"><summary>Q1. Three requirements for a device that physically interacts with a human (3)</summary>
+    <p>Any three, each with a short reason: <b>inherent safety</b> (low voltage, fail-safes, E-stop, limited forces); <b>compliance rather than stiffness</b>, so loads on the body are safe; <b>backdrivability</b>, so the user can move it; <b>light weight, ergonomics and comfort</b>; <b>ease of donning and doffing</b>; aesthetics; <b>kinematic compatibility</b> with human joints (avoiding misalignment).</p></details>
+    <details class="reveal"><summary>Q2. SEA vs VSA (2)</summary>
+    <p>An SEA places a spring of <b>fixed stiffness</b> in series between the motor and the load. It gives compliance, shock tolerance and force sensing, but its natural frequency can't be changed. A VSA has an elastic element <b>whose stiffness can be adjusted</b> (antagonistic, structural, mechanical or equilibrium-controlled), so compliance and resonance can be adapted to the task.</p></details>
+    <details class="reveal"><summary>Q3. Two bio-inspired actuators and applications (4)</summary>
+    <p>A <b>pneumatic artificial muscle</b>: a bladder in a braided mesh that contracts under pressure, light and compliant, used in agonist–antagonist pairs. Application: the Shadow dexterous hand, or a pneumatic-muscle gait-rehabilitation exoskeleton. <b>Shape memory alloy</b> wire (NiTi): contracts through a martensite→austenite phase change when heated, with a high force-to-weight ratio and biocompatibility. Application: an SMA-actuated prosthetic hand or wrist exoskeleton. Also acceptable: an <b>IPMC</b> (low-voltage bending) micropump or cell manipulator; a <b>dielectric elastomer</b> actuator or sensor.</p></details>
+    <details class="reveal"><summary>Q4. Variable damping actuator and a real application (4)</summary>
+    <p>An <b>MR-fluid damper</b>: iron micro-particles in oil, whose viscosity rises when a magnetic field from an electromagnet is applied, so damping is electrically controllable in milliseconds. Application: an <b>MR prosthetic knee</b> (Herr and Wilkenfeld; Össur Rheo Knee). An angle sensor and strain gauges detect the gait phase; a state machine sets a different damping in each of 5 states (high in stance for stability, low in pre-swing, adapted to walking speed in swing), and it adapts to the user after about 20 steps. The result is a natural, stable, energy-efficient gait with low power use. Other examples: a seat-suspension damper, or adjustable exercise resistance in a rehabilitation device.</p></details>
+    <details class="reveal"><summary>Q5. Why traditional motion control isn't suitable (2)</summary>
+    <p>A high-gain position controller is stiff: it tracks its own trajectory and rejects external forces. When a person moves differently or pushes back, it fights them, producing large, unsafe interaction forces and discomfort. It also assumes a known, predictable environment, while biomechatronic devices contact soft and hard objects and people whose behaviour changes. Force or interaction (impedance/admittance) needs to be controlled instead.</p></details>
+    <details class="reveal"><summary>Q6. Why model and compensate system dynamics (3)</summary>
+    <p>The model-based part of a partitioned controller (f = m·f′ + bẋ + kx) cancels the plant's inertia, friction or damping and stiffness, so the system behaves like a unit mass. The servo gains can then be tuned independently of the plant (e.g. for critical damping) and track accurately with lower gains. <b>Gravity compensation</b> removes the weight of the device and limb, so the patient only feels the intended assistance. That gives better transparency, safer and more compliant interaction, and less feedback effort.</p></details>
+    <details class="reveal"><summary>Q7. Two AAN features for patients relearning to walk (4)</summary>
+    <p>(1) A <b>virtual tunnel / dead band</b> around the desired foot path: no force while the foot is within R<sub>w</sub> of the path, and an impedance-controlled wall force pushing it back when it strays. This allows spatial freedom and errors while guaranteeing a safe step. (2) <b>Minimum and maximum speed walls</b> (minimum-jerk timing): help only if the patient falls behind, and resist if they go too fast. (3) <b>Supportive flux</b> along the path, with a gain the therapist sets. (4) <b>Gain scheduling</b>: raise the stiffness only if the target isn't reached after a delay. Or <b>optimisation-based AAN</b> (Emken): minimise J = ½(step-height error)² + (λ/2)(robot force)², so the robot force decays as the patient improves. All of these maximise patient effort, which drives neuroplasticity, and counter slacking.</p></details>
+    <details class="reveal"><summary>Q8. Guest lectures (5 + 3)</summary><p>See the Guest lectures tab for the template, the Alimetry example and the challenges list.</p></details>
+  </div>
+  <div class="panel">
+    <h2>2024</h2>
+    <details class="reveal"><summary>Q2. Why variable stiffness/damping is desirable (2)</summary>
+    <p>It lets the device adapt its interaction to the task and the user: compliant for safety, comfort and shock absorption, stiff for precision and support. It can store and release energy and tune resonance for efficiency (as muscles do in gait), and damping can stabilise a low-stiffness system, shorten settling time or add exercise resistance.</p></details>
+    <details class="reveal"><summary>Q3. Example of a VSA and implementation (4)</summary>
+    <p>An <b>antagonistic VSA</b>: two motors, each driving a non-linear (quadratic) spring on either side of a joint, like the biceps and triceps. Moving both motors the same way changes the joint position; co-contracting (pre-tensioning both) raises the joint stiffness. Implementation: an <b>ankle prosthesis or knee exoskeleton</b>, stiff in stance for support and compliant in swing or on impact, storing energy at heel strike and releasing it at push-off, with stiffness set by the controller from the gait phase. Alternatives: a mechanically controlled VS-Joint (cam and rollers changing the spring preload) in a safe collaborative arm, or structure-controlled stiffness by rotating a leaf spring.</p></details>
+    <details class="reveal"><summary>Q4. Three bio-inspired actuators and applications (6)</summary>
+    <p>Pneumatic muscle → Shadow Hand or gait exoskeleton. SMA → prosthetic hand or wrist exoskeleton. EAP (IPMC) → micropump, cell micromanipulator; dielectric elastomer → soft actuator or stretch sensor. Soft fluidic actuator → 3-D-printed prosthetic finger or soft rehabilitation glove. Give one line on how each works and one on why it suits the application.</p></details>
+    <details class="reveal"><summary>Q5. Two interaction controller architectures (2)</summary>
+    <p><b>Impedance control</b> (motion in, force out: stable with stiff environments, less accurate in free space) and <b>admittance control</b> (force in, motion out: accurate in free space, can be unstable against stiff environments). Hybrid force/position control is another acceptable answer.</p></details>
+    <details class="reveal"><summary>Q6. How AAN delivers health outcomes (5)</summary>
+    <p>Rehabilitation must be intensive, repetitive and task-specific, with <b>active participation</b> to trigger neuroplasticity. AAN gives the minimum help needed to complete the movement, so the patient does as much as possible. It allows spatial and timing errors, which drive motor learning (while fixed guidance hampers it), and it counters slacking. It's implemented with a virtual tunnel with a dead band, speed walls, supportive flux and gain scheduling (PASCAL), or as an optimisation trading off error against robot force (Emken). As the patient improves, assistance fades, so the outcome tracks recovery.</p></details>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){let d="M0 23";for(let x=4;x<=800;x+=4){const a=Math.sin(x/9)*7*(x<300?1:0.35)+Math.sin(x/2.3)*(x<300?1.5:4)+(Math.sin(x*12.9898)*43758.5453%1)*3;d+=" L"+x+" "+(23+a).toFixed(1)}document.getElementById("tr").setAttribute("d",d)})();
+const views=["plan","notes","equations","cards","guests","papers"];
+function show(){let h=(location.hash||"#plan").slice(1);if(!views.includes(h))h="plan";views.forEach(v=>{document.getElementById("v-"+v).hidden=v!==h});document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+h));}
+addEventListener("hashchange",()=>{show();window.scrollTo({top:0})});show();
+const C=[
+["L1","Name three requirements for designing a biomechatronic device that physically interacts with a human. [3]","Inherent safety (low voltage, fail-safes, E-stop); compliance rather than stiffness for the loads applied to the human; backdrivability; light weight, ergonomics and comfort; easy donning and doffing; aesthetics; kinematic compatibility (no joint misalignment)."],
+["L1","Why can't biomechatronic controllers behave like traditional ones?","They can't act as rigid positioning systems, because they interact with soft and hard objects and people, and they can't assume a predictable environment, which may be unknown or changing."],
+["L1","What share of orthotic devices are abandoned, and what does that imply?","More than 35%. Actuators must be light, unobtrusive and comfortable, otherwise people won't use the device."],
+["L1","Three roles of robots in healthcare, with examples.","Therapy (stretching, strengthening, range of motion, functional tasks); assistance (augmenting strength, activities of daily living, replacing function); diagnosis (neuromuscular characteristics, biomarkers, prediction)."],
+["L1","Key lessons from developing biomechatronic systems?","Clinical and user input from an early stage is essential. The journey is long, complex and full of setbacks, so prepare, gain experience and be resilient. It's rewarding: new technology from zero, setting product strategy, treating patients at scale."],
+["L2","Stiff vs compliant actuator?","A stiff actuator holds its position whatever the external force (within its limits). A compliant actuator deviates from its equilibrium position (where it produces zero force) according to the external force."],
+["L2","Give five reasons to use compliant actuators.","Limit large forces from shocks and uncertain environments; safe pHRI; comfort; store and release energy in elastic elements; better energy efficiency by matching resonant frequency."],
+["L2","Passive vs active compliance?","Passive: a physical spring or naturally compliant material. Inherently safe without power, stores energy, fixed or variable. Active: a stiff actuator plus a sensor and controller emulating a spring. Adjustable online, but limited bandwidth means it can't absorb shocks."],
+["L2","SEA vs VSA. [2]","An SEA has a fixed-stiffness spring in series between the motor and the load, so it can't change its natural frequency. A VSA has an elastic element whose stiffness can be adjusted, so compliance and resonance can adapt to the task."],
+["L2","List the four VSA principles.","Equilibrium-controlled, antagonistic-controlled (biceps/triceps co-contraction), structure-controlled (change geometry or second moment of area, Jack Spring) and mechanically controlled (change preload or lever arm, e.g. the VS-Joint)."],
+["L2","What does variable damping offer pHRI?","It changes resonance properties: varies responsiveness, keeps a low-stiffness system stable, shortens settling time, and adds resistance for exercise."],
+["L2","Describe the MR knee prosthesis. [4]","MR fluid (micron iron particles) in shear mode, with viscosity set by an electromagnet. A potentiometer and strain gauges (axial load and torque) feed a state machine with 5 gait states, each with its own damping: stiff in stance, zero active damping in pre-swing, adapted to speed in swing. It adapts to the user after 20 steps (B = A·Fmax). Self-contained, 1.4 kg (Herr and Wilkenfeld 2003)."],
+["L3","How does a pneumatic muscle work, and what are its pros and cons?","A rubber bladder inside a scissor-weave mesh shortens when pressurised. It only pulls, so it's used in agonist–antagonist pairs. Pros: light and inherently compliant. Cons: complex force–length–pressure relationship, needs compressor infrastructure, and stiffness depends on the operating point."],
+["L3","Ionic vs electronic EAPs.","Ionic (IPMC, gels, conductive polymers): low voltage (IPMC below 5 V), bi-directional, but slow, low force, need an electrolyte, and electrolysis above 1.23 V. Electronic (dielectric elastomer, ferroelectric): fast (ms), large force, high energy density, hold strain, but need very high fields (~100 MV/m) and are mostly one-directional."],
+["L3","What are the three functions of a dielectric elastomer?","Actuator (voltage squeezes the film thinner and wider), sensor (stretching changes capacitance) and generator (stretch, charge, relax: the voltage rises, harvesting energy)."],
+["L3","How do SMAs work, and what are their pros and cons?","A solid-state martensite↔austenite phase change from about a 10 °C temperature change gives pseudo-elasticity and the shape memory effect (NiTi, CuZnAl, CuAlNi). Pros: high force-to-weight ratio, biocompatible, strong, no back-EMF. Cons: low efficiency, expensive, poor fatigue life, and creep, so closed-loop position control needs a sensor."],
+["L3","What are hydraulics good and bad at for biomechatronics?","Large forces from compact actuators and precise low-speed control, but they need a lot of infrastructure, are noisy and can leak (e.g. the Lockheed HULC exoskeleton)."],
+["L4","Define impedance and admittance.","Impedance Z: input velocity, output force. Admittance Y: input force, output velocity, at the same port."],
+["L4","What is the most important consequence of pHRI coupling?","The two systems must physically complement each other: if one is an impedance (accepts motion, outputs force), the other must be an admittance, and vice versa."],
+["L4","List the six steps of control design.","Specify desired behaviour → select actuators and sensors → model the plant → design the control law → analyse and simulate → implement in hardware."],
+["L4","Why model and compensate system dynamics? [3]","The model-based part cancels m, b and k (plus gravity compensation), leaving a unit mass. Servo gains can then be set independently of the plant (e.g. critical damping, kv = 2√kp), giving better tracking with lower gains, transparency (the user feels only the intended assistance) and safer interaction."],
+["L4","Why is traditional motion control unsuitable for biomechatronics? [2]","High-gain position control is stiff and rejects external forces, so it fights the human and creates unsafe, uncomfortable forces. It assumes a known environment, but contact with people and objects means force or interaction must be controlled."],
+["L4","What steady-state error does the partitioned PD controller leave with a constant disturbance?","e = f_dist/kp. The error dynamics are ë + kv·ė + kp·e = f_dist, which is bounded-input, bounded-output stable."],
+["L5","Name two interaction controller architectures and compare them. [2]","Impedance control: motion in, force out. Stable with stiff environments, poor free-space accuracy (friction, unmodelled dynamics). Admittance control: force in, motion out through an inner position loop. Accurate in free space, can be unstable with stiff environments. A hybrid switches between them."],
+["L5","Traditional vs biomechatronic hybrid control?","Traditional: force control in some directions and position control in the others, using a selection matrix (e.g. grinding). Biomechatronic: switches continually between impedance and admittance modes for good performance whatever the environment's stiffness."],
+["L5","Why is the practical force-control law different from the theoretical one?","Force sensors (strain gauges) are noisy, so force derivatives are impractical, and the desired force is usually constant. So use force error plus velocity damping: f = m[kpf·ke⁻¹·ef − kvf·ẋ] + fd."],
+["L5","What is tele-impedance?","Setting the robot's impedance from the user's biological signals (EMG) combined with kinematic sensing."],
+["L6","What is assist-as-needed, and why does it work? [5]","Help with the minimum assistance needed to complete the movement, allowing position and timing errors, so patient effort is maximised and robot effort minimised. Active participation and making errors drive neuroplasticity and motor learning; fixed guidance hampers learning and causes slacking. Rehabilitation must be intensive, repetitive and task-specific."],
+["L6","AAN vs impedance control?","Impedance control just makes the robot compliant so the patient can deviate from a predefined trajectory. AAN minimises support while making sure the task is completed, with spatial and temporal freedom."],
+["L6","Name the four features of PASCAL's AAN path controller.","1) A virtual tunnel with a dead band of radius Rw and an impedance-controlled wall force. 2) Minimum and maximum speed walls (minimum jerk). 3) Direction-dependent supportive flux f = k_flux·t_flux along the path. 4) Gain scheduling: after 2 s, increase stiffness and shrink Rw until the target is reached."],
+["L6","Write Emken's AAN optimisation.","Minimise J = ½(x_{i+1} − xd)² + (λR/2)R_{i+1}², where x is step height and R is peak robot force. λR weights force cost against error, so assistance fades as performance improves."],
+["L6","What is slacking, and what are the alternatives?","Slacking: patients let the robot do the work, which reduces learning. Alternatives: challenge-based control such as error augmentation (amplified errors led to straighter movements afterwards), motor exploration force fields, training matched to skill level, and EMG-based user-intention control."],
+["Guest","Three go-to-market challenges for a medical technology. [3]","Pick three and explain each in a line: regulatory approval (FDA/CE, ISO 13485 quality system); clinical evidence (RCTs, ethics); reimbursement (who pays, billing codes); funding over long timelines; IP protection and freedom to operate; manufacturing scale-up and cost; clinician adoption and fitting into workflow; user acceptance and compliance."]
+];
+let corder=C.map((_,i)=>i),cst={};
+function csave(){try{localStorage.setItem("c736p3",JSON.stringify(cst))}catch(e){}}
+try{cst=JSON.parse(localStorage.getItem("c736p3")||"{}")||{}}catch(e){cst={}}
+function crender(){const f=document.getElementById("cfilter").value,list=document.getElementById("clist");list.innerHTML="";const ids=corder.filter(i=>f==="all"||C[i][0]===f);let got=0,n=0;
+ ids.forEach((i,k)=>{const [t,q,a]=C[i];const card=document.createElement("div");card.className="q";
+  card.innerHTML=`<div class="meta"><span>${k+1}</span><span class="chip">${t}</span>${cst[i]==="y"?'<span class="chip" style="color:var(--good)">got it</span>':cst[i]==="n"?'<span class="chip" style="color:var(--bad)">review</span>':""}</div><div class="stem"></div>`;
+  card.querySelector(".stem").textContent=q;
+  const d=document.createElement("details");d.className="reveal";d.innerHTML="<summary>Show model answer</summary>";const p=document.createElement("p");p.textContent=a;d.appendChild(p);
+  const row=document.createElement("div");row.className="qbar";row.style.marginTop="10px";
+  [["Got it","y"],["Review","n"]].forEach(([lab,val])=>{const b=document.createElement("button");b.type="button";b.className=val==="y"?"":"ghost";b.textContent=lab;b.addEventListener("click",()=>{cst[i]=val;csave();crender()});row.appendChild(b)});
+  d.appendChild(row);card.appendChild(d);list.appendChild(card);if(cst[i]){n++;if(cst[i]==="y")got++}});
+ document.getElementById("cscore").textContent=`${got} got it · ${n-got} to review · ${ids.length} cards`}
+document.getElementById("cfilter").addEventListener("change",crender);
+document.getElementById("cshuffle").addEventListener("click",()=>{for(let i=corder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[corder[i],corder[j]]=[corder[j],corder[i]]}crender()});
+document.getElementById("creset").addEventListener("click",()=>{cst={};csave();crender()});
+crender();
+</script>
